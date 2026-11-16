@@ -46,7 +46,7 @@ jobs:
           test "$(ls dist)" = "index.html"
           ! grep -Eq '<script[^>]+src=|<link[^>]+stylesheet' dist/index.html
       - uses: actions/upload-pages-artifact@v3
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main' && !github.event.repository.private
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main' && !github.event.repository.private
         with:
           path: dist
 
@@ -54,7 +54,7 @@ jobs:
   deploy:
     name: Deploy to GitHub Pages
     needs: check
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && !github.event.repository.private
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main' && !github.event.repository.private
     runs-on: ubuntu-latest
     permissions:
       pages: write
