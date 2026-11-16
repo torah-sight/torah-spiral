@@ -23,7 +23,7 @@ const TOP_BAR = 'glass flex flex-wrap items-center justify-between gap-2 rounded
 const controls = (view: View, inRound: boolean): ReactNode => {
     if (view === 'overview') return <><FloorSwitch /><LayoutSwitch /></>;
     if (view === 'sizes') return <SizeSwitch />;
-    if (view === 'game' && inRound) return <><LayoutSwitch /><div className="ms-auto"><GameButton /></div></>;
+    if (view === 'game' && inRound) return <><LayoutSwitch /><GameButton /></>;
     return null;
 };
 
@@ -62,7 +62,7 @@ export class Header extends ScopedAntiHookComponent {
                     <p className="mt-1 max-w-2xl text-sm text-mute">{t.tagline}</p>
                 </div>
                 {panel === null ? null : (
-                    <nav className="glass mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 rounded-2xl px-3 py-2.5">
+                    <nav className="glass mt-4 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 rounded-2xl px-3 py-2.5">
                         {panel}
                     </nav>
                 )}

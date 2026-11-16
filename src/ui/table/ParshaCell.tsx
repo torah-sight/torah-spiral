@@ -93,12 +93,13 @@ const hiddenFace = (parsha: IParsha, face: IFace, text: string): ReactNode => (
 
 /** Клетка недельной главы: номер, иврит первой строкой, перевод, размер, этажи. */
 export class ParshaCell extends ScopedAntiHookComponent<IParshaCellProps> {
-    /** В игре — ответ, иначе — карточка главы. */
+    /** В раунде — ответ; по отгаданной главе, после раунда и вне игры — карточка главы. */
     @bind
     protected onClick(): void {
+        // В раунде клик по неотгаданной главе — ответ; по отгаданной и после раунда — просмотр главы.
         const game = this.resolve(gameToken);
-        if (game.isPlaying()) game.pick(this.props.index);
-        else this.resolve(selectionToken).openParsha(this.props.index);
+        if (game.pick(this.props.index) !== 'ignored') return;
+        this.resolve(selectionToken).openParsha(this.props.index);
     }
 
     /** Клетка таблицы. */

@@ -41,6 +41,23 @@ const checkStory = (parsha: IParsha, problems: string[]): void => {
     }
 };
 
+/** Стих названия лежит в главе и содержит слово названия. */
+const checkOrigin = (parsha: IParsha, tokens: readonly IToken[], problems: string[]): void => {
+    const [chapter = 0, verse = 0] = parsha.origin.ref.split(':').map(Number);
+    const {from, to} = parsha.range;
+    const at = chapter * 1000 + verse;
+    if (at < from.chapter * 1000 + from.verse || at > to.chapter * 1000 + to.verse) {
+        problems.push(`${parsha.ordinal} ${parsha.slug}: origin ${parsha.origin.ref} вне главы`);
+        return;
+    }
+    const inVerse = tokens.filter(
+        (token: IToken): boolean => token.ref.chapter === chapter && token.ref.verse === verse
+    );
+    if (!findTerm(inVerse, torahWords(parsha.he), false)) {
+        problems.push(`${parsha.ordinal} ${parsha.slug}: в стихе ${parsha.origin.ref} нет слова «${parsha.he}»`);
+    }
+};
+
 const main = async (): Promise<void> => {
     const {tokens} = await loadTorah();
     const byParsha: IToken[][] = PARSHIOT.map(emptyList);
@@ -49,6 +66,7 @@ const main = async (): Promise<void> => {
     for (const parsha of PARSHIOT) {
         for (const floor of LIST_FLOORS) checkTerms(parsha, byParsha[parsha.index]!, floor, problems);
         checkStory(parsha, problems);
+        checkOrigin(parsha, byParsha[parsha.index]!, problems);
     }
     const stored = readFileSync('src/content/uniquePhrases.json', 'utf8');
     if (JSON.stringify(JSON.parse(stored)) !== JSON.stringify(uniquePhrases(PARSHIOT, byParsha))) {

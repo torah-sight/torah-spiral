@@ -4,7 +4,12 @@ import {EXODUS} from '#src/content/books/exodus.ts';
 import {GENESIS} from '#src/content/books/genesis.ts';
 import {LEVITICUS} from '#src/content/books/leviticus.ts';
 import {NUMBERS} from '#src/content/books/numbers.ts';
-import type {IParsha, IParshaText} from '#src/content/model/types.ts';
+import type {IOrigin, IParsha, IParshaText} from '#src/content/model/types.ts';
+import {DEUTERONOMY_ORIGINS} from '#src/content/origins/deuteronomy.ts';
+import {EXODUS_ORIGINS} from '#src/content/origins/exodus.ts';
+import {GENESIS_ORIGINS} from '#src/content/origins/genesis.ts';
+import {LEVITICUS_ORIGINS} from '#src/content/origins/leviticus.ts';
+import {NUMBERS_ORIGINS} from '#src/content/origins/numbers.ts';
 import type {IRepeatSpan} from '#src/domain/density/model/types.ts';
 import {computeQuotas} from '#src/domain/density/quotas/computeQuotas.ts';
 import {parseRef} from '#src/domain/ranges/parseRef.ts';
@@ -22,6 +27,9 @@ interface IDensityRow {
 
 const ROWS: readonly IDensityRow[] = density.parshiot;
 const TEXTS: readonly IParshaText[] = [...GENESIS, ...EXODUS, ...LEVITICUS, ...NUMBERS, ...DEUTERONOMY];
+const ORIGINS: readonly IOrigin[] = [
+    ...GENESIS_ORIGINS, ...EXODUS_ORIGINS, ...LEVITICUS_ORIGINS, ...NUMBERS_ORIGINS, ...DEUTERONOMY_ORIGINS
+];
 const effectiveOf = (row: IDensityRow): number => row.effective;
 const QUOTAS = computeQuotas(ROWS.map(effectiveOf));
 const bySizeDesc = (a: IDensityRow, b: IDensityRow): number => b.verses - a.verses || b.raw - a.raw;
@@ -33,12 +41,16 @@ const LETTER_ORDER = ROWS.toSorted(byLettersDesc);
 
 const assemble = (row: IDensityRow, index: number): IParsha => {
     const text = TEXTS[index];
-    if (text?.slug !== row.slug) throw new Error(`content order mismatch at ${index}: ${row.slug}`);
+    const origin = ORIGINS[index];
+    if (text?.slug !== row.slug || origin?.slug !== row.slug) {
+        throw new Error(`content order mismatch at ${index}: ${row.slug}`);
+    }
     const sizeRank = SIZE_ORDER.indexOf(row) + 1;
     const wordRank = WORD_ORDER.indexOf(row) + 1;
     const letterRank = LETTER_ORDER.indexOf(row) + 1;
     const ranks = {sizeRank, wordRank, letterRank};
-    return {...text, ...row, ...ranks, index, ordinal: index + 1, range: parseRef(row.ref), quotas: QUOTAS[index]!};
+    const place = {index, ordinal: index + 1, range: parseRef(row.ref)};
+    return {...text, ...row, ...ranks, ...place, quotas: QUOTAS[index]!, origin};
 };
 
 /** 54 недельные главы: контент, плотность, ёмкость этажей, диапазоны. */

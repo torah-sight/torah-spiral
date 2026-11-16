@@ -96,3 +96,16 @@ describe('BOOKS', () => {
         expect(BOOK_SPANS[4]).toEqual({firstChapter: 1, lastChapter: 34, firstOrdinal: 44, lastOrdinal: 54});
     });
 });
+
+describe('origin', () => {
+    it('у каждой главы есть стих названия внутри главы и пояснение на трёх языках', () => {
+        for (const parsha of PARSHIOT) {
+            const [chapter = 0, verse = 0] = parsha.origin.ref.split(':').map(Number);
+            const at = chapter * 1000 + verse;
+            const {from, to} = parsha.range;
+            expect(at).toBeGreaterThanOrEqual(from.chapter * 1000 + from.verse);
+            expect(at).toBeLessThanOrEqual(to.chapter * 1000 + to.verse);
+            for (const locale of LOCALES) expect(parsha.origin.note[locale].length).toBeGreaterThan(10);
+        }
+    });
+});

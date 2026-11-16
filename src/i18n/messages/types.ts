@@ -17,7 +17,13 @@ export interface IMessages {
     layoutLetters: string;
     lettersHint: string;
     parsha: string;
+    /** «Книга» — в карточке главы. */
+    book: string;
+    /** «О названии» — откуда название главы. */
+    nameOrigin: string;
     close: string;
+    prevParsha: string;
+    nextParsha: string;
     gameStart: string;
     gameStop: string;
     gameFind: string;

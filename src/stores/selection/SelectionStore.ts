@@ -6,8 +6,16 @@ export interface ISelection {
     open: number | null;
 }
 
+/** Последний индекс: 54 недельные главы. */
+const LAST = 53;
+
 const setOpen = (draft: ISelection, open: number | null): void => {
     draft.open = open;
+};
+
+const stepOpen = (draft: ISelection, delta: number): void => {
+    if (draft.open === null) return;
+    draft.open = Math.min(LAST, Math.max(0, draft.open + delta));
 };
 
 /** Какая глава раскрыта в карточке. */
@@ -20,6 +28,11 @@ export class SelectionStore extends Carburetor<ISelection> {
     /** Открывает карточку главы. */
     public openParsha(index: number): void {
         this.update(setOpen, index);
+    }
+
+    /** Листает открытую карточку: +1 — следующая глава, −1 — предыдущая; на краях стоит. */
+    public step(delta: number): void {
+        this.update(stepOpen, delta);
     }
 
     /** Закрывает карточку. */

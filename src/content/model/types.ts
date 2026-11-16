@@ -23,6 +23,15 @@ export interface IParshaText {
     story: Record<Locale, readonly string[]>;
 }
 
+/** Откуда название главы: стих, где стоит слово, и к чему оно относится. */
+export interface IOrigin {
+    /** Имя главы в Sefaria — проверка порядка. */
+    slug: string;
+    /** Стих в книге: «глава:стих». */
+    ref: string;
+    note: Localized;
+}
+
 /** Книга Торы. */
 export interface IBook {
     /** Название на иврите с огласовками. */
@@ -62,6 +71,7 @@ export interface IParsha extends IParshaText {
     effective: number;
     spans: readonly IRepeatSpan[];
     quotas: Quotas;
+    origin: IOrigin;
 }
 
 /** Охват книги: номера глав и номера недельных глав. */

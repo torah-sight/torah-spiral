@@ -55,7 +55,16 @@ describe('SelectionStore', () => {
         const selection = new SelectionStore();
         selection.openParsha(34);
         expect(selection.getData().open).toBe(34);
+        selection.step(1);
+        expect(selection.getData().open).toBe(35);
+        selection.openParsha(53);
+        selection.step(1);
+        expect(selection.getData().open).toBe(53);
+        selection.openParsha(0);
+        selection.step(-1);
+        expect(selection.getData().open).toBe(0);
         selection.close();
+        selection.step(1);
         expect(selection.getData().open).toBeNull();
     });
 });
