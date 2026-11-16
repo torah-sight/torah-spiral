@@ -29,7 +29,7 @@ export const EN: IMessages = {
     gameWrong: 'That is another portion',
     gameProgress: 'Found',
     gameMistakes: 'Mistakes',
-    gameDone: 'All 54 portions found!',
+    gameDone: 'All {n} portions found!',
     gameAgain: 'Play again',
     footerLicense: 'License',
     footerSource: 'Source code',

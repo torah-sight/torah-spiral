@@ -1,7 +1,6 @@
 import {describe, expect, it} from '@rstest/core';
 import {flush} from '@react-carburetor/core/testing';
 import {buildSteps} from '#src/domain/game/buildSteps.ts';
-import {mixBalanced} from '#src/domain/game/mixBalanced.ts';
 import {planRound} from '#src/domain/game/planRound.ts';
 import {shuffle} from '#src/domain/game/shuffle.ts';
 import type {ClueKind, IGameParsha, IGameSetup} from '#src/domain/game/types.ts';
@@ -40,7 +39,7 @@ const solve = (game: GameStore): void => {
     while (game.getData().status === 'playing') expect(game.pick(game.getData().step!.parsha)).toBe('right');
 };
 
-describe('shuffle и mixBalanced', () => {
+describe('shuffle', () => {
     it('перестановка, детерминированная при одном seed', () => {
         const all = Array.from({length: TOTAL}, (_, i) => i);
         const a = shuffle(all, seeded(7));
@@ -48,65 +47,75 @@ describe('shuffle и mixBalanced', () => {
         expect(shuffle(all, seeded(7))).toEqual(a);
         expect(a).not.toEqual(all);
     });
-
-    it('группы смешиваются поровну: берётся размер наименьшей, порядок типов случайный', () => {
-        const mixed = mixBalanced([['a1', 'a2', 'a3', 'a4', 'a5'], ['b1', 'b2', 'b3'], []], seeded(3));
-        expect(mixed).toHaveLength(6);
-        expect(mixed.filter((x) => x.startsWith('a'))).toHaveLength(3);
-        expect(mixed.filter((x) => x.startsWith('b')).toSorted()).toEqual(['b1', 'b2', 'b3']);
-        expect(mixBalanced([['x', 'y']], seeded(1)).toSorted()).toEqual(['x', 'y']);
-        expect(mixBalanced([[], []], seeded(1))).toEqual([]);
-    });
 });
 
 describe('buildSteps: режим «место»', () => {
-    it('название — шаг на главу', () => {
-        expect(buildSteps(PARSHIOT, setupOf('place', ALL_BOOKS, 'name')).groups[0]).toHaveLength(54);
+    it('название — вариант для каждой главы', () => {
+        const plan = buildSteps(PARSHIOT, setupOf('place', ALL_BOOKS, 'name'));
+        expect(plan.choices).toHaveLength(54);
+        expect(plan.edges).toHaveLength(0);
     });
 
     it('«между»: соседи по обе стороны, крайние — обычным вопросом', () => {
         const plan = buildSteps(PARSHIOT, setupOf('place', ALL_BOOKS, 'between'));
-        expect(plan.groups[0]).toHaveLength(52);
-        expect(plan.groups[0]![0]).toEqual({parsha: 1, kind: 'between', item: 0, refs: [0, 2]});
+        expect(plan.choices).toHaveLength(52);
+        expect(plan.choices[0]).toEqual([{parsha: 1, kind: 'between', item: 0, refs: [0, 2]}]);
         expect(plan.edges.map((s) => [s.parsha, s.kind])).toEqual([[0, 'name'], [53, 'name']]);
     });
 
-    it('«до»: по главе X найти предыдущую; у самой первой — обычный вопрос', () => {
+    it('«до»: по следующей главе найти эту; у самой последней — обычный вопрос', () => {
         const plan = buildSteps(PARSHIOT, setupOf('place', ALL_BOOKS, 'before'));
-        expect(plan.groups[0]![0]).toEqual({parsha: 0, kind: 'before', item: 0, refs: [1]});
-        expect(plan.edges.map((s) => s.parsha)).toEqual([0]);
-    });
-
-    it('«после»: по главе X найти следующую; у самой последней — обычный вопрос', () => {
-        const plan = buildSteps(PARSHIOT, setupOf('place', ALL_BOOKS, 'after'));
-        expect(plan.groups[0]!.at(-1)).toEqual({parsha: 53, kind: 'after', item: 0, refs: [52]});
+        expect(plan.choices[0]).toEqual([{parsha: 0, kind: 'before', item: 0, refs: [1]}]);
         expect(plan.edges.map((s) => s.parsha)).toEqual([53]);
     });
 
-    it('соседство — только внутри раунда; крайние не дублируются с названиями', () => {
+    it('«после»: по предыдущей главе найти эту; у самой первой — обычный вопрос', () => {
+        const plan = buildSteps(PARSHIOT, setupOf('place', ALL_BOOKS, 'after'));
+        expect(plan.choices.at(-1)).toEqual([{parsha: 53, kind: 'after', item: 0, refs: [52]}]);
+        expect(plan.edges.map((s) => s.parsha)).toEqual([0]);
+    });
+
+    it('соседство — только внутри раунда; с названиями крайних нет', () => {
         const plan = buildSteps(PARSHIOT, setupOf('place', [false, true, false, true, false], 'between'));
         expect(plan.edges.map((s) => s.parsha)).toEqual([12, 22, 33, 42]);
-        expect(plan.groups[0]!.every((s) => s.refs.every((ref) => plan.active[ref]))).toBe(true);
+        expect(plan.choices.flat().every((s) => s.refs.every((ref) => plan.active[ref]))).toBe(true);
         expect(buildSteps(PARSHIOT, setupOf('place', ALL_BOOKS, 'name', 'between')).edges).toHaveLength(0);
     });
 });
 
 describe('buildSteps: режим «по сюжету»', () => {
-    it('элементы сюжета и уникальные фразы — отдельные группы, без крайних', () => {
+    it('варианты главы — её элементы сюжета и уникальные фразы, без крайних', () => {
         const plan = buildSteps(PARSHIOT, setupOf('story', [true, false, false, false, false], 'story', 'phrase'));
-        expect(plan.groups[0]).toHaveLength(12 * 3);
-        expect(plan.groups[1]).toHaveLength(12 * 2);
-        expect(plan.groups[1]!.some((s) => s.item === 1)).toBe(false);
+        expect(plan.choices).toHaveLength(12);
+        expect(plan.choices[0]!.filter((s) => s.kind === 'story')).toHaveLength(3);
+        expect(plan.choices[0]!.filter((s) => s.kind === 'phrase').map((s) => s.item)).toEqual([0, 2]);
         expect(plan.edges).toHaveLength(0);
     });
+});
 
-    it('при обоих видах вопросы идут поровну', () => {
+const parshaOf = (step: {parsha: number}): number => step.parsha;
+
+describe('planRound: каждая глава — один раз', () => {
+    it('«по сюжету»: 54 вопроса, по одному на главу, сюжет и фразы поровну', () => {
         const round = planRound(PARSHIOT, setupOf('story', ALL_BOOKS, 'story', 'phrase'), seeded(4));
-        const stories = round.steps.filter((s) => s.kind === 'story').length;
-        const phrases = round.steps.filter((s) => s.kind === 'phrase').length;
-        expect(stories).toBe(phrases);
-        expect(stories).toBe(54 * 2);
-        expect(round.left.reduce((sum, n) => sum + n, 0)).toBe(round.steps.length);
+        expect(round.steps).toHaveLength(54);
+        expect(new Set(round.steps.map(parshaOf)).size).toBe(54);
+        expect(round.steps.filter((s) => s.kind === 'story')).toHaveLength(27);
+        expect(round.left.every((n, i) => n === (round.active[i] ? 1 : 0))).toBe(true);
+    });
+
+    it('«место» со всеми видами: ни одна глава не повторяется, виды поровну', () => {
+        const setup = setupOf('place', ALL_BOOKS, 'name', 'between', 'before', 'after');
+        for (const seed of [1, 2, 3, 4, 5]) {
+            const round = planRound(PARSHIOT, setup, seeded(seed));
+            expect(round.steps).toHaveLength(54);
+            expect(new Set(round.steps.map(parshaOf)).size).toBe(54);
+            for (const kind of ['name', 'between', 'before', 'after'] as const) {
+                const count = round.steps.filter((s) => s.kind === kind).length;
+                expect(count).toBeGreaterThanOrEqual(13);
+                expect(count).toBeLessThanOrEqual(14);
+            }
+        }
     });
 });
 
@@ -238,18 +247,18 @@ describe('GameStore: раунд', () => {
         expect(kinds.slice(52)).toEqual(['name', 'name']);
     });
 
-    it('«по сюжету»: глава отмечена, когда угаданы все её шаги', () => {
+    it('«по сюжету»: каждая глава спрашивается один раз и отмечается после ответа', () => {
         const game = new GameStore(PARSHIOT, seeded(12));
         game.setMode('story');
         game.toggleBook(0);
         game.start();
-        expect(game.getData().total).toBe(36);
+        expect(game.getData().total).toBe(12);
         while (game.getData().status === 'playing') {
             const {parsha, kind} = game.getData().step!;
             expect(kind).toBe('story');
-            const before = game.getData().left[parsha]!;
+            expect(game.getData().found[parsha]).toBe(false);
             game.pick(parsha);
-            expect(game.getData().found[parsha]).toBe(before === 1);
+            expect(game.getData().found[parsha]).toBe(true);
         }
         expect(game.getData().found.slice(0, 12).every(Boolean)).toBe(true);
     });

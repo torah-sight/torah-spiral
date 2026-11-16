@@ -29,7 +29,7 @@ export const RU: IMessages = {
     gameWrong: 'Это другая глава',
     gameProgress: 'Найдено',
     gameMistakes: 'Ошибок',
-    gameDone: 'Все 54 главы найдены!',
+    gameDone: 'Все главы раунда найдены: {n}!',
     gameAgain: 'Ещё раз',
     footerLicense: 'Лицензия',
     footerSource: 'Исходный код',

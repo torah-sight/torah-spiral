@@ -29,7 +29,7 @@ export const HE: IMessages = {
     gameWrong: 'זו פרשה אחרת',
     gameProgress: 'נמצאו',
     gameMistakes: 'טעויות',
-    gameDone: 'כל 54 הפרשות נמצאו!',
+    gameDone: 'כל {n} הפרשות נמצאו!',
     gameAgain: 'שוב',
     footerLicense: 'רישיון',
     footerSource: 'קוד המקור',

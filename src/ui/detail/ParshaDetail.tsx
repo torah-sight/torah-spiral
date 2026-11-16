@@ -138,7 +138,7 @@ export class ParshaDetail extends ScopedAntiHookComponent {
                 onTouchEnd={this.onTouchEnd}
                 className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto overscroll-contain bg-slate-900/25 dark:bg-black/60 p-3 backdrop-blur-sm sm:p-8"
             >
-                <article className={`glass w-full max-w-2xl rounded-2xl border p-4 sm:p-6 ${tone.cell}`}>
+                <article className="panel w-full max-w-2xl rounded-2xl p-4 sm:p-6 lg:max-w-5xl">
                     <div className="flex items-start justify-between gap-3">
                         <div className={`text-sm ${tone.text}`}>
                             {t.parsha} {parsha.ordinal} · <bdi dir="ltr">{formatRange(parsha.range)}</bdi>
@@ -152,14 +152,17 @@ export class ParshaDetail extends ScopedAntiHookComponent {
                             {t.close} ✕
                         </button>
                     </div>
-                    <h2 dir="rtl" className={`neon-text mt-2 font-hebrew text-5xl leading-tight ${tone.text}`}>
-                        {parsha.he}
-                    </h2>
-                    {locale === 'he' ? null : (
-                        <p className="text-lg text-ink">
-                            {parsha.translit[locale]} <span className="text-mute">· «{parsha.title[locale]}»</span>
-                        </p>
-                    )}
+                    {/* Иврит-название в одной строке с транслитерацией: без пустого места в шапке. */}
+                    <div className="mt-1 flex flex-wrap items-baseline justify-between gap-x-4">
+                        {locale === 'he' ? null : (
+                            <p className="text-lg text-ink">
+                                {parsha.translit[locale]} <span className="text-mute">· «{parsha.title[locale]}»</span>
+                            </p>
+                        )}
+                        <h2 dir="rtl" className={`neon-text font-hebrew text-5xl leading-tight ${tone.text}`}>
+                            {parsha.he}
+                        </h2>
+                    </div>
                     <section className="mt-3 rounded-xl border border-line bg-veil px-3 py-2">
                         <h3 className="text-sm uppercase tracking-widest text-mute">
                             {t.nameOrigin} · <bdi dir="ltr">{parsha.origin.ref}</bdi>

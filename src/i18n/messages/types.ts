@@ -31,6 +31,7 @@ export interface IMessages {
     gameWrong: string;
     gameProgress: string;
     gameMistakes: string;
+    /** Итог раунда; `{n}` — сколько глав было в раунде. */
     gameDone: string;
     gameAgain: string;
     /** Подвал: «Лицензия», «Исходный код», источник текста Торы. */

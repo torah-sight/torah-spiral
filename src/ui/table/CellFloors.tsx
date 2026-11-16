@@ -50,10 +50,17 @@ export class CellFloors extends AntiHookComponent<ICellFloorsProps> {
             <div className={`mt-1 ${size}`}>
                 {this.caption(1)}
                 <Chips labels={labelsOf(parsha.names, locale)} className={chip} />
-                {floor >= 2 ? this.caption(2) : null}
-                {floor >= 2 ? <ul className="space-y-0.5">{parsha.phrases.map(this.renderPhrase)}</ul> : null}
-                {floor >= 3 ? this.caption(3) : null}
-                {floor >= 3 ? <p className="text-soft">{parsha.story[locale].join(' ')}</p> : null}
+                {/* В карточке на широком экране фразы и сюжет — два столбца. */}
+                <div className={large ? 'space-y-1 lg:grid lg:grid-cols-2 lg:gap-x-8 lg:space-y-0' : 'space-y-1'}>
+                    <div>
+                        {floor >= 2 ? this.caption(2) : null}
+                        {floor >= 2 ? <ul className="space-y-0.5">{parsha.phrases.map(this.renderPhrase)}</ul> : null}
+                    </div>
+                    <div>
+                        {floor >= 3 ? this.caption(3) : null}
+                        {floor >= 3 ? <p className="text-soft">{parsha.story[locale].join(' ')}</p> : null}
+                    </div>
+                </div>
             </div>
         );
     }

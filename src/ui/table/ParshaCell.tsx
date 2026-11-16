@@ -28,7 +28,21 @@ const WRAP = 'text-start [overflow-wrap:anywhere] hyphens-auto transition';
 const TITLE = 'text-[clamp(18px,3.2vw,32px)] leading-tight';
 const NUMBER = 'text-[13px] font-semibold opacity-80 sm:text-sm';
 const WRONG = 'ring-2 ring-rose-400/90 shadow-[0_0_24px_-4px_rgba(244,63,94,0.95)] animate-wrong';
-const FOUND = 'ring-2 ring-emerald-400/90 dark:ring-emerald-300/80 shadow-[0_0_20px_-6px_rgba(52,211,153,0.9)]';
+const FOUND = 'ring-4 ring-emerald-500 dark:ring-emerald-400 shadow-[0_0_28px_-4px_rgba(16,185,129,0.95)]';
+
+/** Отгаданная глава: зелёная вуаль и галочка поверх клетки — видно сразу и в «сюжете», где клетки открыты. */
+const GUESSED_MARK: ReactNode = (
+    <>
+        <span aria-hidden className="pointer-events-none absolute inset-0 bg-emerald-400/30 dark:bg-emerald-400/20" />
+        <span
+            aria-hidden
+            className="absolute bottom-1 end-1 flex size-7 items-center justify-center rounded-full bg-emerald-500
+                text-base font-bold text-white shadow-[0_0_12px_rgba(16,185,129,0.9)]"
+        >
+            ✓
+        </span>
+    </>
+);
 /** Глава вне раунда скрыта, но держит своё место в сетке. */
 const OUTSIDE = 'invisible pointer-events-none';
 
@@ -141,6 +155,7 @@ export class ParshaCell extends ScopedAntiHookComponent<IParshaCellProps> {
                     duration-200 sm:min-h-20 sm:p-2 ${tone.cell} ${state}`}
             >
                 {hidden ? hiddenFace(parsha, face, tone.text) : openFace(parsha, face)}
+                {inGame && guessed && !wrong ? GUESSED_MARK : null}
             </button>
         );
     }

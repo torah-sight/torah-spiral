@@ -21,6 +21,9 @@ describe('MESSAGES', () => {
                 for (const part of parts) expect(String(part).length).toBeGreaterThan(0);
             }
             expect(MESSAGES[locale].floors).toHaveLength(4);
+            // Итог раунда — число глав этого раунда, а не всегда 54.
+            expect(MESSAGES[locale].gameDone).toContain('{n}');
+            expect(MESSAGES[locale].gameDone).not.toContain('54');
         }
     });
 });

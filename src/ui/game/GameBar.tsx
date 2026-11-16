@@ -35,10 +35,12 @@ export class GameBar extends ScopedAntiHookComponent {
         if (game.status !== 'playing' && game.status !== 'done') return null;
         const {locale} = this.useCarburetor(this.resolve(prefsToken));
         const t = MESSAGES[locale];
+        // Итог — сколько глав было именно в этом раунде.
+        const doneText = t.gameDone.replace('{n}', String(game.total));
         const feedback = game.lastWrong === null ? (game.lastRight === null ? '' : t.gameCorrect) : t.gameWrong;
         return (
             <section aria-live="polite" className={PANEL}>
-                {game.step ? clueView(game.step, locale) : <div className={DONE}>{t.gameDone}</div>}
+                {game.step ? clueView(game.step, locale) : <div className={DONE}>{doneText}</div>}
                 <div className="flex flex-wrap gap-x-4 text-sm text-soft">
                     <span className="text-mute">{modeName(game.setup.books, locale)}</span>
                     <span>{t.gameProgress}: <b className={GOOD}>{game.done}</b>/{game.total}</span>
