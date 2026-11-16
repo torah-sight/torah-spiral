@@ -1,0 +1,60 @@
+{
+  "name": "torah-spiral",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Spiral study of the Torah: the 54 weekly portions, opened floor by floor.",
+  "keywords": [
+    "torah",
+    "parsha",
+    "weekly-portion",
+    "tanakh",
+    "learning",
+    "react",
+    "i18n"
+  ],
+  "homepage": "https://torah-sight.github.io/torah-spiral/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/torah-sight/torah-spiral.git"
+  },
+  "bugs": {
+    "url": "https://github.com/torah-sight/torah-spiral/issues"
+  },
+  "license": "GPL-3.0-only",
+  "type": "module",
+  "scripts": {
+    "dev": "rsbuild dev",
+    "build": "rsbuild build",
+    "preview": "rsbuild preview",
+    "typecheck": "tsgo --noEmit",
+    "lint": "oxlint --deny-warnings && carburetor-lint --deny-warnings src scripts && node scripts/check-structure.ts",
+    "test": "rstest run",
+    "density": "node scripts/density.ts",
+    "content:check": "node scripts/validate-content.ts",
+    "phrases": "node scripts/phrases.ts"
+  },
+  "dependencies": {
+    "@react-carburetor/core": "0.2.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "@react-carburetor/lint": "0.2.0",
+    "@rsbuild/core": "^2.0.0",
+    "@rsbuild/plugin-react": "^2.0.0",
+    "@rstest/core": "^0.12.6",
+    "@tailwindcss/postcss": "^4.1.0",
+    "@types/node": "^24.19.2",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "@typescript/native-preview": "7.0.0-dev.20260707.2",
+    "oxlint": "^1.93.0",
+    "tailwindcss": "^4.1.0"
+  },
+  "imports": {
+    "#src/*": "./src/*"
+  },
+  "engines": {
+    "node": ">=24"
+  }
+}

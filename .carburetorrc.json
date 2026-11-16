@@ -1,0 +1,51 @@
+{
+  "rules": {
+    "carburetor/max-line-length": "error",
+    "carburetor/max-render-depth": "error",
+    "carburetor/no-async-effect": "error",
+    "carburetor/no-async-transaction": "error",
+    "carburetor/no-blank-line-after-tsdoc": "error",
+    "carburetor/no-capturing-hook-selector": "error",
+    "carburetor/no-closure-in-update": "error",
+    "carburetor/no-computed-get-in-computed": "error",
+    "carburetor/no-computed-get-in-render": "error",
+    "carburetor/no-direct-data-write": "error",
+    "carburetor/no-duplicate-effect-name": "error",
+    "carburetor/no-escaping-tracked-data": "error",
+    "carburetor/no-external-data-mutation": "error",
+    "carburetor/no-function-in-render": "error",
+    "carburetor/no-get-data-in-render": "error",
+    "carburetor/no-handler-created-in-render": "error",
+    "carburetor/no-lifecycle-class-property": "error",
+    "carburetor/no-memo-over-store-read": "error",
+    "carburetor/no-module-level-store": "error",
+    "carburetor/no-parent-import": [
+      "error",
+      {
+        "roots": [
+          {
+            "path": "src",
+            "prefix": "#src/"
+          }
+        ]
+      }
+    ],
+    "carburetor/no-react-hooks-in-components": "error",
+    "carburetor/no-store-write-in-render": "error",
+    "carburetor/no-tracked-data-mutation": "error",
+    "carburetor/no-untrackable-draft-mutation": "error",
+    "carburetor/no-untrackable-store-data": "error",
+    "carburetor/no-use-carburetor-outside-render": "error",
+    "carburetor/one-export-per-file": "error",
+    "carburetor/prefer-readonly-array-param": "error",
+    "carburetor/require-bind-for-passed-method": "error",
+    "carburetor/require-effect-deps": "error",
+    "carburetor/require-emit-after-draft-write": "error",
+    "carburetor/require-method-for-closure": "error",
+    "carburetor/require-module-function": "error",
+    "carburetor/require-subscription-disposal": "error",
+    "carburetor/require-super-in-lifecycle": "error",
+    "carburetor/require-tsdoc": "error",
+    "carburetor/tsdoc-blank-line-before-tags": "error"
+  }
+}
