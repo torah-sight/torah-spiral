@@ -112,3 +112,12 @@
 @utility animate-wrong {
     animation: flash-wrong 0.25s ease-in-out 2;
 }
+
+/* Деления шкалы градусника: четверти. */
+@utility gauge-ticks {
+    background-image: repeating-linear-gradient(
+        to right,
+        transparent 0 calc(25% - 1px),
+        var(--line-strong) calc(25% - 1px) 25%
+    );
+}

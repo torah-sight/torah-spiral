@@ -10,11 +10,6 @@ export const EXODUS: readonly IParshaText[] = [
             ['שפרה', 'Шифра', 'Shiphrah'],
             ['פועה', 'Пуа', 'Puah'], ['צפרה', 'Ципора', 'Zipporah'], ['יתרו', 'Итро', 'Jethro']
         ],
-        keywords: [
-            ['יאר', 'Нил', 'Nile'], ['מילדת', 'повитухи', 'midwives'], ['פרך', 'изнурительный труд', 'harsh labor'],
-            ['תבה', 'корзинка', 'basket'], ['סנה', 'терновый куст', 'bush'], ['אש', 'огонь', 'fire'],
-            ['מטה', 'посох', 'staff'], ['לבנים', 'кирпичи', 'bricks'], ['תבן', 'солома', 'straw']
-        ],
         phrases: [
             ['ויקם מלך חדש על מצרים אשר לא ידע את יוסף', 'И встал новый царь над Египтом, который не знал Йосефа',
                 'A new king arose over Egypt who did not know Joseph'],
@@ -41,12 +36,6 @@ export const EXODUS: readonly IParshaText[] = [
             ['משה', 'Моше', 'Moses'], ['אהרן', 'Аарон', 'Aaron'], ['פרעה', 'Фараон', 'Pharaoh'],
             ['עמרם', 'Амрам', 'Amram'],
             ['יוכבד', 'Йохевед', 'Jochebed']
-        ],
-        keywords: [
-            ['הוצאתי', 'выведу', 'I will bring out'], ['גאלתי', 'избавлю', 'I will redeem'],
-            ['תנין', 'змей', 'serpent'],
-            ['דם', 'кровь', 'blood'], ['צפרדע', 'жабы', 'frogs'], ['כנם', 'вши', 'lice'],
-            ['ערב', 'смесь зверей', 'wild beasts'], ['ברד', 'град', 'hail']
         ],
         phrases: [
             ['וארא אל אברהם אל יצחק ואל יעקב באל שדי', 'Я являлся Аврааму, Ицхаку и Яакову как Всемогущий',
@@ -78,11 +67,6 @@ export const EXODUS: readonly IParshaText[] = [
             ['משה', 'Моше', 'Moses'], ['אהרן', 'Аарон', 'Aaron'], ['פרעה', 'Фараон', 'Pharaoh'],
             ['רעמסס', 'Раамсес', 'Rameses']
         ],
-        keywords: [
-            ['ארבה', 'саранча', 'locusts'], ['חשך', 'тьма', 'darkness'], ['בכור', 'первенец', 'firstborn'],
-            ['שה', 'ягнёнок', 'lamb'], ['פסח', 'Песах', 'Passover'], ['מצות', 'маца', 'matzot'],
-            ['חמץ', 'квасное', 'leaven'], ['טוטפת', 'тфилин', 'tefillin']
-        ],
         phrases: [
             ['החדש הזה לכם ראש חדשים', 'Этот месяц для вас — начало месяцев',
                 'This month shall be for you the head of months'],
@@ -112,12 +96,6 @@ export const EXODUS: readonly IParshaText[] = [
             ['פרעה', 'Фараон', 'Pharaoh'],
             ['עמלק', 'Амалек', 'Amalek'], ['יהושע', 'Йеошуа', 'Joshua']
         ],
-        keywords: [
-            ['ים סוף', 'Тростниковое море', 'Sea of Reeds'], ['עמוד ענן', 'облачный столп', 'pillar of cloud'],
-            ['שירה', 'песнь', 'song'], ['מרה', 'Мара (горькая)', 'Marah (bitter)'], ['מן', 'ман', 'manna'],
-            ['שלו', 'перепела', 'quail'], ['שבת', 'шабат', 'Shabbat'], ['צור', 'скала', 'rock'],
-            ['מסה', 'Маса (испытание)', 'Massah (test)']
-        ],
         phrases: [
             ['ה׳ ילחם לכם ואתם תחרישון', 'Всевышний будет сражаться за вас, а вы молчите',
                 'Hashem will fight for you, and you shall be silent'],
@@ -144,11 +122,6 @@ export const EXODUS: readonly IParshaText[] = [
         translit: {ru: 'Итро', en: 'Yitro'}, title: {ru: 'Итро', en: 'Jethro'},
         names: [['יתרו', 'Итро', 'Jethro'], ['משה', 'Моше', 'Moses'], ['צפרה', 'Ципора', 'Zipporah'],
             ['סיני', 'Синай', 'Sinai']],
-        keywords: [
-            ['שרי אלפים', 'тысяченачальники', 'chiefs of thousands'], ['סגלה', 'избранное достояние', 'treasure'],
-            ['ממלכת כהנים', 'царство священников', 'kingdom of priests'], ['ענן', 'облако', 'cloud'],
-            ['שופר', 'шофар', 'shofar'], ['מזבח', 'жертвенник', 'altar']
-        ],
         phrases: [
             ['אנכי ה׳ אלקיך אשר הוצאתיך מארץ מצרים', 'Я — Всевышний, твой Б-г, Который вывел тебя из земли Египетской',
                 'I am Hashem your G-d, who brought you out of the land of Egypt'],
@@ -172,12 +145,6 @@ export const EXODUS: readonly IParshaText[] = [
             ['אביהוא', 'Авиу', 'Abihu'],
             ['יהושע', 'Йеошуа', 'Joshua']
         ],
-        keywords: [
-            ['עבד עברי', 'раб-еврей', 'Hebrew servant'], ['עין תחת עין', 'око за око', 'eye for an eye'],
-            ['שור', 'бык', 'ox'], ['גר', 'пришелец', 'stranger'], ['שחד', 'взятка', 'bribe'],
-            ['שלש רגלים', 'три праздника', 'three festivals'], ['ספר הברית', 'книга завета', 'book of the covenant'],
-            ['לחת האבן', 'каменные скрижали', 'tablets of stone']
-        ],
         phrases: [
             ['וגר לא תונה ולא תלחצנו', 'Пришельца не обижай и не притесняй', 'Do not wrong a stranger or oppress him'],
             ['מדבר שקר תרחק', 'От лжи отдаляйся', 'Keep far from falsehood'],
@@ -200,10 +167,6 @@ export const EXODUS: readonly IParshaText[] = [
         translit: {ru: 'Трума', en: 'Terumah'}, title: {ru: 'Приношение', en: 'Offering'},
         names: [['משה', 'Моше', 'Moses'], ['כרבים', 'херувимы', 'cherubim'],
             ['משכן', 'Мишкан', 'Mishkan']],
-        keywords: [
-            ['תרומה', 'приношение', 'offering'], ['ארון', 'ковчег', 'ark'], ['כפרת', 'крышка ковчега', 'ark cover'],
-            ['שלחן', 'стол', 'table'], ['מזבח', 'жертвенник', 'altar']
-        ],
         phrases: [
             ['מאת כל איש אשר ידבנו לבו', 'от всякого, кого побудит сердце', 'from every man whose heart moves him'],
             ['ועשו לי מקדש ושכנתי בתוכם', 'и пусть сделают Мне святилище, и Я буду пребывать среди них',
@@ -225,11 +188,6 @@ export const EXODUS: readonly IParshaText[] = [
             ['אהרן', 'Аарон', 'Aaron'], ['נדב', 'Надав', 'Nadab'], ['אביהוא', 'Авиу', 'Abihu'],
             ['אלעזר', 'Эльазар', 'Eleazar'],
             ['איתמר', 'Итамар', 'Ithamar']
-        ],
-        keywords: [
-            ['שמן זית', 'оливковое масло', 'olive oil'], ['נר תמיד', 'вечный светильник', 'eternal lamp'],
-            ['אפוד', 'эфод', 'ephod'], ['חשן', 'наперсник', 'breastplate'], ['אורים', 'урим', 'Urim'],
-            ['ציץ', 'налобная пластина', 'headplate'], ['קטרת', 'воскурение', 'incense']
         ],
         phrases: [
             ['ואתה תצוה את בני ישראל', 'А ты повели сынам Исраэля', 'And you shall command the children of Israel'],
@@ -256,13 +214,6 @@ export const EXODUS: readonly IParshaText[] = [
             ['אהליאב', 'Оолиав', 'Oholiab'], ['יהושע', 'Йеошуа', 'Joshua'],
             ['בני לוי', 'сыны Леви', 'sons of Levi']
         ],
-        keywords: [
-            ['מחצית השקל', 'полшекеля', 'half shekel'], ['כיור', 'умывальник', 'laver'], ['שבת', 'шабат', 'Shabbat'],
-            ['לחת', 'скрижали', 'tablets'], ['עגל', 'телец', 'calf'], ['שבר', 'разбил', 'broke'],
-            ['אהל מועד', 'Шатёр встречи', 'Tent of Meeting'],
-            ['רחום וחנון', 'милосердный и милостивый', 'merciful and gracious'],
-            ['קרן', 'сиял', 'shone'], ['מסוה', 'покрывало', 'veil']
-        ],
         phrases: [
             ['ושמרו בני ישראל את השבת', 'И пусть хранят сыны Исраэля субботу',
                 'The children of Israel shall keep the Sabbath'],
@@ -287,8 +238,6 @@ export const EXODUS: readonly IParshaText[] = [
         slug: 'Vayakhel', he: 'וַיַּקְהֵל',
         translit: {ru: 'Ваякгель', en: 'Vayakhel'}, title: {ru: 'И собрал', en: 'And he assembled'},
         names: [['בצלאל', 'Бецалель', 'Bezalel'], ['אהליאב', 'Оолиав', 'Oholiab']],
-        keywords: [['שבת', 'шабат', 'Shabbat'], ['נדבה', 'добровольный дар', 'freewill gift'],
-            ['מראת הצבאת', 'зеркала женщин', "the women's mirrors"]],
         phrases: [['כל נדיב לבו יביאה', 'всякий, чьё сердце щедро, пусть принесёт',
             'whoever is of a willing heart shall bring it']],
         story: {
@@ -301,8 +250,6 @@ export const EXODUS: readonly IParshaText[] = [
         slug: 'Pekudei', he: 'פְקוּדֵי',
         translit: {ru: 'Пкудей', en: 'Pekudei'}, title: {ru: 'Исчисления', en: 'Accounts'},
         names: [['בצלאל', 'Бецалель', 'Bezalel'], ['איתמר', 'Итамар', 'Ithamar']],
-        keywords: [['פקודי', 'счёт', 'accounts'], ['בגדי שרד', 'служебные одежды', 'service garments'],
-            ['ענן', 'облако', 'cloud']],
         phrases: [['וכבוד ה׳ מלא את המשכן', 'и слава Всевышнего наполнила Мишкан',
             'and the glory of Hashem filled the Mishkan']],
         story: {

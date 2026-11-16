@@ -86,7 +86,7 @@ export class ParshaDetail extends ScopedAntiHookComponent {
                         {sizeLabel(parsha.letters, parsha.letterRank, 'letters', locale)}
                     </p>
                     <CellFloors parsha={parsha} floor={floor} locale={locale} chip={tone.chip} large />
-                    {floor < 4 ? <p className="mt-3 text-sm text-faint">{t.floorHint}</p> : null}
+                    {floor < 3 ? <p className="mt-3 text-sm text-faint">{t.floorHint}</p> : null}
                 </article>
             </div>
         );

@@ -6,8 +6,7 @@
 **Site:** https://torah-sight.github.io/torah-spiral/ · Interface: Hebrew, Russian, English.
 
 A static single-page app for learning the Torah as a spiral, like a times table: a 6 × 9 table (or five
-book columns) of the 54 weekly portions, opened floor by floor — titles, key names, keywords, key
-phrases, a very short storyline. The capacity of every floor is proportional to the portion's density:
+book columns) of the 54 weekly portions, opened floor by floor — titles, key names, key phrases, a very short storyline. The capacity of every floor is proportional to the portion's density:
 its word count **after collapsing repeats** (verbatim repeats such as the twelve princes' offerings, and
 retellings such as Eliezer's story or Vayakhel–Pekudei).
 
@@ -32,7 +31,7 @@ TypeScript (tsgo) and Tailwind CSS. The build output is one self-contained `dist
 | `npm run typecheck` | `tsgo --noEmit` |
 | `npm test` | Unit tests (rstest) |
 | `npm run density` | Recompute `src/content/density.json` from the Hebrew text (Sefaria, cached in `.cache/`) |
-| `npm run content:check` | Verify every Hebrew name, keyword and phrase against the text of its portion |
+| `npm run content:check` | Verify every Hebrew name and phrase against the text of its portion |
 
 ## Density
 

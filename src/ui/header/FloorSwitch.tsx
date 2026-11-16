@@ -23,7 +23,6 @@ export class FloorSwitch extends ScopedAntiHookComponent {
                 <ToggleButton value={1} active={floor === 1} label={`1 · ${t.floors[1]}`} onPick={this.pick} />
                 <ToggleButton value={2} active={floor === 2} label={`2 · ${t.floors[2]}`} onPick={this.pick} />
                 <ToggleButton value={3} active={floor === 3} label={`3 · ${t.floors[3]}`} onPick={this.pick} />
-                <ToggleButton value={4} active={floor === 4} label={`4 · ${t.floors[4]}`} onPick={this.pick} />
             </div>
         );
     }

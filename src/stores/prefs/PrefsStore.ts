@@ -21,7 +21,7 @@ export interface IPrefs {
 }
 
 /** Верхний этаж. */
-const TOP_FLOOR = 4;
+const TOP_FLOOR = 3;
 
 const setLocale = (draft: IPrefs, locale: Locale): void => {
     draft.locale = locale;

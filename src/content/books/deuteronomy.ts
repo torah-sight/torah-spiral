@@ -10,12 +10,6 @@ export const DEUTERONOMY: readonly IParshaText[] = [
             ['סיחן', 'Сихон', 'Sihon'],
             ['עוג', 'Ог', 'Og']
         ],
-        keywords: [
-            ['דברים', 'слова', 'words'], ['ירדן', 'Иордан', 'Jordan'],
-            ['כוכבי השמים', 'звёзды небесные', 'stars of heaven'],
-            ['משאכם', 'бремя ваше', 'your burden'], ['צדק', 'справедливость', 'justice'], ['אמרי', 'эморей', 'Amorite'],
-            ['שעיר', 'Сеир', 'Seir']
-        ],
         phrases: [
             ['אלה הדברים אשר דבר משה אל כל ישראל', 'Вот слова, которые говорил Моше всему Исраэлю',
                 'These are the words that Moses spoke to all Israel'],
@@ -41,12 +35,6 @@ export const DEUTERONOMY: readonly IParshaText[] = [
         names: [
             ['משה', 'Моше', 'Moses'], ['יהושע', 'Йеошуа', 'Joshua'], ['חרב', 'Хорев', 'Horeb'],
             ['פסגה', 'Писга', 'Pisgah']
-        ],
-        keywords: [
-            ['ואתחנן', 'умолял', 'I pleaded'], ['לא תספו', 'не добавляйте', 'do not add'],
-            ['עשרת הדברים', 'Десять речений', 'Ten Commandments'], ['ערים', 'города-убежища', 'cities of refuge'],
-            ['שמע', 'слушай', 'hear'], ['אחד', 'Один', 'One'], ['אהבת', 'люби', 'love'], ['טטפת', 'тфилин', 'tefillin'],
-            ['מזוזת', 'мезузы', 'doorposts']
         ],
         phrases: [
             ['לא תספו על הדבר', 'не прибавляйте к слову', 'do not add to the word'],
@@ -77,12 +65,6 @@ export const DEUTERONOMY: readonly IParshaText[] = [
         names: [
             ['אהרן', 'Аарон', 'Aaron'], ['חרב', 'Хорев', 'Horeb']
         ],
-        keywords: [
-            ['עקב', 'вследствие', 'because'], ['מן', 'ман', 'manna'], ['לחם', 'хлеб', 'bread'],
-            ['ברכת', 'благослови', 'bless'],
-            ['עגל', 'телец', 'calf'], ['ארון', 'ковчег', 'ark'], ['יראה', 'трепет', 'awe'],
-            ['ערלת לבבכם', 'крайняя плоть сердца', 'foreskin of your heart']
-        ],
         phrases: [
             ['כי לא על הלחם לבדו יחיה האדם', 'не хлебом одним жив человек', 'man does not live by bread alone'],
             ['ואכלת ושבעת וברכת את ה׳ אלקיך', 'И будешь есть, и насытишься, и благословишь Всевышнего',
@@ -107,12 +89,6 @@ export const DEUTERONOMY: readonly IParshaText[] = [
         translit: {ru: 'Реэ', en: "Re'eh"}, title: {ru: 'Смотри', en: 'See'},
         names: [
             ['גרזים', 'Гризим', 'Gerizim'], ['עיבל', 'Эйваль', 'Ebal']
-        ],
-        keywords: [
-            ['ברכה', 'благословение', 'blessing'], ['קללה', 'проклятие', 'curse'],
-            ['המקום אשר יבחר', 'место, которое изберёт', 'the place He will choose'], ['נביא', 'пророк', 'prophet'],
-            ['תעשר', 'отделяй десятину', 'you shall tithe'], ['שמטה', 'шмита', 'release'], ['אביון', 'нищий', 'needy'],
-            ['שלוש פעמים', 'три раза', 'three times']
         ],
         phrases: [
             ['ראה אנכי נתן לפניכם היום ברכה וקללה', 'Смотри: Я даю вам сегодня благословение и проклятие',
@@ -139,12 +115,6 @@ export const DEUTERONOMY: readonly IParshaText[] = [
         names: [
             ['מצרים', 'Египет', 'Egypt'], ['שבט לוי', 'колено Леви', 'tribe of Levi']
         ],
-        keywords: [
-            ['שפטים', 'судьи', 'judges'], ['שחד', 'взятка', 'bribe'], ['צדק', 'справедливость', 'justice'],
-            ['מלך', 'царь', 'king'],
-            ['נביא', 'пророк', 'prophet'], ['גבול', 'межа', 'boundary'], ['מלחמה', 'война', 'war'],
-            ['עגלה', 'телица', 'heifer']
-        ],
         phrases: [
             ['צדק צדק תרדף', 'Справедливости, справедливости добивайся', 'Justice, justice shall you pursue'],
             ['תמים תהיה עם ה׳ אלקיך', 'Будь непорочен со Всевышним, твоим Б-гом',
@@ -169,12 +139,6 @@ export const DEUTERONOMY: readonly IParshaText[] = [
         names: [
             ['עמלק', 'Амалек', 'Amalek'], ['מואבי', 'моавитянин', 'Moabite'], ['עמוני', 'аммонитянин', 'Ammonite'],
             ['מצרי', 'египтянин', 'Egyptian'], ['אדמי', 'эдомитянин', 'Edomite'], ['מרים', 'Мирьям', 'Miriam']
-        ],
-        keywords: [
-            ['יפת תאר', 'красивая пленница', 'beautiful captive'], ['בן סורר ומורה', 'непокорный сын', 'wayward son'],
-            ['אבדת', 'потерянное', 'lost item'], ['תשלח', 'отпусти', 'send away'], ['מעקה', 'ограда', 'parapet'],
-            ['כלאים', 'смешение', 'mixtures'], ['יבמה', 'левиратный брак', 'levirate marriage'],
-            ['זכור', 'помни', 'remember']
         ],
         phrases: [
             ['שלח תשלח את האם ואת הבנים תקח לך', 'отпусти мать, а птенцов возьми себе',
@@ -203,12 +167,6 @@ export const DEUTERONOMY: readonly IParshaText[] = [
             ['גרזים', 'Гризим', 'Gerizim'],
             ['לוי', 'Леви', 'Levi']
         ],
-        keywords: [
-            ['ראשית', 'первые плоды', 'first fruits'], ['טנא', 'корзина', 'basket'], ['מעשר', 'десятина', 'tithe'],
-            ['אבנים גדלות', 'большие камни', 'great stones'], ['שיד', 'известь', 'plaster'],
-            ['ארור', 'проклят', 'cursed'],
-            ['ברכות', 'благословения', 'blessings'], ['קללות', 'проклятия', 'curses']
-        ],
         phrases: [
             ['ארמי אבד אבי', 'Арамеец губил отца моего', 'An Aramean sought to destroy my father'],
             ['היום הזה נהיית לעם', 'в этот день ты стал народом', 'this day you have become a people'],
@@ -231,7 +189,6 @@ export const DEUTERONOMY: readonly IParshaText[] = [
         slug: 'Nitzavim', he: 'נִצָּבִים',
         translit: {ru: 'Ницавим', en: 'Nitzavim'}, title: {ru: 'Стоящие', en: 'Standing'},
         names: [['אברהם', 'Авраам', 'Abraham'], ['יעקב', 'Яаков', 'Jacob']],
-        keywords: [['ברית', 'завет', 'covenant'], ['נסתרת', 'сокрытое', 'hidden things'], ['חיים', 'жизнь', 'life']],
         phrases: [['ובחרת בחיים', 'и избери жизнь', 'and choose life']],
         story: {
             ru: ['Все стоят перед Всевышним для завета. Возвращение к Всевышнему. Выбери жизнь.'],
@@ -243,8 +200,6 @@ export const DEUTERONOMY: readonly IParshaText[] = [
         slug: 'Vayeilech', he: 'וַיֵּלֶךְ',
         translit: {ru: 'Ваелех', en: 'Vayelech'}, title: {ru: 'И пошёл', en: 'And he went'},
         names: [['משה', 'Моше', 'Moses'], ['יהושע', 'Йеошуа', 'Joshua']],
-        keywords: [['חזק ואמץ', 'будь крепок и мужествен', 'be strong and courageous'], ['הקהל', 'собери', 'assemble'],
-            ['שירה', 'песнь', 'song']],
         phrases: [['כתבו לכם את השירה הזאת', 'запишите себе эту песнь', 'write down this song for yourselves']],
         story: {
             ru: ['Моше передаёт власть Йеошуа, пишет Тору и велит собирать народ.'],
@@ -256,7 +211,6 @@ export const DEUTERONOMY: readonly IParshaText[] = [
         slug: "Ha'Azinu", he: 'הַאֲזִינוּ',
         translit: {ru: 'Аазину', en: "Ha'azinu"}, title: {ru: 'Внемлите', en: 'Listen'},
         names: [['יעקב', 'Яаков', 'Jacob'], ['ישרון', 'Йешурун', 'Jeshurun']],
-        keywords: [['שמים', 'небеса', 'heavens'], ['צור', 'Твердыня', 'Rock'], ['נשר', 'орёл', 'eagle']],
         phrases: [['האזינו השמים ואדברה', 'Внемлите, небеса, и я буду говорить',
             'Listen, O heavens, and I will speak']],
         story: {
@@ -270,7 +224,6 @@ export const DEUTERONOMY: readonly IParshaText[] = [
         translit: {ru: 'Везот а-Браха', en: "V'Zot HaBerachah"},
         title: {ru: 'И вот благословение', en: 'And this is the blessing'},
         names: [['משה', 'Моше', 'Moses'], ['יהושע', 'Йеошуа', 'Joshua']],
-        keywords: [['ברכה', 'благословение', 'blessing'], ['מורשה', 'наследие', 'heritage'], ['נבו', 'Нево', 'Nebo']],
         phrases: [['תורה צוה לנו משה מורשה קהלת יעקב', 'Тору заповедал нам Моше — наследие общины Яакова',
             'Moses commanded us the Torah, the heritage of the congregation of Jacob']],
         story: {

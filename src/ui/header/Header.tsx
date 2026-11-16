@@ -1,5 +1,6 @@
 import {ScopedAntiHookComponent, bind} from '@react-carburetor/core';
 import type {ReactNode} from 'react';
+import {textDir} from '#src/i18n/format/textDir.ts';
 import {MESSAGES} from '#src/i18n/messages/messages.ts';
 import {gameToken} from '#src/stores/game/gameToken.ts';
 import type {View} from '#src/stores/nav/NavStore.ts';
@@ -15,6 +16,8 @@ import {ThemeSwitch} from './ThemeSwitch.tsx';
 
 const TITLE = 'bg-gradient-to-r from-cyan-600 via-fuchsia-600 to-rose-600 bg-clip-text text-3xl font-semibold '
     + 'tracking-tight text-transparent sm:text-5xl neon-text dark:from-cyan-200 dark:via-fuchsia-200 dark:to-rose-200';
+
+const TOP_BAR = 'glass flex flex-wrap items-center justify-between gap-2 rounded-2xl px-3 py-2';
 
 /** Переключатели текущего раздела; в игре — только во время раунда. */
 const controls = (view: View, inRound: boolean): ReactNode => {
@@ -42,9 +45,12 @@ export class Header extends ScopedAntiHookComponent {
         const t = MESSAGES[locale];
         return (
             <header className="mx-auto max-w-7xl px-2 pt-3 sm:px-4 sm:pt-4">
-                <div className="glass flex flex-wrap items-center justify-between gap-2 rounded-2xl px-3 py-2">
-                    <NavTabs />
-                    <div className="flex flex-wrap gap-2">
+                {/* Верхняя панель — всегда слева направо: тема и языки не прыгают при смене иврит ↔ русский. */}
+                <div dir="ltr" className={TOP_BAR}>
+                    <div dir={textDir(locale)}>
+                        <NavTabs />
+                    </div>
+                    <div className="ms-auto flex flex-wrap gap-2">
                         <ThemeSwitch />
                         <LocaleSwitch />
                     </div>

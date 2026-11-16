@@ -4,7 +4,7 @@ export interface IMessages {
     tagline: string;
     language: string;
     /** Подписи этажей 0–4: названия, имена, слова, фразы, сюжет. */
-    floors: readonly [string, string, string, string, string];
+    floors: readonly [string, string, string, string];
     floorLabel: string;
     layoutLabel: string;
     layoutGrid: string;
@@ -27,7 +27,10 @@ export interface IMessages {
     gameMistakes: string;
     gameDone: string;
     gameAgain: string;
-    license: string;
+    /** Подвал: «Лицензия», «Исходный код», источник текста Торы. */
+    footerLicense: string;
+    footerSource: string;
+    footerText: string;
     /** «Главы 1–50». */
     chapters: string;
     /** «Недельные главы 1–12». */

@@ -2,6 +2,7 @@ import {ScopedAntiHookComponent} from '@react-carburetor/core';
 import type {ReactNode} from 'react';
 import {BOOKS} from '#src/content/books/bookMeta.ts';
 import {BOOK_SPANS} from '#src/content/bookSpans.ts';
+import {textDir} from '#src/i18n/format/textDir.ts';
 import {MESSAGES} from '#src/i18n/messages/messages.ts';
 import {prefsToken} from '#src/stores/prefs/prefsToken.ts';
 import {TONES} from '#src/ui/common/tones.ts';
@@ -26,7 +27,7 @@ export class BookHeader extends ScopedAntiHookComponent<IBookHeaderProps> {
         const t = MESSAGES[locale];
         const tone = TONES[meta.tone].head;
         return (
-            <div className={`${BOX} ${tone}`}>
+            <div dir={textDir(locale)} className={`${BOX} ${tone}`}>
                 <div dir="rtl" className="font-hebrew text-lg leading-tight sm:text-2xl">{meta.he}</div>
                 {locale === 'he' ? null : (
                     <div className="text-[clamp(13px,1.9vw,18px)] leading-tight">

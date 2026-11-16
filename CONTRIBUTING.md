@@ -44,10 +44,10 @@ in `.cache/` (ignored by Git). The text is never committed and never shipped in 
 
 ## Content rules
 
-Content lives in `src/content/books/*.ts`: names, keywords, key phrases and a short storyline for each of
+Content lives in `src/content/books/*.ts`: names, key phrases and a short storyline for each of
 the 54 weekly portions, in three languages.
 
-- Every Hebrew name, keyword and phrase must occur in the text of its portion. `npm run content:check`
+- Every Hebrew name and phrase must occur in the text of its portion. `npm run content:check`
   verifies this.
 - Prefer what is distinctive for the portion over what is merely present in it.
 - A storyline sentence must make sense on its own: the game shows sentences one by one.

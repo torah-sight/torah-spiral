@@ -9,11 +9,6 @@ export const NUMBERS: readonly IParshaText[] = [
             ['משה', 'Моше', 'Moses'], ['אהרן', 'Аарон', 'Aaron'], ['נחשון', 'Нахшон', 'Nahshon'],
             ['גרשון', 'Гершон', 'Gershon'], ['קהת', 'Кеат', 'Kohath']
         ],
-        keywords: [
-            ['מדבר', 'пустыня', 'wilderness'], ['מספר', 'число', 'number'], ['דגל', 'знамя', 'banner'],
-            ['מחנה', 'стан', 'camp'], ['לוים', 'левиты', 'Levites'], ['בכור', 'первенец', 'firstborn'],
-            ['משא', 'ноша', 'burden']
-        ],
         phrases: [
             ['שאו את ראש כל עדת בני ישראל', 'Исчислите всю общину сынов Исраэля',
                 'Take a census of the whole community of Israel'],
@@ -42,12 +37,6 @@ export const NUMBERS: readonly IParshaText[] = [
             ['מררי', 'Мерари', 'Merari'],
             ['נחשון', 'Нахшон', 'Nahshon']
         ],
-        keywords: [
-            ['תשטה', 'изменит (жена)', 'goes astray'], ['מי המרים', 'горькая вода', 'bitter water'],
-            ['נזיר', 'назир', 'nazirite'], ['יין', 'вино', 'wine'], ['תער', 'бритва', 'razor'],
-            ['תברכו', 'благословляйте', 'you shall bless'],
-            ['חנכת המזבח', 'освящение жертвенника', 'dedication of the altar']
-        ],
         phrases: [
             ['יברכך ה׳ וישמרך', 'Да благословит тебя Всевышний и охранит тебя', 'May Hashem bless you and guard you'],
             ['ישא ה׳ פניו אליך וישם לך שלום', 'Да обратит Всевышний лик Свой к тебе и даст тебе мир',
@@ -74,12 +63,6 @@ export const NUMBERS: readonly IParshaText[] = [
             ['משה', 'Моше', 'Moses'], ['אהרן', 'Аарон', 'Aaron'], ['מרים', 'Мирьям', 'Miriam'],
             ['חבב', 'Ховав', 'Hobab'],
             ['אלדד', 'Эльдад', 'Eldad'], ['מידד', 'Мейдад', 'Medad']
-        ],
-        keywords: [
-            ['מנורה', 'светильник', 'menorah'], ['פסח', 'Песах', 'Passover'], ['ענן', 'облако', 'cloud'],
-            ['חצוצרת', 'трубы', 'trumpets'], ['תאוה', 'вожделение', 'craving'], ['מן', 'ман', 'manna'],
-            ['שבעים איש', 'семьдесят мужей', 'seventy men'], ['שלוים', 'перепела', 'quail'],
-            ['ענו', 'скромный', 'humble']
         ],
         phrases: [
             ['בהעלתך את הנרת', 'когда будешь зажигать светильники', 'when you light the lamps'],
@@ -112,11 +95,6 @@ export const NUMBERS: readonly IParshaText[] = [
             ['חברון', 'Хеврон', 'Hebron'],
             ['ענק', 'Анак', 'Anak']
         ],
-        keywords: [
-            ['תרו', 'разведают', 'scout'], ['אשכול', 'гроздь', 'cluster'], ['זבת חלב ודבש', 'течёт молоком и мёдом',
-                'flowing with milk and honey'], ['נפילים', 'исполины', 'giants'], ['חגבים', 'саранча', 'grasshoppers'],
-            ['חלה', 'хала', 'challah'], ['ציצת', 'цицит', 'tzitzit']
-        ],
         phrases: [
             ['שלח לך אנשים ויתרו את ארץ כנען', 'Пошли от себя людей, и пусть разведают землю Кнаан',
                 'Send men to scout the land of Canaan'],
@@ -140,11 +118,6 @@ export const NUMBERS: readonly IParshaText[] = [
         names: [
             ['קרח', 'Корах', 'Korah'], ['דתן', 'Датан', 'Dathan'], ['אבירם', 'Авирам', 'Abiram'], ['און', 'Он', 'On'],
             ['אהרן', 'Аарон', 'Aaron']
-        ],
-        keywords: [
-            ['מחתות', 'совки', 'fire pans'], ['קטרת', 'воскурение', 'incense'], ['בלע', 'поглотила', 'swallowed'],
-            ['מגפה', 'мор', 'plague'], ['מטה', 'посох', 'staff'], ['שקדים', 'миндаль', 'almonds'],
-            ['מעשר', 'десятина', 'tithe']
         ],
         phrases: [
             ['כי כל העדה כלם קדשים', 'ведь вся община — все святы', 'for the whole community, all of them, are holy'],
@@ -173,10 +146,6 @@ export const NUMBERS: readonly IParshaText[] = [
             ['סיחן', 'Сихон', 'Sihon'],
             ['עוג', 'Ог', 'Og']
         ],
-        keywords: [
-            ['פרה אדמה', 'красная корова', 'red heifer'], ['אפר', 'пепел', 'ashes'], ['סלע', 'скала', 'rock'],
-            ['מי מריבה', 'воды раздора', 'waters of strife'], ['נחש', 'змей', 'serpent'], ['באר', 'колодец', 'well']
-        ],
         phrases: [
             ['זאת חקת התורה', 'Вот устав Торы', 'This is the statute of the Torah'],
             ['ודברתם אל הסלע לעיניהם', 'и говорите со скалой у них на глазах',
@@ -198,12 +167,6 @@ export const NUMBERS: readonly IParshaText[] = [
         names: [
             ['בלק', 'Балак', 'Balak'], ['בלעם', 'Билам', 'Balaam'], ['מואב', 'Моав', 'Moab'],
             ['פינחס', 'Пинхас', 'Phinehas']
-        ],
-        keywords: [
-            ['אתון', 'ослица', 'donkey'], ['מלאך', 'ангел', 'angel'], ['חרב', 'меч', 'sword'],
-            ['ארור', 'проклят', 'cursed'],
-            ['אהליך', 'шатры твои', 'your tents'], ['כוכב', 'звезда', 'star'], ['בעל פעור', 'Баал-Пеор', 'Baal Peor'],
-            ['רמח', 'копьё', 'spear']
         ],
         phrases: [
             ['ויפתח ה׳ את פי האתון', 'И отверз Всевышний уста ослицы', "And Hashem opened the donkey's mouth"],
@@ -228,12 +191,6 @@ export const NUMBERS: readonly IParshaText[] = [
         translit: {ru: 'Пинхас', en: 'Pinchas'}, title: {ru: 'Пинхас', en: 'Phinehas'},
         names: [['פינחס', 'Пинхас', 'Phinehas'], ['בנות צלפחד', 'дочери Целофхада', 'daughters of Zelophehad'],
             ['אלעזר', 'Эльазар', 'Eleazar'], ['יהושע', 'Йеошуа', 'Joshua']],
-        keywords: [
-            ['בריתי שלום', 'завет Мой — мир', 'My covenant of peace'], ['נחלה', 'удел', 'inheritance'],
-            ['גורל', 'жребий', 'lot'], ['סמכת', 'возложи (руку)', 'lay (your hand)'],
-            ['תמיד', 'постоянная жертва', 'daily offering'],
-            ['ראשי חדשיכם', 'новомесячья', 'new moons']
-        ],
         phrases: [
             ['הנני נתן לו את בריתי שלום', 'Вот Я даю ему Мой завет мира', 'I hereby give him My covenant of peace'],
             ['כן בנות צלפחד דברת', 'Верно говорят дочери Целофхада', 'The daughters of Zelophehad speak right'],
@@ -260,11 +217,6 @@ export const NUMBERS: readonly IParshaText[] = [
             ['מדין', 'Мидьян', 'Midian'],
             ['בני גד', 'сыны Гада', 'sons of Gad']
         ],
-        keywords: [
-            ['נדר', 'обет', 'vow'], ['אסר', 'зарок', 'binding oath'], ['נקמת', 'возмездие', 'vengeance'],
-            ['מלקוח', 'добыча', 'spoils'], ['תעבירו', 'проведите (через огонь)', 'pass (through fire)'],
-            ['גדרת צאן', 'загоны для скота', 'sheepfolds'], ['חלוץ', 'вооружённый', 'armed']
-        ],
         phrases: [
             ['לא יחל דברו', 'не нарушит слова своего', 'he shall not break his word'],
             ['האחיכם יבאו למלחמה ואתם תשבו פה', 'Братья ваши пойдут на войну, а вы останетесь здесь?',
@@ -288,12 +240,6 @@ export const NUMBERS: readonly IParshaText[] = [
             ['משה', 'Моше', 'Moses'], ['אהרן', 'Аарон', 'Aaron'], ['ירדן', 'Иордан', 'Jordan'],
             ['כנען', 'Кнаан', 'Canaan'],
             ['בנות צלפחד', 'дочери Целофхада', 'daughters of Zelophehad']
-        ],
-        keywords: [
-            ['מסעי', 'переходы', 'journeys'], ['גבול', 'граница', 'border'],
-            ['ערי מקלט', 'города-убежища', 'cities of refuge'],
-            ['רצח', 'убийца', 'killer'], ['גאל הדם', 'мститель за кровь', 'blood avenger'],
-            ['הכהן הגדל', 'первосвященник', 'High Priest'], ['נחלה', 'удел', 'inheritance']
         ],
         phrases: [
             ['אלה מסעי בני ישראל', 'Вот переходы сынов Исраэля', 'These are the journeys of the children of Israel'],

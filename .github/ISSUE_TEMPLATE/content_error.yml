@@ -1,5 +1,5 @@
 name: Content error
-description: A name, keyword, phrase or storyline sentence is wrong, weak or misplaced.
+description: A name, phrase or storyline sentence is wrong, weak or misplaced.
 labels: [content]
 body:
   - type: input
@@ -13,7 +13,7 @@ body:
     id: floor
     attributes:
       label: Floor
-      options: [Names, Keywords, Key phrases, Storyline, Game question]
+      options: [Names, Key phrases, Storyline, Game question]
     validations:
       required: true
   - type: textarea

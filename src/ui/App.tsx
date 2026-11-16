@@ -4,6 +4,7 @@ import type {Locale} from '#src/i18n/locales.ts';
 import {MESSAGES} from '#src/i18n/messages/messages.ts';
 import {textDir} from '#src/i18n/format/textDir.ts';
 import {prefsToken} from '#src/stores/prefs/prefsToken.ts';
+import {Footer} from './common/Footer.tsx';
 import {ParshaDetail} from './detail/ParshaDetail.tsx';
 import {GameBar} from './game/GameBar.tsx';
 import {GameSetup} from './game/GameSetup.tsx';
@@ -45,7 +46,6 @@ export class App extends ScopedAntiHookComponent {
         const {status} = this.useCarburetor(this.resolve(gameToken));
         // В игре до начала раунда — только страница выбора режима, без таблицы.
         const choosing = view === 'game' && status !== 'playing' && status !== 'done';
-        const t = MESSAGES[locale];
         return (
             <div dir={textDir(locale)} data-theme={theme} className="min-h-screen pb-10">
                 <Header />
@@ -54,7 +54,7 @@ export class App extends ScopedAntiHookComponent {
                         {choosing ? <GameSetup /> : <><GameBar /><ParshaTable /></>}
                     </main>
                 )}
-                <footer className="mx-auto mt-8 max-w-7xl px-4 text-center text-sm text-faint">{t.license}</footer>
+                <Footer />
                 <ParshaDetail />
             </div>
         );

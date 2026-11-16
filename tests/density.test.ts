@@ -59,7 +59,7 @@ describe('computeQuotas', () => {
     it('ёмкость пропорциональна объёму без повторов, минимум 1', () => {
         const [small, mean, big] = computeQuotas([100, 1000, 1900]);
         expect(mean!.names).toBe(FLOOR_RATE.names);
-        expect(big!.keywords).toBeGreaterThan(mean!.keywords);
+        expect(big!.phrases).toBeGreaterThan(mean!.phrases);
         expect(small!.phrases).toBe(1);
         expect(small!.story).toBeGreaterThanOrEqual(1);
     });

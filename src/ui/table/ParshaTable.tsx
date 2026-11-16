@@ -4,7 +4,6 @@ import type {IParsha} from '#src/content/model/types.ts';
 import {PARSHIOT} from '#src/content/parshiot.ts';
 import {navToken} from '#src/stores/nav/navToken.ts';
 import {prefsToken} from '#src/stores/prefs/prefsToken.ts';
-import {BookColumn} from './BookColumn.tsx';
 import {BookHeader} from './BookHeader.tsx';
 import {ParshaCell} from './ParshaCell.tsx';
 
@@ -22,8 +21,23 @@ const BY_LETTERS: readonly IParsha[] = PARSHIOT.toSorted(byLetters);
 const BY_MEASURE = {verses: BY_SIZE, words: BY_WORDS, letters: BY_LETTERS} as const;
 
 const renderCell = (parsha: IParsha): ReactNode => <ParshaCell key={parsha.index} index={parsha.index} />;
-const renderColumn = (book: number): ReactNode => <BookColumn key={book} book={book} />;
+
+/** Место главы в раскладке «по книгам»: столбец книги, строка — порядок внутри книги. */
+const placeOf = (parsha: IParsha): {gridColumn: number; gridRow: number} => ({
+    gridColumn: parsha.book + 1,
+    gridRow: parsha.index - PARSHIOT.findIndex((first: IParsha): boolean => first.book === parsha.book) + 1
+});
+
+/** Клетка в своём столбце книги; обёртка-сетка растягивает клетку на всю строку. */
+const renderPlaced = (parsha: IParsha): ReactNode => (
+    <div key={parsha.index} style={placeOf(parsha)} className="grid min-w-0">
+        <ParshaCell index={parsha.index} />
+    </div>
+);
 const renderLegend = (book: number): ReactNode => <BookHeader key={book} book={book} />;
+
+/** Ряды одной высоты — по самой большой клетке: высота не прыгает от содержимого. */
+const CELLS = 'grid auto-rows-fr gap-1.5 sm:gap-2';
 
 /** Таблица 54 глав: сетка 6 × 9 (по порядку; в «размерах» — по стихам или словам) или 5 столбцов по книгам. */
 export class ParshaTable extends ScopedAntiHookComponent {
@@ -32,16 +46,15 @@ export class ParshaTable extends ScopedAntiHookComponent {
         const {layout, sizeBy} = this.useCarburetor(this.resolve(prefsToken));
         const {view} = this.useCarburetor(this.resolve(navToken));
         const sizes = view === 'sizes';
-        if (!sizes && layout === 'books') {
-            return (
-                <div className="grid grid-cols-5 items-start gap-1.5 sm:gap-2">{BOOK_INDEXES.map(renderColumn)}</div>
-            );
-        }
+        const books = !sizes && layout === 'books';
         const order = sizes ? BY_MEASURE[sizeBy] ?? BY_SIZE : PARSHIOT;
         return (
-            <div className="space-y-2 sm:space-y-3">
+            // Главы и книги идут справа налево, как в свитке, при любом языке интерфейса.
+            <div dir="rtl" className="space-y-2 sm:space-y-3">
                 <div className="grid grid-cols-5 gap-1.5 sm:gap-2">{BOOK_INDEXES.map(renderLegend)}</div>
-                <div className="grid grid-cols-6 gap-1.5 sm:gap-2">{order.map(renderCell)}</div>
+                {books
+                    ? <div className={`${CELLS} grid-cols-5`}>{PARSHIOT.map(renderPlaced)}</div>
+                    : <div className={`${CELLS} grid-cols-6`}>{order.map(renderCell)}</div>}
             </div>
         );
     }

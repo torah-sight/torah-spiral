@@ -1,5 +1,5 @@
 /** Этажи раскрытия поверх таблицы названий, снизу вверх. */
-export const FLOORS = ['names', 'keywords', 'phrases', 'story'] as const;
+export const FLOORS = ['names', 'phrases', 'story'] as const;
 
 /** Этаж раскрытия. */
 export type Floor = (typeof FLOORS)[number];

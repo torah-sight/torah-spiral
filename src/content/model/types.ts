@@ -17,7 +17,6 @@ export interface IParshaText {
     /** Перевод названия. */
     title: Omit<Localized, 'he'>;
     names: readonly Term[];
-    keywords: readonly Term[];
     /** Ключевые фразы: иврит дословно из текста главы и перевод. */
     phrases: readonly Term[];
     /** Очень краткий сюжет: предложения на каждом языке. */

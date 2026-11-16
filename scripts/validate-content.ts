@@ -11,11 +11,11 @@ import {uniquePhrases} from './content/uniquePhrases.ts';
 import {torahWords} from './content/torahSpelling.ts';
 import {loadTorah} from './torah/loadTorah.ts';
 
-type ListFloor = 'names' | 'keywords' | 'phrases';
+type ListFloor = 'names' | 'phrases';
 
 const emptyList = (): IToken[] => [];
 
-const LIST_FLOORS: readonly ListFloor[] = ['names', 'keywords', 'phrases'];
+const LIST_FLOORS: readonly ListFloor[] = ['names', 'phrases'];
 
 const checkTerms = (parsha: IParsha, tokens: readonly IToken[], floor: ListFloor, problems: string[]): void => {
     const list: readonly Term[] = parsha[floor];

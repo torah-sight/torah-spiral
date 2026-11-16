@@ -20,9 +20,7 @@ export interface ICellFloorsProps {
 const labelsOf = (terms: readonly Term[], locale: Locale): string[] =>
     terms.map((term: Term): string => termLabel(term, locale));
 
-const KEYWORD_CHIP = 'border-line bg-veil';
-
-/** Этажи 1–N главы: имена, ключевые слова, фразы, краткий сюжет — по ёмкости главы. */
+/** Этажи 1–N главы: имена, фразы, краткий сюжет — по ёмкости главы. */
 export class CellFloors extends AntiHookComponent<ICellFloorsProps> {
     /** Фраза: иврит из текста главы и перевод. */
     @bind
@@ -53,11 +51,9 @@ export class CellFloors extends AntiHookComponent<ICellFloorsProps> {
                 {this.caption(1)}
                 <Chips labels={labelsOf(parsha.names, locale)} className={chip} />
                 {floor >= 2 ? this.caption(2) : null}
-                {floor >= 2 ? <Chips labels={labelsOf(parsha.keywords, locale)} className={KEYWORD_CHIP} /> : null}
+                {floor >= 2 ? <ul className="space-y-0.5">{parsha.phrases.map(this.renderPhrase)}</ul> : null}
                 {floor >= 3 ? this.caption(3) : null}
-                {floor >= 3 ? <ul className="space-y-0.5">{parsha.phrases.map(this.renderPhrase)}</ul> : null}
-                {floor >= 4 ? this.caption(4) : null}
-                {floor >= 4 ? <p className="text-soft">{parsha.story[locale].join(' ')}</p> : null}
+                {floor >= 3 ? <p className="text-soft">{parsha.story[locale].join(' ')}</p> : null}
             </div>
         );
     }

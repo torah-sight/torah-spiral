@@ -18,10 +18,10 @@ const memoryStorage = (): IStorageLike & {items: Map<string, string>} => {
 };
 
 describe('PrefsStore', () => {
-    it('этаж ограничен 0–4, язык и раскладка меняются', () => {
+    it('этаж ограничен 0–3, язык и раскладка меняются', () => {
         const prefs = new PrefsStore();
         prefs.setFloor(9);
-        expect(prefs.getData().floor).toBe(4);
+        expect(prefs.getData().floor).toBe(3);
         prefs.setFloor(-3);
         expect(prefs.getData().floor).toBe(0);
         prefs.setLocale('he');

@@ -82,6 +82,15 @@ export class GameSetup extends ScopedAntiHookComponent {
         this.resolve(gameToken).setReveal(reveal);
     }
 
+    /** Начинает раунд; если выбраны не все книги, таблица открывается сеткой 6 × 9. */
+    @bind
+    protected play(): void {
+        const game = this.resolve(gameToken);
+        game.start();
+        const {status, setup} = game.getData();
+        if (status === 'playing' && !setup.books.every(Boolean)) this.resolve(prefsToken).setLayout('grid');
+    }
+
     /** Выбирает режим игры. */
     @bind
     protected pickMode(mode: GameMode): void {
@@ -145,7 +154,7 @@ export class GameSetup extends ScopedAntiHookComponent {
                     )}
                     <div className="mt-6 flex justify-end gap-2">
                         <button type="button" onClick={this.cancel} className={CANCEL}>{t.gameCancel}</button>
-                        <button type="button" onClick={store.start} disabled={!ready} className={PLAY}>
+                        <button type="button" onClick={this.play} disabled={!ready} className={PLAY}>
                             {t.gamePlay}
                         </button>
                     </div>

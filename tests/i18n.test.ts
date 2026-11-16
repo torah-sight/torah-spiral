@@ -20,7 +20,7 @@ describe('MESSAGES', () => {
                 const parts = Array.isArray(value) ? value : [value];
                 for (const part of parts) expect(String(part).length).toBeGreaterThan(0);
             }
-            expect(MESSAGES[locale].floors).toHaveLength(5);
+            expect(MESSAGES[locale].floors).toHaveLength(4);
         }
     });
 });

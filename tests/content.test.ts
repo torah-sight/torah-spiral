@@ -8,7 +8,7 @@ import {countWords} from '#src/i18n/format/countWords.ts';
 import {splitSentences} from '#src/i18n/format/splitSentences.ts';
 import {LOCALES} from '#src/i18n/locales.ts';
 
-const LIST_FLOORS = ['names', 'keywords', 'phrases'] as const;
+const LIST_FLOORS = ['names', 'phrases'] as const;
 
 describe('PARSHIOT', () => {
     it('54 главы с порядковыми номерами 1–54 по книгам 12/11/10/10/11', () => {

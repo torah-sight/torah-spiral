@@ -7,7 +7,7 @@ export interface IChipsProps {
     className: string;
 }
 
-/** Строка коротких меток: имена, ключевые слова. */
+/** Строка коротких меток: имена. */
 export class Chips extends AntiHookComponent<IChipsProps> {
     /** Одна метка. */
     @bind

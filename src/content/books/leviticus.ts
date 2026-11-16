@@ -9,12 +9,6 @@ export const LEVITICUS: readonly IParshaText[] = [
             ['משה', 'Моше', 'Moses'], ['בני אהרן', 'сыны Аарона', 'sons of Aaron'],
             ['אהל מועד', 'Шатёр встречи', 'Tent of Meeting']
         ],
-        keywords: [
-            ['קרבן', 'жертва', 'offering'], ['עלה', 'всесожжение', 'burnt offering'],
-            ['מנחה', 'хлебный дар', 'meal offering'],
-            ['שלמים', 'мирная жертва', 'peace offering'], ['חטאת', 'очистительная жертва', 'sin offering'],
-            ['אשם', 'повинная жертва', 'guilt offering'], ['מלח', 'соль', 'salt']
-        ],
         phrases: [
             ['אדם כי יקריב מכם קרבן לה׳', 'Человек из вас, который принесёт жертву Всевышнему',
                 'When any man of you brings an offering to Hashem'],
@@ -39,12 +33,6 @@ export const LEVITICUS: readonly IParshaText[] = [
         translit: {ru: 'Цав', en: 'Tzav'}, title: {ru: 'Повели', en: 'Command'},
         names: [['משה', 'Моше', 'Moses'], ['אהרן', 'Аарон', 'Aaron'], ['בני אהרן', 'сыны Аарона', 'sons of Aaron'],
             ['אהל מועד', 'Шатёр встречи', 'Tent of Meeting']],
-        keywords: [
-            ['אש תמיד', 'вечный огонь', 'continual fire'], ['דשן', 'пепел', 'ashes'],
-            ['תודה', 'благодарность', 'thanksgiving'],
-            ['פגול', 'негодная жертва', 'rejected offering'], ['חלב', 'жир', 'fat'],
-            ['שמן המשחה', 'масло помазания', 'anointing oil']
-        ],
         phrases: [
             ['זאת תורת העלה', 'Вот закон всесожжения', 'This is the law of the burnt offering'],
             ['אש תמיד תוקד על המזבח לא תכבה', 'Вечный огонь будет гореть на жертвеннике, не угаснет',
@@ -66,12 +54,6 @@ export const LEVITICUS: readonly IParshaText[] = [
         translit: {ru: 'Шмини', en: 'Shemini'}, title: {ru: 'Восьмой', en: 'Eighth'},
         names: [['משה', 'Моше', 'Moses'], ['אהרן', 'Аарон', 'Aaron'], ['נדב', 'Надав', 'Nadab'],
             ['אביהוא', 'Авиу', 'Abihu']],
-        keywords: [
-            ['יום השמיני', 'восьмой день', 'eighth day'], ['אש זרה', 'чужой огонь', 'strange fire'],
-            ['יין ושכר', 'вино и хмельное', 'wine and strong drink'],
-            ['מפרסת פרסה', 'с раздвоенным копытом', 'split-hoofed'],
-            ['מעלת גרה', 'жвачное', 'chewing the cud'], ['סנפיר וקשקשת', 'плавники и чешуя', 'fins and scales']
-        ],
         phrases: [
             ['בקרבי אקדש', 'через близких Мне освящусь', 'through those near to Me I will be sanctified'],
             ['וידם אהרן', 'и Аарон умолк', 'and Aaron was silent'],
@@ -94,11 +76,6 @@ export const LEVITICUS: readonly IParshaText[] = [
         slug: 'Tazria', he: 'תַזְרִיעַ',
         translit: {ru: 'Тазриа', en: 'Tazria'}, title: {ru: 'Зачнёт', en: 'She conceives'},
         names: [['משה', 'Моше', 'Moses'], ['אהרן', 'Аарон', 'Aaron']],
-        keywords: [
-            ['תזריע', 'зачнёт', 'conceives'], ['בשר ערלתו', 'обрезание', 'circumcision'],
-            ['צרעת', 'цараат', "tzara'at"],
-            ['נגע', 'поражение', 'affliction'], ['טמא', 'нечист', 'impure']
-        ],
         phrases: [
             ['אשה כי תזריע וילדה זכר', 'Если женщина зачнёт и родит мальчика',
                 'When a woman conceives and bears a male'],
@@ -117,10 +94,6 @@ export const LEVITICUS: readonly IParshaText[] = [
         slug: 'Metzora', he: 'מְּצֹרָע',
         translit: {ru: 'Мецора', en: 'Metzora'}, title: {ru: 'Поражённый цараат', en: "One with tzara'at"},
         names: [['משה', 'Моше', 'Moses'], ['אהרן', 'Аарон', 'Aaron']],
-        keywords: [
-            ['צפרים', 'птицы', 'birds'], ['ארז', 'кедр', 'cedar'], ['אזב', 'иссоп', 'hyssop'], ['בית', 'дом', 'house'],
-            ['זב', 'истечение', 'discharge']
-        ],
         phrases: [
             ['זאת תהיה תורת המצרע', 'Вот закон о поражённом цараат', "This shall be the law of the one with tzara'at"],
             ['ונתתי נגע צרעת בבית ארץ אחזתכם', 'и наведу поражение цараат на дом в земле вашего владения',
@@ -139,10 +112,6 @@ export const LEVITICUS: readonly IParshaText[] = [
         slug: 'Achrei Mot', he: 'אַחֲרֵי מוֹת',
         translit: {ru: 'Ахарей Мот', en: 'Acharei Mot'}, title: {ru: 'После смерти', en: 'After the death'},
         names: [['משה', 'Моше', 'Moses'], ['אהרן', 'Аарон', 'Aaron'], ['עזאזל', 'Азазель', 'Azazel']],
-        keywords: [
-            ['כפרת', 'крышка ковчега', 'ark cover'], ['קטרת', 'воскурение', 'incense'], ['שעירם', 'козлы', 'goats'],
-            ['דם', 'кровь', 'blood'], ['ערוה', 'наготa (запретная связь)', 'nakedness (forbidden union)']
-        ],
         phrases: [
             ['כי ביום הזה יכפר עליכם לטהר אתכם', 'ибо в этот день искупит вас, чтобы очистить вас',
                 'for on this day atonement shall be made for you, to cleanse you'],
@@ -162,10 +131,6 @@ export const LEVITICUS: readonly IParshaText[] = [
         slug: 'Kedoshim', he: 'קְדֹשִׁים',
         translit: {ru: 'Кдошим', en: 'Kedoshim'}, title: {ru: 'Святы', en: 'Holy'},
         names: [['משה', 'Моше', 'Moses'], ['מלך', 'Молех', 'Molech']],
-        keywords: [
-            ['קדשים', 'святы', 'holy'], ['פאת', 'край поля', 'corner of the field'], ['לקט', 'колоски', 'gleanings'],
-            ['אהבת', 'возлюби', 'love']
-        ],
         phrases: [
             ['קדשים תהיו כי קדוש אני', 'Святы будьте, ибо свят Я', 'You shall be holy, for I am holy'],
             ['ואהבת לרעך כמוך', 'И люби ближнего, как самого себя', 'Love your fellow as yourself']
@@ -186,12 +151,6 @@ export const LEVITICUS: readonly IParshaText[] = [
             ['משה', 'Моше', 'Moses'], ['אהרן', 'Аарон', 'Aaron'], ['שלמית', 'Шломит', 'Shelomith'],
             ['דברי', 'Диври', 'Dibri'],
             ['דן', 'Дан', 'Dan']
-        ],
-        keywords: [
-            ['כהנים', 'коэны', 'priests'], ['מום', 'изъян', 'blemish'],
-            ['מועדי ה׳', 'праздники Всевышнего', "Hashem's festivals"],
-            ['עמר', 'омер', 'omer'], ['תרועה', 'трубление', 'shofar blast'], ['סכת', 'шалаши', 'booths'],
-            ['פרי עץ הדר', 'плод дерева великолепного', 'fruit of a beautiful tree']
         ],
         phrases: [
             ['אמר אל הכהנים בני אהרן', 'Скажи коэнам, сынам Аарона', 'Speak to the priests, the sons of Aaron'],
@@ -215,9 +174,6 @@ export const LEVITICUS: readonly IParshaText[] = [
         slug: 'Behar', he: 'בְּהַר',
         translit: {ru: 'Беар', en: 'Behar'}, title: {ru: 'На горе', en: 'On the mount'},
         names: [['משה', 'Моше', 'Moses'], ['סיני', 'Синай', 'Sinai']],
-        keywords: [['שבת', 'покой земли', 'rest of the land'], ['יובל', 'юбилей', 'jubilee'],
-        ['דרור', 'свобода', 'liberty'],
-            ['גאלה', 'выкуп', 'redemption']],
         phrases: [
             ['וקראתם דרור בארץ לכל ישביה', 'и объявите свободу на земле всем её жителям',
                 'and proclaim liberty throughout the land to all its inhabitants'],
@@ -237,10 +193,6 @@ export const LEVITICUS: readonly IParshaText[] = [
         translit: {ru: 'Бехукотай', en: 'Bechukotai'}, title: {ru: 'По установлениям Моим', en: 'In My statutes'},
         names: [['משה', 'Моше', 'Moses'], ['אברהם', 'Авраам', 'Abraham'], ['יצחק', 'Ицхак', 'Isaac'],
             ['סיני', 'Синай', 'Sinai']],
-        keywords: [
-            ['שלום', 'мир', 'peace'], ['קרי', 'наперекор', 'contrariness'], ['ערכך', 'оценка', 'valuation'],
-            ['חרם', 'посвящённое', 'devoted thing'], ['מעשר', 'десятина', 'tithe']
-        ],
         phrases: [
             ['אם בחקתי תלכו', 'Если по установлениям Моим будете ходить', 'If you walk in My statutes'],
             ['ונתתי משכני בתוככם', 'и помещу Мой Мишкан среди вас', 'and I will set My dwelling among you']
