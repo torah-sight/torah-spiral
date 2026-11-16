@@ -1,0 +1,60 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    name: Lint, typecheck, test, build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - name: Lint (oxlint + carburetor-lint + structure)
+        run: npm run lint
+      - name: Typecheck (tsgo)
+        run: npm run typecheck
+      - name: Unit tests (rstest)
+        run: npm test
+      - name: Content against the Torah text (Sefaria)
+        run: npm run content:check
+      - name: Build single-file site
+        run: npm run build
+      - name: Check that dist is a single self-contained page
+        run: |
+          test "$(ls dist)" = "index.html"
+          ! grep -Eq '<script[^>]+src=|<link[^>]+stylesheet' dist/index.html
+      - uses: actions/upload-pages-artifact@v3
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main' && !github.event.repository.private
+        with:
+          path: dist
+
+  # Pages on the free plan works only for public repositories.
+  deploy:
+    name: Deploy to GitHub Pages
+    needs: check
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && !github.event.repository.private
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

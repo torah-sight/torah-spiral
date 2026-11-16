@@ -1,0 +1,31 @@
+name: Content error
+description: A name, keyword, phrase or storyline sentence is wrong, weak or misplaced.
+labels: [content]
+body:
+  - type: input
+    id: portion
+    attributes:
+      label: Weekly portion
+      placeholder: Vayishlach
+    validations:
+      required: true
+  - type: dropdown
+    id: floor
+    attributes:
+      label: Floor
+      options: [Names, Keywords, Key phrases, Storyline, Game question]
+    validations:
+      required: true
+  - type: textarea
+    id: current
+    attributes:
+      label: Current text
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed text and source
+      description: Please cite the verse (book chapter:verse).
+    validations:
+      required: true

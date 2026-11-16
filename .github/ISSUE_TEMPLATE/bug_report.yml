@@ -1,0 +1,37 @@
+name: Bug report
+description: Something in the site does not work as expected.
+labels: [bug]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: What you did, what you expected, and what you saw instead.
+    validations:
+      required: true
+  - type: dropdown
+    id: section
+    attributes:
+      label: Section
+      options:
+        - Portions overview
+        - Portion sizes
+        - Game
+        - Header / settings
+        - Other
+    validations:
+      required: true
+  - type: dropdown
+    id: language
+    attributes:
+      label: Interface language
+      options: [Hebrew, Russian, English]
+  - type: input
+    id: browser
+    attributes:
+      label: Browser and device
+      placeholder: Firefox 140, Android phone
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots
