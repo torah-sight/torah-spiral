@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="ru" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="description" content="Спиральное изучение Торы: 54 недельные главы, этажи раскрытия по плотности текста." />
+    <title><%= htmlPlugin.options.title %></title>
+    <script>
+      // Тема до первого рендера — без мигания светлой страницы у тёмной темы.
+      try {
+        var prefs = JSON.parse(localStorage.getItem('torah-spiral/prefs') || '{}');
+        if (prefs.theme === 'dark') document.documentElement.classList.add('dark');
+      } catch (error) {}
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>

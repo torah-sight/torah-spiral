@@ -1,0 +1,64 @@
+import {AntiHookComponent, bind} from '@react-carburetor/core';
+import type {ReactNode} from 'react';
+import type {IParsha, Term} from '#src/content/model/types.ts';
+import type {Locale} from '#src/i18n/locales.ts';
+import {MESSAGES} from '#src/i18n/messages/messages.ts';
+import {termLabel} from '#src/i18n/format/termLabel.ts';
+import {termTranslation} from '#src/i18n/format/termTranslation.ts';
+import {Chips} from './Chips.tsx';
+
+/** Свойства этажей главы. */
+export interface ICellFloorsProps {
+    parsha: IParsha;
+    floor: number;
+    locale: Locale;
+    chip: string;
+    /** Крупный шрифт для карточки, мелкий для клетки. */
+    large: boolean;
+}
+
+const labelsOf = (terms: readonly Term[], locale: Locale): string[] =>
+    terms.map((term: Term): string => termLabel(term, locale));
+
+const KEYWORD_CHIP = 'border-line bg-veil';
+
+/** Этажи 1–N главы: имена, ключевые слова, фразы, краткий сюжет — по ёмкости главы. */
+export class CellFloors extends AntiHookComponent<ICellFloorsProps> {
+    /** Фраза: иврит из текста главы и перевод. */
+    @bind
+    protected renderPhrase(term: Term): ReactNode {
+        const translation = termTranslation(term, this.props.locale);
+        return (
+            <li key={term[0]}>
+                <span dir="rtl" className="font-hebrew text-ink">{term[0]}</span>
+                {translation ? <span className="block text-mute">{translation}</span> : null}
+            </li>
+        );
+    }
+
+    /** Подпись этажа (только в карточке). */
+    protected caption(floor: number): ReactNode {
+        if (!this.props.large) return null;
+        const label = MESSAGES[this.props.locale].floors[floor];
+        return <h3 className="mb-1 mt-3 text-sm uppercase tracking-widest text-mute">{floor} · {label}</h3>;
+    }
+
+    /** Накопленные этажи до текущего. */
+    public render(): ReactNode {
+        const {parsha, floor, locale, chip, large} = this.props;
+        if (floor < 1) return null;
+        const size = large ? 'text-sm space-y-1' : 'text-[clamp(12px,1.7vw,16px)] leading-snug space-y-1';
+        return (
+            <div className={`mt-1 ${size}`}>
+                {this.caption(1)}
+                <Chips labels={labelsOf(parsha.names, locale)} className={chip} />
+                {floor >= 2 ? this.caption(2) : null}
+                {floor >= 2 ? <Chips labels={labelsOf(parsha.keywords, locale)} className={KEYWORD_CHIP} /> : null}
+                {floor >= 3 ? this.caption(3) : null}
+                {floor >= 3 ? <ul className="space-y-0.5">{parsha.phrases.map(this.renderPhrase)}</ul> : null}
+                {floor >= 4 ? this.caption(4) : null}
+                {floor >= 4 ? <p className="text-soft">{parsha.story[locale].join(' ')}</p> : null}
+            </div>
+        );
+    }
+}
