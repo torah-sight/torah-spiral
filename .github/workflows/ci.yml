@@ -24,6 +24,10 @@ jobs:
           node-version: 24
           cache: npm
       - run: npm ci
+      # The Carburetor oxlint plugin spawns carburetor-lint from inside oxlint, whose large reserved
+      # address space makes fork() fail with ENOMEM under the default overcommit heuristic.
+      - name: Allow overcommit for spawning carburetor-lint
+        run: sudo sysctl -w vm.overcommit_memory=1
       - name: Lint (oxlint + carburetor-lint + structure)
         run: npm run lint
       - name: oxlint details (GitHub annotations drop plugin messages)
