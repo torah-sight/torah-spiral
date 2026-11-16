@@ -26,6 +26,9 @@ jobs:
       - run: npm ci
       - name: Lint (oxlint + carburetor-lint + structure)
         run: npm run lint
+      - name: oxlint details (GitHub annotations drop plugin messages)
+        if: failure()
+        run: npx oxlint --deny-warnings --format stylish | head -100
       - name: Typecheck (tsgo)
         run: npm run typecheck
       - name: Unit tests (rstest)
