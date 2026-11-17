@@ -11,12 +11,13 @@ import {navToken} from '#src/stores/nav/navToken.ts';
 import {prefsToken} from '#src/stores/prefs/prefsToken.ts';
 import {ToggleButton} from '#src/ui/common/ToggleButton.tsx';
 
-const PANEL = 'glass mx-auto mt-2 w-full max-w-2xl rounded-2xl border border-fuchsia-500/30 p-4 sm:p-6 dark:border-fuchsia-300/30 '
-    + 'shadow-[0_0_50px_-14px_rgba(217,70,239,0.8)]';
-const PLAY = 'rounded-lg border border-emerald-500/50 bg-emerald-500/15 px-4 py-1.5 text-emerald-800 transition '
-    + 'hover:bg-emerald-500/25 disabled:cursor-not-allowed disabled:opacity-40 dark:border-emerald-300/50 dark:text-emerald-100';
+const PANEL = 'glass mx-auto mt-2 w-full max-w-2xl rounded-2xl border border-stone-300/70 p-4 sm:p-6 '
+    + 'dark:border-fuchsia-300/30 dark:shadow-[0_0_50px_-14px_rgba(217,70,239,0.8)]';
+const PLAY = 'rounded-lg border border-emerald-900 bg-emerald-900 px-4 py-1.5 text-emerald-50 transition '
+    + 'hover:bg-emerald-950 disabled:cursor-not-allowed disabled:opacity-40 '
+    + 'dark:border-emerald-300/50 dark:bg-emerald-500/15 dark:text-emerald-100 dark:hover:bg-emerald-500/25';
 const CANCEL = 'rounded-lg border border-line px-4 py-1.5 text-soft transition hover:border-line-strong hover:text-ink';
-const TITLE = 'neon-text text-2xl font-semibold text-fuchsia-800 dark:text-fuchsia-100';
+const TITLE = 'neon-text text-2xl font-semibold text-stone-900 dark:text-fuchsia-100';
 const CAPTION = 'mb-2 mt-4 text-sm uppercase tracking-widest text-mute';
 
 const bookLabel = (book: number, locale: Locale): string => {

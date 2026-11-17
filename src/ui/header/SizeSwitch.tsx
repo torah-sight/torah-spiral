@@ -23,7 +23,10 @@ const nameButton = (key: NameKey, sizeBy: SizeBy, locale: Locale, onPick: (value
     />
 );
 
-/** Мера таблицы «Статистика»: святые Имена (первое — четырёхбуквенное), заповеди, затем стихи, слова, буквы. */
+/**
+ * Мера таблицы «Статистика»: святые Имена (первое — четырёхбуквенное), все семь вместе, особая ה,
+ * заповеди, затем стихи, слова, буквы.
+ */
 export class SizeSwitch extends ScopedAntiHookComponent {
     /** Меняет меру. */
     @bind
@@ -47,6 +50,13 @@ export class SizeSwitch extends ScopedAntiHookComponent {
                     {nameButton('eloah', sizeBy, locale, this.pick)}
                     {nameButton('yah', sizeBy, locale, this.pick)}
                     {nameButton('ehyeh', sizeBy, locale, this.pick)}
+                    <ToggleButton
+                        value="allNames"
+                        active={sizeBy === 'allNames'}
+                        label={t.namesAll}
+                        title={t.namesAllHint}
+                        onPick={this.pick}
+                    />
                     {nameButton('he', sizeBy, locale, this.pick)}
                 </div>
                 <div role="group" aria-label={t.mitzvotLabel} className={GROUP}>

@@ -103,6 +103,9 @@ export interface IMessages {
     /** Группа и кнопки топа заповедей, подсказки к ним. */
     mitzvotLabel: string;
     mitzvotAll: string;
+    /** Топ по всем семи Именам вместе: кнопка и подсказка. */
+    namesAll: string;
+    namesAllHint: string;
     mitzvotPositive: string;
     mitzvotNegative: string;
     mitzvotHint: string;

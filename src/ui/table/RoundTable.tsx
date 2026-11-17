@@ -33,12 +33,12 @@ const BY_BOOK: readonly IParsha[][] = BOOK_INDEXES.map(ofBook);
 
 const renderCell = (parsha: IParsha): ReactNode => <ParshaCell key={parsha.index} index={parsha.index} />;
 
-const renderLegend = (book: number): ReactNode => <BookHeader key={book} book={book} />;
+const renderLegend = (book: number): ReactNode => <BookHeader key={book} book={book} compact={false} />;
 
 /** Книга раунда в сетке 6 × 9: заголовок и её главы подряд, с первой клетки. */
 const renderSection = (book: number): ReactNode => (
     <section key={book} className="space-y-1.5 sm:space-y-2">
-        <BookHeader book={book} />
+        <BookHeader book={book} compact />
         <div className={`${CELLS} grid-cols-6`}>{BY_BOOK[book]!.map(renderCell)}</div>
     </section>
 );

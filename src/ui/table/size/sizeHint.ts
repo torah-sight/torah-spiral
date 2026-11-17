@@ -10,6 +10,7 @@ export const hintOf = (unit: Measure, locale: Locale): string => {
     if (unit === 'words') return t.wordsHint;
     if (unit === 'letters') return t.lettersHint;
     if (unit === 'he') return t.heHint;
+    if (unit === 'allNames') return t.namesAllHint;
     if (unit === 'mitzvot') return t.mitzvotHint;
     if (unit === 'positive') return t.positiveHint;
     if (unit === 'negative') return t.negativeHint;

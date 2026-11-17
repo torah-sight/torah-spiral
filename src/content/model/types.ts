@@ -87,6 +87,9 @@ export interface IParsha extends IParshaText {
     holy: Record<NameKey, number>;
     /** Место по каждому Имени: 1 — больше всех; при равенстве место общее. */
     holyRanks: Record<NameKey, number>;
+    /** Все семь нестираемых Имён вместе (без особой ה) и место главы по их сумме. */
+    holyAll: number;
+    holyAllRank: number;
     /** Заповеди по «Сефер а-Хинух»: всего, повелевающие, запрещающие. */
     mitzvot: Record<MitzvaKey, number>;
     /** Место по заповедям; при равенстве место общее. */

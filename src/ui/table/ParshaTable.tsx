@@ -45,7 +45,7 @@ const renderPlaced = (parsha: IParsha): ReactNode => (
         <ParshaCell index={parsha.index} />
     </div>
 );
-const renderLegend = (book: number): ReactNode => <BookHeader key={book} book={book} />;
+const renderLegend = (book: number): ReactNode => <BookHeader key={book} book={book} compact={false} />;
 
 /** Ряды одной высоты — по самой большой клетке: высота не прыгает от содержимого. */
 const CELLS = 'grid auto-rows-fr gap-1.5 sm:gap-2';

@@ -10,7 +10,11 @@ import {gameToken} from '#src/stores/game/gameToken.ts';
 import {navToken} from '#src/stores/nav/navToken.ts';
 import {prefsToken} from '#src/stores/prefs/prefsToken.ts';
 import {selectionToken} from '#src/stores/selection/selectionToken.ts';
-import {FloorButtons} from '#src/ui/common/FloorButtons.tsx';
+import type {IParsha} from '#src/content/model/types.ts';
+import type {Locale} from '#src/i18n/locales.ts';
+import {textDir} from '#src/i18n/format/textDir.ts';
+import {CloseButton} from '#src/ui/common/CloseButton.tsx';
+import {FloorSelect} from '#src/ui/common/FloorSelect.tsx';
 import {TONES} from '#src/ui/common/tones.ts';
 import {CellFloors} from '#src/ui/table/CellFloors.tsx';
 import {DetailNav} from './DetailNav.tsx';
@@ -26,6 +30,47 @@ const DIALOG_ID = 'parsha-dialog';
 
 /** Свайп: сдвиг пальца по горизонтали не меньше этого и заметно больше вертикального. */
 const SWIPE_PX = 60;
+
+/** Заголовок между стрелками: иврит крупно, под ним транслитерация, перевод и гематрия. */
+const titleOf = (parsha: IParsha, locale: Locale, text: string): ReactNode => (
+    <div dir={textDir(locale)} className="text-center">
+        <h2 dir="rtl" className={`neon-text font-hebrew text-4xl leading-tight sm:text-5xl ${text}`}>{parsha.he}</h2>
+        {locale === 'he' ? null : (
+            <p className="text-ink">
+                {parsha.translit[locale]} <span className="text-mute">· «{parsha.title[locale]}»</span>
+            </p>
+        )}
+        <p className="text-sm text-mute">
+            {MESSAGES[locale].gematria}: <span className="tabular-nums text-ink">{gematria(parsha.he)}</span>
+        </p>
+    </div>
+);
+
+/** Сведения сбоку: на телефоне строки идут в линию, с sm — столбиком. */
+const SIDE = 'flex flex-wrap items-center justify-center gap-x-3 text-center text-sm leading-relaxed '
+    + 'sm:flex-col sm:gap-x-0';
+
+/** Сбоку от заголовка: номер главы, стихи и книга. */
+const placeOf = (parsha: IParsha, locale: Locale, text: string): ReactNode => {
+    const book = BOOKS[parsha.book]!;
+    const t = MESSAGES[locale];
+    return (
+        <div dir={textDir(locale)} className={`${SIDE} ${text}`}>
+            <p>{t.parsha} {parsha.ordinal} · <bdi dir="ltr">{formatRange(parsha.range)}</bdi></p>
+            <p>{t.book}: <span dir="rtl" className="font-hebrew text-base">{book.he}</span></p>
+            {locale === 'he' ? null : <p>{book.translit[locale]} · {book.common[locale]}</p>}
+        </div>
+    );
+};
+
+/** Сбоку от заголовка: размеры главы с местами. */
+const sizesOf = (parsha: IParsha, locale: Locale, text: string): ReactNode => (
+    <div dir={textDir(locale)} className={`${SIDE} ${text}`}>
+        <p>{sizeLabel(parsha.verses, parsha.sizeRank, 'verses', locale)}</p>
+        <p>{sizeLabel(parsha.raw, parsha.wordRank, 'words', locale)}</p>
+        <p>{sizeLabel(parsha.letters, parsha.letterRank, 'letters', locale)}</p>
+    </div>
+);
 
 /** Карточка главы поверх таблицы: размер и все открытые этажи крупно; стрелки и свайп листают главы. */
 export class ParshaDetail extends ScopedAntiHookComponent {
@@ -112,6 +157,7 @@ export class ParshaDetail extends ScopedAntiHookComponent {
         const book = BOOKS[parsha.book]!;
         const tone = TONES[book.tone];
         const t = MESSAGES[locale];
+        const floorSelect = <FloorSelect floor={floor} locale={locale} onPick={selection.setFloor} />;
         return (
             <div
                 id={DIALOG_ID}
@@ -123,55 +169,29 @@ export class ParshaDetail extends ScopedAntiHookComponent {
                 className={OVERLAY}
             >
                 <ScrollLock />
+                <CloseButton label={t.close} onClose={selection.close} />
                 <article className="panel w-full max-w-2xl rounded-2xl p-4 sm:p-6 lg:max-w-5xl">
-                    {/* Стрелки сверху: при листании они не сдвигаются, щёлкать можно не двигая мышь. */}
-                    <DetailNav index={open} />
-                    <div className="flex items-start justify-between gap-3">
-                        <div className={`text-sm ${tone.text}`}>
-                            {t.parsha} {parsha.ordinal} · <bdi dir="ltr">{formatRange(parsha.range)}</bdi>
-                            <div className="mt-0.5 text-base">
-                                {t.book}: <span dir="rtl" className="font-hebrew text-lg">{book.he}</span>
-                                {locale === 'he' ? null : ` · ${book.translit[locale]} · ${book.common[locale]}`}
-                            </div>
-                        </div>
-                        <button type="button" onClick={selection.close} className="cursor-pointer rounded-lg border
-                            border-line px-2 text-soft hover:border-line-strong hover:text-ink">
-                            {t.close} ✕
-                        </button>
-                    </div>
-                    {/* Иврит-название в одной строке с транслитерацией: без пустого места в шапке. */}
-                    <div className="mt-1 flex flex-wrap items-baseline justify-between gap-x-4">
-                        {locale === 'he' ? null : (
-                            <p className="text-lg text-ink">
-                                {parsha.translit[locale]} <span className="text-mute">· «{parsha.title[locale]}»</span>
-                            </p>
-                        )}
-                        <div className="flex flex-col items-end">
-                            <h2 dir="rtl" className={`neon-text font-hebrew text-5xl leading-tight ${tone.text}`}>
-                                {parsha.he}
-                            </h2>
-                            <span className="text-sm text-mute">
-                                {t.gematria}: <span className="tabular-nums text-ink">{gematria(parsha.he)}</span>
-                            </span>
-                        </div>
-                    </div>
-                    <section className="mt-3 rounded-xl border border-line bg-veil px-3 py-2">
+                    {/* Стрелки сверху: при листании они не сдвигаются; между ними — название и сведения. */}
+                    <DetailNav
+                        index={open}
+                        before={placeOf(parsha, locale, tone.text)}
+                        after={sizesOf(parsha, locale, tone.text)}
+                    >
+                        {titleOf(parsha, locale, tone.text)}
+                    </DetailNav>
+                    <section className="rounded-xl border border-line bg-veil px-3 py-2">
                         <h3 className="text-sm uppercase tracking-widest text-mute">
                             {t.nameOrigin} · <bdi dir="ltr">{parsha.origin.ref}</bdi>
                         </h3>
                         <p className="mt-0.5 text-ink">{parsha.origin.note[locale]}</p>
                     </section>
-                    <p className={`mt-2 text-sm ${tone.text}`}>
-                        {sizeLabel(parsha.verses, parsha.sizeRank, 'verses', locale)}
-                        {' · '}
-                        {sizeLabel(parsha.raw, parsha.wordRank, 'words', locale)}
-                        {' · '}
-                        {sizeLabel(parsha.letters, parsha.letterRank, 'letters', locale)}
-                    </p>
-                    <TallyLines parsha={parsha} locale={locale} chip={tone.chip} />
-                    <div className="mt-3 border-t border-line pt-3">
-                        <FloorButtons floor={floor} locale={locale} onPick={selection.setFloor} />
-                    </div>
+                    <TallyLines
+                        parsha={parsha}
+                        locale={locale}
+                        chip={tone.chip}
+                        floor={floor}
+                        floorSelect={floorSelect}
+                    />
                     <CellFloors parsha={parsha} floor={floor} locale={locale} chip={tone.chip} large />
                 </article>
             </div>

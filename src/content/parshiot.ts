@@ -53,15 +53,28 @@ const rankIn = (list: readonly number[], index: number): number => {
     return above + 1;
 };
 
-/** Имена главы и места по ним. */
-const namesOf = (index: number): Pick<IParsha, 'holy' | 'holyRanks'> => {
+/** Семь нестираемых Имён: особая ה — не Имя, в сумму не входит. */
+const SEVEN: readonly NameKey[] = NAME_KEYS.filter((key: NameKey): boolean => key !== 'he');
+
+/** Сумма семи Имён в главе. */
+const allNamesAt = (index: number): number => {
+    let sum = 0;
+    for (const key of SEVEN) sum += NAMES[key][index]!;
+    return sum;
+};
+
+/** Все Имена вместе по главам. */
+const ALL_NAMES: readonly number[] = NAMES.havaya.map((_: number, index: number): number => allNamesAt(index));
+
+/** Имена главы и места по ним, по каждому и по всем вместе. */
+const namesOf = (index: number): Pick<IParsha, 'holy' | 'holyRanks' | 'holyAll' | 'holyAllRank'> => {
     const counts = {} as Record<NameKey, number>;
     const ranks = {} as Record<NameKey, number>;
     for (const key of NAME_KEYS) {
         counts[key] = NAMES[key][index]!;
         ranks[key] = rankIn(NAMES[key], index);
     }
-    return {holy: counts, holyRanks: ranks};
+    return {holy: counts, holyRanks: ranks, holyAll: ALL_NAMES[index]!, holyAllRank: rankIn(ALL_NAMES, index)};
 };
 
 const MITZVA_KEYS: readonly MitzvaKey[] = ['mitzvot', 'positive', 'negative'];

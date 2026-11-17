@@ -15,13 +15,15 @@ export interface IHomeCardProps {
     onPick: (view: View) => void;
 }
 
+/** Светлая — строгая карточка с мягкой тенью; тёмная — неон. */
+const LIGHT = 'border-stone-300/70 hover:border-stone-400 hover:shadow-[0_16px_36px_-20px_rgba(41,37,36,0.5)]';
 const TONE: Record<CardTone, string> = {
-    cyan: 'border-cyan-500/40 text-cyan-800 hover:shadow-[0_0_40px_-8px_rgba(34,211,238,0.8)] dark:border-cyan-300/30 '
-        + 'dark:text-cyan-100',
-    amber: 'border-amber-500/40 text-amber-800 hover:shadow-[0_0_40px_-8px_rgba(251,191,36,0.8)] dark:border-amber-300/30 '
-        + 'dark:text-amber-100',
-    fuchsia: 'border-fuchsia-500/40 text-fuchsia-800 hover:shadow-[0_0_40px_-8px_rgba(217,70,239,0.8)] '
-        + 'dark:border-fuchsia-300/30 dark:text-fuchsia-100'
+    cyan: `${LIGHT} text-cyan-900 dark:border-cyan-300/30 dark:text-cyan-100 `
+        + 'dark:hover:shadow-[0_0_40px_-8px_rgba(34,211,238,0.8)]',
+    amber: `${LIGHT} text-amber-900 dark:border-amber-300/30 dark:text-amber-100 `
+        + 'dark:hover:shadow-[0_0_40px_-8px_rgba(251,191,36,0.8)]',
+    fuchsia: `${LIGHT} text-fuchsia-950 dark:border-fuchsia-300/30 dark:text-fuchsia-100 `
+        + 'dark:hover:shadow-[0_0_40px_-8px_rgba(217,70,239,0.8)]'
 };
 
 /** Большая стеклянная карточка входа в режим. */

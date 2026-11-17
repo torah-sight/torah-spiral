@@ -7,11 +7,12 @@ export interface IMeasure {
     rank: number;
 }
 
-/** Сколько в главе по мере (стихов, слов, букв, заповедей или раз стоит Имя) и её место по ней. */
+/** Сколько в главе по мере (стихов, слов, букв, заповедей, раз стоит Имя или все Имена) и её место по ней. */
 export const measure = (parsha: IParsha, unit: Measure): IMeasure => {
     if (unit === 'verses') return {count: parsha.verses, rank: parsha.sizeRank};
     if (unit === 'words') return {count: parsha.raw, rank: parsha.wordRank};
     if (unit === 'letters') return {count: parsha.letters, rank: parsha.letterRank};
+    if (unit === 'allNames') return {count: parsha.holyAll, rank: parsha.holyAllRank};
     if (unit === 'mitzvot' || unit === 'positive' || unit === 'negative') {
         return {count: parsha.mitzvot[unit], rank: parsha.mitzvaRanks[unit]};
     }

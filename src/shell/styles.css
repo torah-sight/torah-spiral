@@ -23,23 +23,25 @@
 }
 
 :root {
-    --ink: #0f172a;
-    --soft: #334155;
-    --mute: #64748b;
-    --faint: #94a3b8;
-    --line: rgb(15 23 42 / 0.12);
-    --line-strong: rgb(15 23 42 / 0.3);
-    --veil: rgb(15 23 42 / 0.04);
-    --page: #eef1f8;
-    --glass-from: rgb(255 255 255 / 0.75);
-    --glass-to: rgb(255 255 255 / 0.45);
-    --glass-edge: rgb(255 255 255 / 0.9);
-    --glass-shadow: 0 10px 30px -14px rgb(30 41 59 / 0.35);
-    --blob-a: rgb(34 211 238 / 0.22);
-    --blob-b: rgb(168 85 247 / 0.18);
-    --blob-c: rgb(244 63 94 / 0.14);
-    --glow: 0 0 10px color-mix(in srgb, currentColor 35%, transparent);
-    --panel: rgb(246 248 252 / 0.97);
+    /* Светлая — строгая: тёплая бумага, тёмные чернила, без неона. */
+    --ink: #1c1917;
+    --soft: #44403c;
+    --mute: #78716c;
+    --faint: #a8a29e;
+    --line: rgb(41 37 36 / 0.12);
+    --line-strong: rgb(41 37 36 / 0.28);
+    --veil: rgb(41 37 36 / 0.035);
+    --page: #f5f3ee;
+    --glass-from: rgb(255 255 255 / 0.9);
+    --glass-to: rgb(255 255 255 / 0.72);
+    --glass-edge: rgb(255 255 255 / 1);
+    --glass-shadow: 0 1px 2px rgb(41 37 36 / 0.06), 0 10px 26px -18px rgb(41 37 36 / 0.35);
+    --blob-a: rgb(214 196 160 / 0.18);
+    --blob-b: rgb(168 162 158 / 0.12);
+    --blob-c: rgb(202 176 132 / 0.12);
+    --glow: none;
+    --panel: rgb(252 251 248 / 0.98);
+    --selection: rgb(180 140 60 / 0.25);
     color-scheme: light;
 }
 
@@ -61,6 +63,7 @@
     --blob-c: rgb(244 63 94 / 0.14);
     --glow: 0 0 6px currentColor, 0 0 18px currentColor;
     --panel: rgb(17 22 38 / 0.97);
+    --selection: rgb(34 211 238 / 0.35);
     color-scheme: dark;
 }
 
@@ -97,7 +100,7 @@
     }
 
     ::selection {
-        background: rgb(34 211 238 / 0.35);
+        background: var(--selection);
     }
 }
 

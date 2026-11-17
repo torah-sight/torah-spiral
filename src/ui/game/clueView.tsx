@@ -5,9 +5,9 @@ import type {Locale} from '#src/i18n/locales.ts';
 import {MESSAGES} from '#src/i18n/messages/messages.ts';
 import {splitSentences} from '#src/i18n/format/splitSentences.ts';
 
-const HEBREW = 'neon-text font-hebrew text-3xl text-fuchsia-800 dark:text-fuchsia-100';
-const REF = 'font-hebrew text-2xl text-fuchsia-800 dark:text-fuchsia-100';
-const STORY = 'text-lg font-medium text-fuchsia-900 dark:text-fuchsia-100';
+const HEBREW = 'neon-text font-hebrew text-3xl text-stone-900 dark:text-fuchsia-100';
+const REF = 'font-hebrew text-2xl text-stone-900 dark:text-fuchsia-100';
+const STORY = 'text-lg font-medium text-stone-900 dark:text-fuchsia-100';
 const ROW = 'flex flex-wrap items-baseline gap-x-3';
 
 /** Название главы-ориентира: иврит и транслитерация. */

@@ -11,6 +11,7 @@ import type {Locale} from '#src/i18n/locales.ts';
 import {MESSAGES} from '#src/i18n/messages/messages.ts';
 import {prefsToken} from '#src/stores/prefs/prefsToken.ts';
 import {selectionToken} from '#src/stores/selection/selectionToken.ts';
+import {CloseButton} from '#src/ui/common/CloseButton.tsx';
 import {TONES} from '#src/ui/common/tones.ts';
 import {BookPortion} from './BookPortion.tsx';
 import {OVERLAY} from './overlay.ts';
@@ -62,18 +63,13 @@ export class BookDetail extends ScopedAntiHookComponent {
         return (
             <div role="dialog" aria-modal="true" onClick={this.onBackdrop} className={OVERLAY}>
                 <ScrollLock />
+                <CloseButton label={t.close} onClose={selection.close} />
                 <article className="panel w-full max-w-2xl rounded-2xl p-4 sm:p-6 lg:max-w-5xl">
-                    <div className="flex items-start justify-between gap-3">
-                        <div className={`text-sm ${tone.text}`}>
-                            {t.book} {index + 1} · {t.chapters}
-                            {' '}<bdi dir="ltr">{span.firstChapter}–{span.lastChapter}</bdi>
-                            {' · '}
-                            {t.portions} <bdi dir="ltr">{span.firstOrdinal}–{span.lastOrdinal}</bdi>
-                        </div>
-                        <button type="button" onClick={selection.close} className="cursor-pointer rounded-lg border
-                            border-line px-2 text-soft hover:border-line-strong hover:text-ink">
-                            {t.close} ✕
-                        </button>
+                    <div className={`text-sm ${tone.text}`}>
+                        {t.book} {index + 1} · {t.chapters}
+                        {' '}<bdi dir="ltr">{span.firstChapter}–{span.lastChapter}</bdi>
+                        {' · '}
+                        {t.portions} <bdi dir="ltr">{span.firstOrdinal}–{span.lastOrdinal}</bdi>
                     </div>
                     <div className="mt-1 flex flex-wrap items-baseline justify-between gap-x-4">
                         {locale === 'he' ? null : (

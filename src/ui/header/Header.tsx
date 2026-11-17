@@ -15,7 +15,7 @@ import {SizeSwitch} from './SizeSwitch.tsx';
 import {ThemeSwitch} from './ThemeSwitch.tsx';
 
 /** Градиент текста рисуется только в рамке элемента: нижний отступ — под хвосты «р», «у». */
-const TITLE = 'bg-gradient-to-r from-cyan-600 via-fuchsia-600 to-rose-600 bg-clip-text pb-[0.18em] text-3xl font-semibold '
+const TITLE = 'bg-gradient-to-r from-stone-900 via-amber-800 to-stone-900 bg-clip-text pb-[0.18em] text-3xl font-semibold '
     + 'tracking-tight text-transparent sm:text-5xl neon-text dark:from-cyan-200 dark:via-fuchsia-200 dark:to-rose-200';
 
 const TOP_BAR = 'glass flex flex-wrap items-center justify-between gap-2 rounded-2xl px-3 py-2';

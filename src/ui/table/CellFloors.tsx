@@ -55,8 +55,8 @@ export class CellFloors extends AntiHookComponent<ICellFloorsProps> {
         const size = large ? 'text-sm space-y-2' : 'text-[clamp(12px,1.7vw,16px)] leading-snug space-y-2';
         return (
             <div className={`mt-1 ${size}`}>
-                {this.caption(1)}
-                <Chips labels={labelsOf(parsha.names, locale)} className={chip} />
+                {/* В карточке имена — строкой таблицы над этажами (TallyLines). */}
+                {large ? null : <Chips labels={labelsOf(parsha.names, locale)} className={chip} />}
                 {/* В карточке на широком экране фразы и сюжет — два столбца. */}
                 <div className={large ? 'space-y-2 lg:grid lg:grid-cols-2 lg:gap-x-8 lg:space-y-0' : 'space-y-2'}>
                     <div>

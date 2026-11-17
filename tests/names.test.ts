@@ -60,6 +60,16 @@ describe('names.json', () => {
         expect(names.he.reduce((a: number, b: number): number => a + b, 0)).toBe(2);
         expect(names.havaya.flatMap((n: number, i: number): number[] => (n === 0 ? [i + 1] : []))).toEqual([10, 11]);
     });
+
+    it('«Все Имена» — сумма семи Имён без особой ה; место 1 у самой богатой Именами главы', () => {
+        for (const parsha of PARSHIOT) {
+            const seven = NAME_KEYS.filter((key) => key !== 'he').reduce((sum, key) => sum + parsha.holy[key], 0);
+            expect(parsha.holyAll).toBe(seven);
+        }
+        expect(PARSHIOT.reduce((sum: number, parsha: IParsha): number => sum + parsha.holyAll, 0)).toBe(2633);
+        const top = Math.max(...PARSHIOT.map((parsha: IParsha): number => parsha.holyAll));
+        for (const parsha of PARSHIOT) expect(parsha.holyAllRank === 1).toBe(parsha.holyAll === top);
+    });
 });
 
 describe('mitzvot', () => {

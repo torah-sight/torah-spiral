@@ -3,7 +3,7 @@
 
 `src/domain/density` collapses repeats in three layers: verbatim 5-word shingles across the whole Torah,
 a strict general paraphrase search (IDF-weighted overlap with a 3-verse window), and a curated list of
-known retellings (`known/knownRepeats.ts`) checked only against their source. Floor capacity is
+known retellings (`known/knownRepeats.ts`) checked only against their source. Level capacity is
 `rate × effective / mean effective`, at least 1.
 
 Text: Sefaria, “Tanach with Text Only” (public domain). It is used only at build time.
@@ -21,7 +21,7 @@ checked against Sefaria's per-portion map: 248 positive and 365 negative, 613 in
 
 `src/domain/density` схлопывает повторы в три слоя: дословные 5-словные шинглы по всей Торе, строгий
 общий поиск пересказов (пересечение с весами IDF в окне из 3 стихов) и выверенный список известных
-пересказов (`known/knownRepeats.ts`), которые сверяются только со своим источником. Ёмкость этажа —
+пересказов (`known/knownRepeats.ts`), которые сверяются только со своим источником. Ёмкость уровня —
 `rate × effective / mean effective`, не меньше 1.
 
 Текст: Sefaria, «Tanach with Text Only» (общественное достояние). Используется только при сборке.
@@ -39,7 +39,7 @@ checked against Sefaria's per-portion map: 248 positive and 365 negative, 613 in
 
 ‏`src/domain/density` מצמצם חזרות בשלוש שכבות: רצפים זהים של 5 מילים בכל התורה, חיפוש כללי ומחמיר של
 ניסוחים חוזרים (חפיפה משוקללת IDF בחלון של 3 פסוקים) ורשימה מבוקרת של סיפורים חוזרים ידועים
-(`known/knownRepeats.ts`), הנבדקים רק מול המקור שלהם. קיבולת הקומה היא
+(`known/knownRepeats.ts`), הנבדקים רק מול המקור שלהם. קיבולת הרמה היא
 `rate × effective / mean effective`, ולפחות 1.
 
 הטקסט: Sefaria, ‏“Tanach with Text Only” (נחלת הכלל). משמש רק בזמן הבנייה.

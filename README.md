@@ -9,8 +9,8 @@
 English ([/en/](https://torah-sight.github.io/torah-spiral/en/)); a language link opens the site in that language.
 
 A static single-page app for learning the Torah as a spiral, like a times table: a 6 × 9 table (or five
-book columns) of the 54 weekly portions, opened floor by floor — titles, key names, key phrases, a very
-short storyline. The capacity of every floor is proportional to the portion's density: its word count
+book columns) of the 54 weekly portions, opened level by level, ever deeper — titles, key names, key phrases, a very
+short storyline. The capacity of every level is proportional to the portion's density: its word count
 **after collapsing repeats** (verbatim repeats such as the twelve princes' offerings, and retellings
 such as Eliezer's story or Vayakhel–Pekudei).
 
@@ -20,7 +20,7 @@ copies for the language links (`dist/he/`, `dist/ru/`, `dist/en/`).
 
 ## Features
 
-- **Portions overview** — a 6 × 9 table or five book columns, opened floor by floor.
+- **Portions overview** — a 6 × 9 table or five book columns, opened level by level, ever deeper.
 - **Portion statistics** — portions ranked by the non-erasable Divine Names, by the mitzvot (Sefer
   HaChinuch: all, positive, negative) and by verses, words or letters.
 - **Game** — find a portion's place (by name, between, before, after) or recognise it by its story and
@@ -47,7 +47,7 @@ copies for the language links (`dist/he/`, `dist/ru/`, `dist/en/`).
 
 `src/domain/density` collapses repeats in three layers: verbatim 5-word shingles across the whole Torah,
 a strict general paraphrase search (IDF-weighted overlap with a 3-verse window), and a curated list of
-known retellings (`known/knownRepeats.ts`) checked only against their source. Floor capacity is
+known retellings (`known/knownRepeats.ts`) checked only against their source. Level capacity is
 `rate × effective / mean effective`, at least 1.
 
 Text: Sefaria, “Tanach with Text Only” (public domain). It is used only at build time.
