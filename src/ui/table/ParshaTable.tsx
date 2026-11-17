@@ -2,10 +2,12 @@ import {ScopedAntiHookComponent} from '@react-carburetor/core';
 import type {ReactNode} from 'react';
 import type {IParsha} from '#src/content/model/types.ts';
 import {PARSHIOT} from '#src/content/parshiot.ts';
+import {gameToken} from '#src/stores/game/gameToken.ts';
 import {navToken} from '#src/stores/nav/navToken.ts';
 import {prefsToken} from '#src/stores/prefs/prefsToken.ts';
 import {BookHeader} from './BookHeader.tsx';
 import {ParshaCell} from './ParshaCell.tsx';
+import {RoundTable} from './RoundTable.tsx';
 
 const BOOK_INDEXES = [0, 1, 2, 3, 4];
 
@@ -46,6 +48,10 @@ export class ParshaTable extends ScopedAntiHookComponent {
         const {layout, sizeBy} = this.useCarburetor(this.resolve(prefsToken));
         const {view} = this.useCarburetor(this.resolve(navToken));
         const sizes = view === 'sizes';
+        const game = this.useCarburetor(this.resolve(gameToken));
+        const inRound = view === 'game' && (game.status === 'playing' || game.status === 'done');
+        // Раунд не на всю Тору — только его главы, без пустых мест.
+        if (inRound && !game.setup.books.every(Boolean)) return <RoundTable books={game.setup.books} layout={layout} />;
         const books = !sizes && layout === 'books';
         const order = sizes ? BY_MEASURE[sizeBy] ?? BY_SIZE : PARSHIOT;
         return (
