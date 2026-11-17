@@ -14,6 +14,8 @@ import {MEASURES} from './size/measures.ts';
 
 const BOOK_INDEXES = [0, 1, 2, 3, 4];
 
+const ALL_BOOKS: readonly boolean[] = [true, true, true, true, true];
+
 /** Главы по мере: от первого места к последнему, равные — в порядке Торы. */
 const orderBy = (unit: Measure): [Measure, readonly IParsha[]] => {
     const byRank = (a: IParsha, b: IParsha): number =>
@@ -59,6 +61,8 @@ export class ParshaTable extends ScopedAntiHookComponent {
         const inRound = view === 'game' && (game.status === 'playing' || game.status === 'done');
         // Раунд не на всю Тору — только его главы, без пустых мест.
         if (inRound && !game.setup.books.every(Boolean)) return <RoundTable books={game.setup.books} layout={layout} />;
+        // Обзор 6 × 9: каждая книга со своим заголовком, её главы — с первой клетки справа.
+        if (view === 'overview' && layout !== 'books') return <RoundTable books={ALL_BOOKS} layout="grid" />;
         const books = !sizes && layout === 'books';
         const order = sizes ? BY_MEASURE[sizeBy] ?? BY_MEASURE.verses : PARSHIOT;
         return (

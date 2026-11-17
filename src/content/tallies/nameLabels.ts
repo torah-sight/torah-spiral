@@ -9,5 +9,6 @@ export const NAME_LABELS: Record<NameKey, string> = {
     shakai: 'ש־די',
     eloah: 'אלו־ה',
     yah: 'י־ה',
-    ehyeh: 'אהי״ה'
+    ehyeh: 'אהי״ה',
+    he: 'ה'
 };

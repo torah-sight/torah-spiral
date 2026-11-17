@@ -3,6 +3,7 @@ import type {ReactNode} from 'react';
 import {BOOKS} from '#src/content/books/bookMeta.ts';
 import type {IParsha} from '#src/content/model/types.ts';
 import {PARSHIOT} from '#src/content/parshiot.ts';
+import {gematria} from '#src/domain/gematria/gematria.ts';
 import {formatRange} from '#src/domain/ranges/formatRange.ts';
 import {sizeLabel} from '#src/i18n/format/size/sizeLabel.ts';
 import type {Measure} from '#src/i18n/format/size/units.ts';
@@ -25,6 +26,7 @@ export interface IParshaCellProps {
 /** Узкие клетки на телефоне: перенос длинных слов вместо вылезания за край. */
 const WRAP = 'text-start [overflow-wrap:anywhere] hyphens-auto transition';
 const TITLE = 'text-[clamp(18px,3.2vw,32px)] leading-tight';
+const GEMATRIA = 'text-[clamp(11px,1.4vw,13px)] leading-tight text-faint tabular-nums';
 const NUMBER = 'text-[13px] font-semibold opacity-80 sm:text-sm';
 const WRONG = 'ring-2 ring-rose-400/90 shadow-[0_0_24px_-4px_rgba(244,63,94,0.95)] animate-wrong';
 const FOUND = 'ring-4 ring-emerald-500 dark:ring-emerald-400 shadow-[0_0_28px_-4px_rgba(16,185,129,0.95)]';
@@ -56,12 +58,13 @@ interface IFace {
     sizes: boolean;
 }
 
-const isName = (unit: Measure): boolean => unit !== 'verses' && unit !== 'words' && unit !== 'letters';
+/** Мера-подсчёт (Имя или заповеди), а не размер главы. */
+const isTally = (unit: Measure): boolean => unit !== 'verses' && unit !== 'words' && unit !== 'letters';
 
-/** Градусники «Размеров»: выбранное Имя сверху, стихи и слова всегда, буквы — для этой меры; выбранная ярче. */
+/** Градусники «Размеров»: выбранный подсчёт сверху, стихи и слова всегда, буквы — для этой меры. */
 const gauges = (parsha: IParsha, unit: Measure, bar: string, locale: Locale): ReactNode => (
     <span className="mt-1.5 block space-y-1.5">
-        {isName(unit) ? <SizeGauge parsha={parsha} unit={unit} active bar={bar} locale={locale} /> : null}
+        {isTally(unit) ? <SizeGauge parsha={parsha} unit={unit} active bar={bar} locale={locale} /> : null}
         <SizeGauge parsha={parsha} unit="verses" active={unit === 'verses'} bar={bar} locale={locale} />
         <SizeGauge parsha={parsha} unit="words" active={unit === 'words'} bar={bar} locale={locale} />
         {unit === 'letters' ? <SizeGauge parsha={parsha} unit="letters" active bar={bar} locale={locale} /> : null}
@@ -77,7 +80,12 @@ const openFace = (parsha: IParsha, face: IFace): ReactNode => {
         <>
             <span className="flex items-start justify-between gap-1">
                 <span className={`${NUMBER} ${tone.text}`}>{parsha.ordinal}</span>
-                <span dir="rtl" className={`font-hebrew ${TITLE} ${tone.text}`}>{parsha.he}</span>
+                <span className="flex flex-col items-end">
+                    <span dir="rtl" className={`font-hebrew ${TITLE} ${tone.text}`}>{parsha.he}</span>
+                    <span title={MESSAGES[locale].gematria} className={GEMATRIA}>
+                        {MESSAGES[locale].gematriaShort} {gematria(parsha.he)}
+                    </span>
+                </span>
             </span>
             {locale === 'he' ? null : (
                 <span className="text-[clamp(13px,1.9vw,18px)] leading-tight text-ink">

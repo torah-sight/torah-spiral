@@ -6,6 +6,7 @@ import type {IToken} from '#src/domain/density/model/types.ts';
 import {LOCALES} from '#src/i18n/locales.ts';
 import {countWords} from '#src/i18n/format/countWords.ts';
 import {readFileSync} from 'node:fs';
+import {checkMitzvot} from './content/checkMitzvot.ts';
 import {countNames} from './content/countNames.ts';
 import {findTerm} from './content/findTerm.ts';
 import {uniquePhrases} from './content/uniquePhrases.ts';
@@ -78,6 +79,7 @@ const main = async (): Promise<void> => {
     if (JSON.stringify(JSON.parse(names)) !== JSON.stringify(countNames(await loadMasorah(), problems))) {
         problems.push('src/content/generated/names.json устарел: npm run names');
     }
+    await checkMitzvot(problems);
     if (problems.length > 0) {
         console.error(problems.join('\n'));
         process.exit(1);

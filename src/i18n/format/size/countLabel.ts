@@ -31,8 +31,20 @@ const timesLabel = (count: number, locale: Locale): string => {
     return `${count} ${count === 1 ? 'time' : 'times'}`;
 };
 
-/** Количество в мере: «176 стихов», «2266 words», «8632 אותיות», «12 раз». */
+const RU_MITZVOT: RuForms = ['заповедь', 'заповеди', 'заповедей'];
+
+const isMitzva = (unit: Measure): boolean => unit === 'mitzvot' || unit === 'positive' || unit === 'negative';
+
+/** Число заповедей: «74 заповеди», «1 mitzvah», «מצוה אחת». */
+const mitzvotLabel = (count: number, locale: Locale): string => {
+    if (locale === 'he') return count === 1 ? 'מצוה אחת' : `${count} מצוות`;
+    if (locale === 'ru') return `${count} ${ruForm(count, RU_MITZVOT)}`;
+    return `${count} ${count === 1 ? 'mitzvah' : 'mitzvot'}`;
+};
+
+/** Количество в мере: «176 стихов», «2266 words», «8632 אותיות», «12 раз», «74 заповеди». */
 export const countLabel = (count: number, unit: Measure, locale: Locale): string => {
+    if (isMitzva(unit)) return mitzvotLabel(count, locale);
     if (!isSize(unit)) return timesLabel(count, locale);
     if (locale === 'he') return `${count} ${HE[unit]}`;
     if (locale === 'ru') return `${count} ${ruForm(count, RU[unit])}`;

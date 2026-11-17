@@ -2,6 +2,7 @@ import {ScopedAntiHookComponent, bind} from '@react-carburetor/core';
 import type {MouseEvent, ReactNode, TouchEvent} from 'react';
 import {BOOKS} from '#src/content/books/bookMeta.ts';
 import {PARSHIOT} from '#src/content/parshiot.ts';
+import {gematria} from '#src/domain/gematria/gematria.ts';
 import {formatRange} from '#src/domain/ranges/formatRange.ts';
 import {sizeLabel} from '#src/i18n/format/size/sizeLabel.ts';
 import {MESSAGES} from '#src/i18n/messages/messages.ts';
@@ -14,6 +15,7 @@ import {CellFloors} from '#src/ui/table/CellFloors.tsx';
 import {DetailNav} from './DetailNav.tsx';
 import {OVERLAY} from './overlay.ts';
 import {ScrollLock} from './ScrollLock.tsx';
+import {TallyLines} from './TallyLines.tsx';
 
 /** Верхний этаж: имена, фразы и сюжет. */
 const ALL_FLOORS = 3;
@@ -142,9 +144,14 @@ export class ParshaDetail extends ScopedAntiHookComponent {
                                 {parsha.translit[locale]} <span className="text-mute">· «{parsha.title[locale]}»</span>
                             </p>
                         )}
-                        <h2 dir="rtl" className={`neon-text font-hebrew text-5xl leading-tight ${tone.text}`}>
-                            {parsha.he}
-                        </h2>
+                        <div className="flex flex-col items-end">
+                            <h2 dir="rtl" className={`neon-text font-hebrew text-5xl leading-tight ${tone.text}`}>
+                                {parsha.he}
+                            </h2>
+                            <span className="text-sm text-mute">
+                                {t.gematria}: <span className="tabular-nums text-ink">{gematria(parsha.he)}</span>
+                            </span>
+                        </div>
                     </div>
                     <section className="mt-3 rounded-xl border border-line bg-veil px-3 py-2">
                         <h3 className="text-sm uppercase tracking-widest text-mute">
@@ -159,6 +166,7 @@ export class ParshaDetail extends ScopedAntiHookComponent {
                         {' · '}
                         {sizeLabel(parsha.letters, parsha.letterRank, 'letters', locale)}
                     </p>
+                    <TallyLines parsha={parsha} locale={locale} chip={tone.chip} />
                     <CellFloors parsha={parsha} floor={floor} locale={locale} chip={tone.chip} large />
                     {floor < ALL_FLOORS ? <p className="mt-3 text-sm text-faint">{t.floorHint}</p> : null}
                 </article>

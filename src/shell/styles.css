@@ -86,6 +86,16 @@
         transition: background-color 0.3s, color 0.3s;
     }
 
+    /* Всё, что нажимается, — с пальцем; неактивное — нет. */
+    button:not(:disabled),
+    a[href],
+    [role='button'],
+    select,
+    summary,
+    label[for] {
+        cursor: pointer;
+    }
+
     ::selection {
         background: rgb(34 211 238 / 0.35);
     }

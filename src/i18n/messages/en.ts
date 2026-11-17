@@ -79,6 +79,16 @@ export const EN: IMessages = {
     homeGame: 'Find a portion’s place in the table, or guess the portion by story and key phrases.',
     homeChoose: 'Where shall we start?',
     sizeByLabel: 'Size',
-    namesLabel: 'Names',
-    nameHint: 'The holy Name {name}: how many times it stands in the portion (non-erasable occurrences only)'
+    namesLabel: 'Holy Names',
+    gematria: 'Gematria of the name',
+    gematriaShort: 'gem.',
+    nameHint: 'The holy Name {name}: how many times it stands in the portion (non-erasable occurrences only)',
+    heHint: 'The special letter ה: the small one in «בְּהִבָּרְאָם» (Genesis 2:4; Menachot 29b: «בה׳ בראם», the world was created with ה) and the large separate one in «הַ לַה׳» (Deuteronomy 32:6). Not one of the seven non-erasable Names',
+    mitzvotLabel: 'Mitzvot',
+    mitzvotAll: 'All',
+    mitzvotPositive: 'Positive',
+    mitzvotNegative: 'Negative',
+    mitzvotHint: 'How many mitzvot the portion holds per Sefer HaChinuch (the 613 as counted by Rambam)',
+    positiveHint: 'Positive commandments (מצות עשה) in the portion per Sefer HaChinuch',
+    negativeHint: 'Negative commandments (מצות לא תעשה) in the portion per Sefer HaChinuch'
 };

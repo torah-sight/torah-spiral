@@ -1,6 +1,6 @@
 import {ScopedAntiHookComponent, bind} from '@react-carburetor/core';
 import type {ReactNode} from 'react';
-import {NAME_LABELS} from '#src/content/names/nameLabels.ts';
+import {NAME_LABELS} from '#src/content/tallies/nameLabels.ts';
 import type {NameKey} from '#src/domain/names/types.ts';
 import type {Locale} from '#src/i18n/locales.ts';
 import {MESSAGES} from '#src/i18n/messages/messages.ts';
@@ -23,7 +23,7 @@ const nameButton = (key: NameKey, sizeBy: SizeBy, locale: Locale, onPick: (value
     />
 );
 
-/** Мера таблицы «Размеры»: сначала святые Имена (первое — четырёхбуквенное), затем стихи, слова, буквы. */
+/** Мера таблицы «Размеры»: святые Имена (первое — четырёхбуквенное), заповеди, затем стихи, слова, буквы. */
 export class SizeSwitch extends ScopedAntiHookComponent {
     /** Меняет меру. */
     @bind
@@ -31,7 +31,7 @@ export class SizeSwitch extends ScopedAntiHookComponent {
         this.resolve(prefsToken).setSizeBy(sizeBy);
     }
 
-    /** Две группы кнопок: Имена и размер. */
+    /** Три группы кнопок: Имена, заповеди, размер. */
     public render(): ReactNode {
         const {locale, sizeBy} = this.useCarburetor(this.resolve(prefsToken));
         const t = MESSAGES[locale];
@@ -47,6 +47,31 @@ export class SizeSwitch extends ScopedAntiHookComponent {
                     {nameButton('eloah', sizeBy, locale, this.pick)}
                     {nameButton('yah', sizeBy, locale, this.pick)}
                     {nameButton('ehyeh', sizeBy, locale, this.pick)}
+                    {nameButton('he', sizeBy, locale, this.pick)}
+                </div>
+                <div role="group" aria-label={t.mitzvotLabel} className={GROUP}>
+                    <span className={CAPTION}>{t.mitzvotLabel}</span>
+                    <ToggleButton
+                        value="mitzvot"
+                        active={sizeBy === 'mitzvot'}
+                        label={t.mitzvotAll}
+                        title={t.mitzvotHint}
+                        onPick={this.pick}
+                    />
+                    <ToggleButton
+                        value="positive"
+                        active={sizeBy === 'positive'}
+                        label={t.mitzvotPositive}
+                        title={t.positiveHint}
+                        onPick={this.pick}
+                    />
+                    <ToggleButton
+                        value="negative"
+                        active={sizeBy === 'negative'}
+                        label={t.mitzvotNegative}
+                        title={t.negativeHint}
+                        onPick={this.pick}
+                    />
                 </div>
                 <div role="group" aria-label={t.sizeByLabel} className={GROUP}>
                     <span className={CAPTION}>{t.sizeByLabel}</span>

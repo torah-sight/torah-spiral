@@ -5,12 +5,13 @@ import {EXODUS} from '#src/content/books/exodus.ts';
 import {GENESIS} from '#src/content/books/genesis.ts';
 import {LEVITICUS} from '#src/content/books/leviticus.ts';
 import {NUMBERS} from '#src/content/books/numbers.ts';
-import type {IOrigin, IParsha, IParshaText} from '#src/content/model/types.ts';
+import type {IOrigin, IParsha, IParshaText, MitzvaKey} from '#src/content/model/types.ts';
 import {DEUTERONOMY_ORIGINS} from '#src/content/origins/deuteronomy.ts';
 import {EXODUS_ORIGINS} from '#src/content/origins/exodus.ts';
 import {GENESIS_ORIGINS} from '#src/content/origins/genesis.ts';
 import {LEVITICUS_ORIGINS} from '#src/content/origins/leviticus.ts';
 import {NUMBERS_ORIGINS} from '#src/content/origins/numbers.ts';
+import {MITZVOT} from '#src/content/tallies/mitzvot.ts';
 import type {IRepeatSpan} from '#src/domain/density/model/types.ts';
 import {computeQuotas} from '#src/domain/density/quotas/computeQuotas.ts';
 import {NAME_KEYS} from '#src/domain/names/nameKeys.ts';
@@ -63,6 +64,27 @@ const namesOf = (index: number): Pick<IParsha, 'holy' | 'holyRanks'> => {
     return {holy: counts, holyRanks: ranks};
 };
 
+const MITZVA_KEYS: readonly MitzvaKey[] = ['mitzvot', 'positive', 'negative'];
+
+/** Заповеди главы: всего, повелевающие, запрещающие. */
+const mitzvotOf = (row: IDensityRow): Record<MitzvaKey, number> => {
+    const [positive, negative] = MITZVOT[row.slug] ?? [0, 0];
+    return {mitzvot: positive + negative, positive, negative};
+};
+
+const MITZVA_COUNTS = ROWS.map(mitzvotOf);
+
+/** Число заповедей вида `key` по всем главам. */
+const mitzvaColumn = (key: MitzvaKey): number[] =>
+    MITZVA_COUNTS.map((counts: Record<MitzvaKey, number>): number => counts[key]);
+
+/** Заповеди главы и места по ним. */
+const mitzvotAt = (index: number): Pick<IParsha, 'mitzvot' | 'mitzvaRanks'> => {
+    const ranks = {} as Record<MitzvaKey, number>;
+    for (const key of MITZVA_KEYS) ranks[key] = rankIn(mitzvaColumn(key), index);
+    return {mitzvot: MITZVA_COUNTS[index]!, mitzvaRanks: ranks};
+};
+
 const assemble = (row: IDensityRow, index: number): IParsha => {
     const text = TEXTS[index];
     const origin = ORIGINS[index];
@@ -74,7 +96,8 @@ const assemble = (row: IDensityRow, index: number): IParsha => {
     const letterRank = LETTER_ORDER.indexOf(row) + 1;
     const ranks = {sizeRank, wordRank, letterRank};
     const place = {index, ordinal: index + 1, range: parseRef(row.ref)};
-    return {...text, ...row, ...ranks, ...place, ...namesOf(index), quotas: QUOTAS[index]!, origin};
+    const tallies = {...namesOf(index), ...mitzvotAt(index)};
+    return {...text, ...row, ...ranks, ...place, ...tallies, quotas: QUOTAS[index]!, origin};
 };
 
 /** 54 недельные главы: контент, плотность, ёмкость этажей, диапазоны. */

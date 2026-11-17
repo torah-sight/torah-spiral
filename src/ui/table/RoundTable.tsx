@@ -8,7 +8,7 @@ import {ParshaCell} from './ParshaCell.tsx';
 
 /** Свойства таблицы раунда. */
 export interface IRoundTableProps {
-    /** Книги раунда (не все). */
+    /** Какие книги показать. */
     books: readonly boolean[];
     layout: Layout;
 }
@@ -58,7 +58,11 @@ const placedCells = (picked: readonly number[]): ReactNode[] => {
     return out;
 };
 
-/** Таблица раунда не на всю Тору: только его главы, без пустых мест, справа налево, с заголовками книг. */
+/**
+ * Таблица по книгам: только главы выбранных книг, без пустых мест, справа налево, с заголовками книг.
+ *
+ * Раунд игры не на всю Тору и «Обзор глав» в раскладке 6 × 9.
+ */
 export class RoundTable extends AntiHookComponent<IRoundTableProps> {
     /** Секции по книгам или столбцы выбранных книг. */
     public render(): ReactNode {

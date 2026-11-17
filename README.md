@@ -46,7 +46,7 @@ Text: Sefaria, “Tanach with Text Only” (public domain). It is used only at b
 Divine Names: only the non-erasable (sacred) occurrences are counted, per Masechet Soferim 4. The vocalized text
 “Miqra according to the Masorah” (Sefaria, CC BY-SA, from Hebrew Wikisource) tells אֲדֹנָי from אֲדֹנִי and
 אֵל from אֶל; profane occurrences with the same spelling (other gods, judges, Beth-El, “these”) are listed with
-their reasons in `src/content/names/nameFixes.ts`. Only the counts are stored.
+their reasons in `src/content/tallies/nameFixes.ts`. Only the counts are stored.
 
 ## Contributing
 

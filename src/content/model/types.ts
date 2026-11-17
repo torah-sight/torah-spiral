@@ -87,7 +87,14 @@ export interface IParsha extends IParshaText {
     holy: Record<NameKey, number>;
     /** Место по каждому Имени: 1 — больше всех; при равенстве место общее. */
     holyRanks: Record<NameKey, number>;
+    /** Заповеди по «Сефер а-Хинух»: всего, повелевающие, запрещающие. */
+    mitzvot: Record<MitzvaKey, number>;
+    /** Место по заповедям; при равенстве место общее. */
+    mitzvaRanks: Record<MitzvaKey, number>;
 }
+
+/** Топ заповедей: все, повелевающие (עשה), запрещающие (לא תעשה). */
+export type MitzvaKey = 'mitzvot' | 'positive' | 'negative';
 
 /** Охват книги: номера глав и номера недельных глав. */
 export interface IBookSpan {

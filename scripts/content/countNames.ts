@@ -1,9 +1,10 @@
-import {NAME_FIXES} from '#src/content/names/nameFixes.ts';
+import {NAME_FIXES} from '#src/content/tallies/nameFixes.ts';
 import type {IParsha} from '#src/content/model/types.ts';
 import {PARSHIOT} from '#src/content/parshiot.ts';
 import {maskVerse} from '#src/domain/names/maskVerse.ts';
 import {NAME_KEYS} from '#src/domain/names/nameKeys.ts';
 import {nameOf} from '#src/domain/names/nameOf.ts';
+import {specialHe} from '#src/domain/names/specialHe.ts';
 import type {INameFix, NameKey} from '#src/domain/names/types.ts';
 
 /** Святые вхождения каждого Имени по 54 главам. */
@@ -11,7 +12,8 @@ export type NameCounts = Record<NameKey, number[]>;
 
 /** Буквы Имени — поправка «+n» требует такое слово в стихе. */
 const LETTERS: Record<NameKey, string> = {
-    havaya: 'יהוה', elokim: 'אלה', el: 'אל', adnut: 'אדני', shakai: 'שדי', eloah: 'אלוה', yah: 'יה', ehyeh: 'אהיה'
+    havaya: 'יהוה', elokim: 'אלה', el: 'אל', adnut: 'אדני', shakai: 'שדי', eloah: 'אלוה', yah: 'יה', ehyeh: 'אהיה',
+    he: 'ה'
 };
 
 /** Только буквы, без огласовок. */
@@ -57,7 +59,9 @@ export const countNames = (books: readonly string[][][], problems: string[]): Na
                 const words = maskVerse(verse);
                 const index = parshaOf(book, c + 1, v + 1).index;
                 for (const key of NAME_KEYS) {
-                    const found = words.filter((word: string): boolean => nameOf(word) === key).length;
+                    const found = key === 'he'
+                        ? specialHe(verse)
+                        : words.filter((word: string): boolean => nameOf(word) === key).length;
                     const id = fixKey(book, `${c + 1}:${v + 1}`, key);
                     const fix = fixes.get(id);
                     if (fix !== undefined) used.add(id);

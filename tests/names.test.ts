@@ -1,8 +1,11 @@
 import {describe, expect, it} from '@rstest/core';
 import names from '#src/content/generated/names.json' with {type: 'json'};
+import type {IParsha} from '#src/content/model/types.ts';
+import {PARSHIOT} from '#src/content/parshiot.ts';
 import {maskVerse} from '#src/domain/names/maskVerse.ts';
 import {NAME_KEYS} from '#src/domain/names/nameKeys.ts';
 import {nameOf} from '#src/domain/names/nameOf.ts';
+import {specialHe} from '#src/domain/names/specialHe.ts';
 
 describe('nameOf', () => {
     it('узнаёт Имена по буквам и огласовке', () => {
@@ -42,10 +45,35 @@ describe('maskVerse', () => {
     });
 });
 
+describe('specialHe', () => {
+    it('считает маленькую и большую ה, но не другие буквы и не сноски', () => {
+        expect(specialHe('בְּ<small>הִ</small>בָּֽרְאָ֑ם')).toBe(1);
+        expect(specialHe('<big>הַ</big> לְיְהֹוָה֙<i class="footnote">(<big>הַֽ</big>לְיהֹוָה֙)</i>')).toBe(1);
+        expect(specialHe('<big>בְּ</big>רֵאשִׁ֖ית')).toBe(0);
+    });
+});
+
 describe('names.json', () => {
     it('по каждому Имени 54 главы; четырёхбуквенное Имя — 1820 раз, нет его только в Микец и Ваигаш', () => {
         for (const key of NAME_KEYS) expect(names[key]).toHaveLength(54);
         expect(names.havaya.reduce((a: number, b: number): number => a + b, 0)).toBe(1820);
+        expect(names.he.reduce((a: number, b: number): number => a + b, 0)).toBe(2);
         expect(names.havaya.flatMap((n: number, i: number): number[] => (n === 0 ? [i + 1] : []))).toEqual([10, 11]);
+    });
+});
+
+describe('mitzvot', () => {
+    it('по «Сефер а-Хинух»: 248 повелевающих и 365 запрещающих, больше всех — Ки Теце', () => {
+        let positive = 0;
+        let negative = 0;
+        for (const parsha of PARSHIOT) {
+            positive += parsha.mitzvot.positive;
+            negative += parsha.mitzvot.negative;
+            expect(parsha.mitzvot.mitzvot).toBe(parsha.mitzvot.positive + parsha.mitzvot.negative);
+        }
+        expect([positive, negative]).toEqual([248, 365]);
+        const top = PARSHIOT.find((parsha: IParsha): boolean => parsha.mitzvaRanks.mitzvot === 1);
+        expect(top?.slug).toBe('Ki Teitzei');
+        expect(top?.mitzvot).toEqual({mitzvot: 74, positive: 27, negative: 47});
     });
 });

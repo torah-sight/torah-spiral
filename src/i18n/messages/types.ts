@@ -93,6 +93,19 @@ export interface IMessages {
     sizeByLabel: string;
     /** «Имена» — группа мер святых Имён. */
     namesLabel: string;
+    /** «Гематрия» и её краткая подпись в клетке. */
+    gematria: string;
+    gematriaShort: string;
     /** Подсказка к мере Имени; `{name}` — Имя. */
     nameHint: string;
+    /** Подсказка к особой букве ה. */
+    heHint: string;
+    /** Группа и кнопки топа заповедей, подсказки к ним. */
+    mitzvotLabel: string;
+    mitzvotAll: string;
+    mitzvotPositive: string;
+    mitzvotNegative: string;
+    mitzvotHint: string;
+    positiveHint: string;
+    negativeHint: string;
 }
