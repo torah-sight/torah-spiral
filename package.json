@@ -44,7 +44,7 @@
   "devDependencies": {
     "@ktav-lang/polydoc": "0.1.1",
     "@react-carburetor/lint": "0.2.0",
-    "@rsbuild/core": "^2.0.0",
+    "@rsbuild/core": "^2.3.2",
     "@rsbuild/plugin-react": "^2.0.0",
     "@rstest/core": "^0.12.6",
     "@tailwindcss/postcss": "^4.1.0",
