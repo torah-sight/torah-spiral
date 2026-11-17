@@ -45,6 +45,16 @@ export interface IBook {
     tone: 'cyan' | 'violet' | 'amber' | 'emerald' | 'rose';
 }
 
+/** О книге: откуда название, что значит привычное имя, сюжет. */
+export interface IBookAbout {
+    /** Стих названия: «глава:стих». */
+    ref: string;
+    /** Откуда название и привычное имя. */
+    note: Localized;
+    /** Сюжет книги: предложения на каждом языке. */
+    story: Record<Locale, readonly string[]>;
+}
+
 /** Глава с расчётом плотности и ёмкостью этажей. */
 export interface IParsha extends IParshaText {
     /** Индекс 0–53. */

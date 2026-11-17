@@ -1,10 +1,12 @@
-import {ScopedAntiHookComponent} from '@react-carburetor/core';
+import {ScopedAntiHookComponent, bind} from '@react-carburetor/core';
 import type {ReactNode} from 'react';
 import {BOOKS} from '#src/content/books/bookMeta.ts';
 import {BOOK_SPANS} from '#src/content/bookSpans.ts';
 import {textDir} from '#src/i18n/format/textDir.ts';
 import {MESSAGES} from '#src/i18n/messages/messages.ts';
+import {gameToken} from '#src/stores/game/gameToken.ts';
 import {prefsToken} from '#src/stores/prefs/prefsToken.ts';
+import {selectionToken} from '#src/stores/selection/selectionToken.ts';
 import {TONES} from '#src/ui/common/tones.ts';
 
 /** Свойства заголовка книги. */
@@ -14,20 +16,37 @@ export interface IBookHeaderProps {
 
 /** Узкие колонки на телефоне: перенос длинных слов. */
 const BOX = 'glass min-w-0 overflow-hidden rounded-xl border bg-gradient-to-b to-transparent px-2 py-1.5 '
-    + '[overflow-wrap:anywhere] hyphens-auto';
+    + 'text-start [overflow-wrap:anywhere] hyphens-auto';
+
+/** Кликабельный заголовок: палец и подсветка при наведении. */
+const CLICKABLE = 'cursor-pointer transition hover:brightness-110 hover:shadow-[0_0_20px_-8px_currentColor]';
 
 /** Книга: иврит, транслитерация, буквальный перевод, привычное имя, главы и номера недельных. */
 export class BookHeader extends ScopedAntiHookComponent<IBookHeaderProps> {
-    /** Заголовок книги на стекле с градиентом её цвета. */
+    /** Открывает карточку книги. */
+    @bind
+    protected onClick(): void {
+        this.resolve(selectionToken).openBook(this.props.book);
+    }
+
+    /** Заголовок книги на стекле с градиентом её цвета; вне идущего раунда — кнопка карточки книги. */
     public render(): ReactNode {
         const {book} = this.props;
         const {locale} = this.useCarburetor(this.resolve(prefsToken));
+        // В раунде карточка книги подсказала бы ответы: главы по порядку.
+        const playing = this.useCarburetor(this.resolve(gameToken)).status === 'playing';
         const meta = BOOKS[book]!;
         const span = BOOK_SPANS[book]!;
         const t = MESSAGES[locale];
         const tone = TONES[meta.tone].head;
+        const Tag = playing ? 'div' : 'button';
         return (
-            <div dir={textDir(locale)} className={`${BOX} ${tone}`}>
+            <Tag
+                type={playing ? undefined : 'button'}
+                onClick={playing ? undefined : this.onClick}
+                dir={textDir(locale)}
+                className={`${BOX} ${tone} ${playing ? '' : CLICKABLE}`}
+            >
                 <div dir="rtl" className="font-hebrew text-lg leading-tight sm:text-2xl">{meta.he}</div>
                 {locale === 'he' ? null : (
                     <div className="text-[clamp(13px,1.9vw,18px)] leading-tight">
@@ -39,7 +58,7 @@ export class BookHeader extends ScopedAntiHookComponent<IBookHeaderProps> {
                     {' · '}
                     {t.portions} <bdi dir="ltr">{span.firstOrdinal}–{span.lastOrdinal}</bdi>
                 </div>
-            </div>
+            </Tag>
         );
     }
 }

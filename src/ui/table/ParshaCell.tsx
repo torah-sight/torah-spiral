@@ -151,8 +151,8 @@ export class ParshaCell extends ScopedAntiHookComponent<IParshaCellProps> {
                 aria-hidden={outside}
                 dir={textDir(locale)}
                 tabIndex={outside ? -1 : undefined}
-                className={`glass relative flex min-h-16 min-w-0 flex-col overflow-hidden rounded-xl border p-1 ${WRAP}
-                    duration-200 sm:min-h-20 sm:p-2 ${tone.cell} ${state}`}
+                className={`glass relative flex min-h-16 min-w-0 cursor-pointer flex-col overflow-hidden rounded-xl
+                    border p-1 ${WRAP} duration-200 sm:min-h-20 sm:p-2 ${tone.cell} ${state}`}
             >
                 {hidden ? hiddenFace(parsha, face, tone.text) : openFace(parsha, face)}
                 {inGame && guessed && !wrong ? GUESSED_MARK : null}

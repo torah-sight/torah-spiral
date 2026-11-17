@@ -1,9 +1,11 @@
 import {Carburetor, bind} from '@react-carburetor/core';
 
-/** Открытая карточка главы. */
+/** Открытая карточка: глава или книга. */
 export interface ISelection {
     /** Индекс главы 0–53 или null. */
     open: number | null;
+    /** Индекс книги 0–4 или null. */
+    book: number | null;
 }
 
 /** Последний индекс: 54 недельные главы. */
@@ -11,6 +13,12 @@ const LAST = 53;
 
 const setOpen = (draft: ISelection, open: number | null): void => {
     draft.open = open;
+    draft.book = null;
+};
+
+const setBook = (draft: ISelection, book: number): void => {
+    draft.open = null;
+    draft.book = book;
 };
 
 const stepOpen = (draft: ISelection, delta: number): void => {
@@ -18,16 +26,21 @@ const stepOpen = (draft: ISelection, delta: number): void => {
     draft.open = Math.min(LAST, Math.max(0, draft.open + delta));
 };
 
-/** Какая глава раскрыта в карточке. */
+/** Какая глава или книга раскрыта в карточке. */
 export class SelectionStore extends Carburetor<ISelection> {
     /** Ничего не открыто. */
     public constructor() {
-        super({open: null});
+        super({open: null, book: null});
     }
 
-    /** Открывает карточку главы. */
+    /** Открывает карточку главы (карточка книги закрывается). */
     public openParsha(index: number): void {
         this.update(setOpen, index);
+    }
+
+    /** Открывает карточку книги. */
+    public openBook(book: number): void {
+        this.update(setBook, book);
     }
 
     /** Листает открытую карточку: +1 — следующая глава, −1 — предыдущая; на краях стоит. */
@@ -35,7 +48,7 @@ export class SelectionStore extends Carburetor<ISelection> {
         this.update(stepOpen, delta);
     }
 
-    /** Закрывает карточку. */
+    /** Закрывает любую карточку. */
     @bind
     public close(): void {
         this.update(setOpen, null);

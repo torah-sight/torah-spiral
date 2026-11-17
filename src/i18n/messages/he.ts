@@ -19,6 +19,7 @@ export const HE: IMessages = {
     parsha: 'פרשה',
     book: 'ספר',
     nameOrigin: 'על שם הפרשה',
+    bookStory: 'עלילת הספר',
     close: 'סגירה',
     prevParsha: 'הפרשה הקודמת',
     nextParsha: 'הפרשה הבאה',

@@ -1,5 +1,5 @@
 import {ScopedAntiHookComponent, bind} from '@react-carburetor/core';
-import type {MouseEvent, ReactNode, TouchEvent, WheelEvent} from 'react';
+import type {MouseEvent, ReactNode, TouchEvent} from 'react';
 import {BOOKS} from '#src/content/books/bookMeta.ts';
 import {PARSHIOT} from '#src/content/parshiot.ts';
 import {formatRange} from '#src/domain/ranges/formatRange.ts';
@@ -11,43 +11,30 @@ import {selectionToken} from '#src/stores/selection/selectionToken.ts';
 import {TONES} from '#src/ui/common/tones.ts';
 import {CellFloors} from '#src/ui/table/CellFloors.tsx';
 import {DetailNav} from './DetailNav.tsx';
+import {OVERLAY} from './overlay.ts';
+import {ScrollLock} from './ScrollLock.tsx';
 
-/** Пауза колеса, после которой начинается новый жест: один жест — одна глава. */
-const GESTURE_GAP_MS = 180;
+/** id фона карточки: прокрутка в начало при смене главы. */
+const DIALOG_ID = 'parsha-dialog';
 
 /** Свайп: сдвиг пальца по горизонтали не меньше этого и заметно больше вертикального. */
 const SWIPE_PX = 60;
 
-/** Можно ли ещё прокрутить карточку в эту сторону. */
-const canScroll = (box: HTMLElement, down: boolean): boolean =>
-    down ? box.scrollTop + box.clientHeight < box.scrollHeight - 1 : box.scrollTop > 0;
-
-/** Карточка главы поверх таблицы: размер и все открытые этажи крупно; колесо листает главы. */
+/** Карточка главы поверх таблицы: размер и все открытые этажи крупно; стрелки и свайп листают главы. */
 export class ParshaDetail extends ScopedAntiHookComponent {
-    /** Время последнего события колеса. */
-    private lastWheel = 0;
     /** Начало касания для свайпа. */
     private touchX = 0;
     private touchY = 0;
-    /** Escape закрывает карточку. */
+    /** Escape закрывает карточку главы или книги; новая глава открывается с начала. */
     protected useEffects(): void {
         this.useEffect('escape', this.listenEscape, []);
-        const open = this.resolve(selectionToken).getData().open !== null;
-        this.useEffect('scroll-lock', this.lockScroll, [open]);
+        this.useEffect('scroll-top', this.scrollTop, [this.resolve(selectionToken).getData().open]);
     }
 
-    /** Пока карточка открыта, страница под ней не прокручивается. */
+    /** Новая глава открывается с начала: верх карточки всегда на одной высоте. */
     @bind
-    protected lockScroll(): (() => void) | undefined {
-        if (this.resolve(selectionToken).getData().open === null) return undefined;
-        document.documentElement.classList.add('overflow-hidden');
-        return this.unlockScroll;
-    }
-
-    /** Возвращает прокрутку страницы. */
-    @bind
-    protected unlockScroll(): void {
-        document.documentElement.classList.remove('overflow-hidden');
+    protected scrollTop(): void {
+        document.getElementById(DIALOG_ID)?.scrollTo({top: 0});
     }
 
     /** Подписка на Escape; отписка — при размонтировании. */
@@ -95,27 +82,12 @@ export class ParshaDetail extends ScopedAntiHookComponent {
         const dy = touch.clientY - this.touchY;
         if (Math.abs(dx) < SWIPE_PX || Math.abs(dx) < Math.abs(dy) * 1.5) return;
         this.flip(dx > 0 ? 1 : -1);
-        event.currentTarget.scrollTop = 0;
     }
 
     /** Клик по фону закрывает, по панели — нет. */
     @bind
     protected onBackdrop(event: MouseEvent<HTMLDivElement>): void {
         if (event.target === event.currentTarget) this.resolve(selectionToken).close();
-    }
-
-    /** Колесо: длинная карточка сначала прокручивается, у края — следующая или предыдущая глава. */
-    @bind
-    protected onWheel(event: WheelEvent<HTMLDivElement>): void {
-        const now = Date.now();
-        const fresh = now - this.lastWheel > GESTURE_GAP_MS;
-        this.lastWheel = now;
-        if (!fresh || event.deltaY === 0) return;
-        const box = event.currentTarget;
-        const down = event.deltaY > 0;
-        if (canScroll(box, down)) return;
-        this.flip(down ? 1 : -1);
-        box.scrollTop = 0;
     }
 
     /** Модальная карточка или ничего. */
@@ -130,15 +102,18 @@ export class ParshaDetail extends ScopedAntiHookComponent {
         const t = MESSAGES[locale];
         return (
             <div
+                id={DIALOG_ID}
                 role="dialog"
                 aria-modal="true"
                 onClick={this.onBackdrop}
-                onWheel={this.onWheel}
                 onTouchStart={this.onTouchStart}
                 onTouchEnd={this.onTouchEnd}
-                className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto overscroll-contain bg-slate-900/25 dark:bg-black/60 p-3 backdrop-blur-sm sm:p-8"
+                className={OVERLAY}
             >
+                <ScrollLock />
                 <article className="panel w-full max-w-2xl rounded-2xl p-4 sm:p-6 lg:max-w-5xl">
+                    {/* Стрелки сверху: при листании они не сдвигаются, щёлкать можно не двигая мышь. */}
+                    <DetailNav index={open} />
                     <div className="flex items-start justify-between gap-3">
                         <div className={`text-sm ${tone.text}`}>
                             {t.parsha} {parsha.ordinal} · <bdi dir="ltr">{formatRange(parsha.range)}</bdi>
@@ -147,8 +122,8 @@ export class ParshaDetail extends ScopedAntiHookComponent {
                                 {locale === 'he' ? null : ` · ${book.translit[locale]} · ${book.common[locale]}`}
                             </div>
                         </div>
-                        <button type="button" onClick={selection.close} className="rounded-lg border border-line px-2
-                            text-soft hover:border-line-strong hover:text-ink">
+                        <button type="button" onClick={selection.close} className="cursor-pointer rounded-lg border
+                            border-line px-2 text-soft hover:border-line-strong hover:text-ink">
                             {t.close} ✕
                         </button>
                     </div>
@@ -178,7 +153,6 @@ export class ParshaDetail extends ScopedAntiHookComponent {
                     </p>
                     <CellFloors parsha={parsha} floor={floor} locale={locale} chip={tone.chip} large />
                     {floor < 3 ? <p className="mt-3 text-sm text-faint">{t.floorHint}</p> : null}
-                    <DetailNav index={open} />
                 </article>
             </div>
         );

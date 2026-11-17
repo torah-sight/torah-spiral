@@ -19,6 +19,7 @@ export const RU: IMessages = {
     parsha: 'Глава',
     book: 'Книга',
     nameOrigin: 'О названии',
+    bookStory: 'Сюжет книги',
     close: 'Закрыть',
     prevParsha: 'Предыдущая глава',
     nextParsha: 'Следующая глава',

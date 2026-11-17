@@ -5,6 +5,7 @@ import {MESSAGES} from '#src/i18n/messages/messages.ts';
 import {textDir} from '#src/i18n/format/textDir.ts';
 import {prefsToken} from '#src/stores/prefs/prefsToken.ts';
 import {Footer} from './common/Footer.tsx';
+import {BookDetail} from './detail/BookDetail.tsx';
 import {ParshaDetail} from './detail/ParshaDetail.tsx';
 import {GameBar} from './game/GameBar.tsx';
 import {GameSetup} from './game/GameSetup.tsx';
@@ -14,7 +15,7 @@ import {Home} from './home/Home.tsx';
 import {navToken} from '#src/stores/nav/navToken.ts';
 import {ParshaTable} from './table/ParshaTable.tsx';
 
-/** Приложение: шапка, стартовый экран или раздел (таблица, игра), карточка главы. */
+/** Приложение: шапка, стартовый экран или раздел (таблица, игра), карточки главы и книги. */
 export class App extends ScopedAntiHookComponent {
     /** Язык, направление и тема документа следуют настройкам. */
     protected useEffects(): void {
@@ -56,6 +57,7 @@ export class App extends ScopedAntiHookComponent {
                 )}
                 <Footer />
                 <ParshaDetail />
+                <BookDetail />
             </div>
         );
     }

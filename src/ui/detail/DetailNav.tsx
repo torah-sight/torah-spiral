@@ -13,8 +13,8 @@ export interface IDetailNavProps {
     index: number;
 }
 
-const ARROW = 'flex min-w-0 items-center gap-2 rounded-lg border border-line px-3 py-1.5 text-sm text-soft transition '
-    + 'hover:border-line-strong hover:text-ink';
+const ARROW = 'flex min-w-0 cursor-pointer items-center gap-2 rounded-lg border border-line px-3 py-1.5 text-sm '
+    + 'text-soft transition hover:border-line-strong hover:text-ink';
 
 const nameOf = (parsha: IParsha, locale: Locale): string =>
     `${parsha.ordinal} · ${locale === 'he' ? parsha.he : parsha.translit[locale]}`;
@@ -43,7 +43,7 @@ export class DetailNav extends ScopedAntiHookComponent<IDetailNavProps> {
         const prev = PARSHIOT[index - 1];
         const next = PARSHIOT[index + 1];
         return (
-            <nav dir="rtl" className="mt-5 flex items-center justify-between gap-2 border-t border-line pt-3">
+            <nav dir="rtl" className="mb-3 flex items-center justify-between gap-2 border-b border-line pb-3">
                 {prev === undefined ? <span /> : (
                     <button type="button" onClick={this.prev} aria-label={t.prevParsha} className={ARROW}>
                         <span aria-hidden className="text-lg">→</span>

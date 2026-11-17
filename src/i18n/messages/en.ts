@@ -19,6 +19,7 @@ export const EN: IMessages = {
     parsha: 'Portion',
     book: 'Book',
     nameOrigin: 'About the name',
+    bookStory: 'The story of the book',
     close: 'Close',
     prevParsha: 'Previous portion',
     nextParsha: 'Next portion',
