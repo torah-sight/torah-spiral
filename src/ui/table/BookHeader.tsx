@@ -20,6 +20,9 @@ export interface IBookHeaderProps {
 const BOX = 'glass min-w-0 overflow-hidden rounded-xl border bg-gradient-to-b to-transparent px-2 py-1.5 '
     + 'text-start [overflow-wrap:anywhere] hyphens-auto';
 
+const HEBREW = 'font-hebrew text-lg leading-tight sm:text-2xl';
+const LINE = 'text-[clamp(13px,1.9vw,18px)] leading-tight';
+
 /** Компактная: иврит справа, подписи рядом; ширина — по содержимому. */
 const COMPACT = 'flex w-fit max-w-full items-center gap-3 px-3';
 
@@ -53,11 +56,18 @@ export class BookHeader extends ScopedAntiHookComponent<IBookHeaderProps> {
                 dir={compact ? 'rtl' : textDir(locale)}
                 className={`${BOX} ${tone} ${compact ? COMPACT : ''} ${playing ? '' : CLICKABLE}`}
             >
-                <div dir="rtl" className="font-hebrew text-lg leading-tight sm:text-2xl">{meta.he}</div>
+                {compact ? <div dir="rtl" className={HEBREW}>{meta.he}</div> : (
+                    // Столбец: транслитерация слева в одну строку с ивритом справа.
+                    <div className="flex flex-wrap items-baseline justify-between gap-x-2">
+                        {locale === 'he' ? null : <span className={LINE}>{meta.translit[locale]}</span>}
+                        <span dir="rtl" className={`ml-auto ${HEBREW}`}>{meta.he}</span>
+                    </div>
+                )}
                 <div dir={textDir(locale)}>
                     {locale === 'he' ? null : (
-                        <div className="text-[clamp(13px,1.9vw,18px)] leading-tight">
-                            {meta.translit[locale]} · «{meta.literal[locale]}» · {meta.common[locale]}
+                        <div className={LINE}>
+                            {compact ? `${meta.translit[locale]} · ` : null}
+                            «{meta.literal[locale]}» · {meta.common[locale]}
                         </div>
                     )}
                     <div className="text-[clamp(12px,1.6vw,15px)] text-mute">

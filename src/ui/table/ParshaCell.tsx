@@ -27,6 +27,7 @@ export interface IParshaCellProps {
 const WRAP = 'text-start [overflow-wrap:anywhere] hyphens-auto transition';
 const TITLE = 'text-[clamp(18px,3.2vw,32px)] leading-tight';
 const GEMATRIA = 'text-[clamp(11px,1.4vw,13px)] leading-tight text-faint tabular-nums';
+const TRANSLIT = 'min-w-0 text-[clamp(13px,1.9vw,18px)] leading-tight text-ink';
 const NUMBER = 'text-[13px] font-semibold opacity-80 sm:text-sm';
 const WRONG = 'ring-2 ring-rose-400/90 shadow-[0_0_24px_-4px_rgba(244,63,94,0.95)] animate-wrong';
 const FOUND = 'ring-4 ring-emerald-500 dark:ring-emerald-400 shadow-[0_0_28px_-4px_rgba(16,185,129,0.95)]';
@@ -78,9 +79,13 @@ const openFace = (parsha: IParsha, face: IFace): ReactNode => {
     const tone = TONES[BOOKS[parsha.book]!.tone];
     return (
         <>
-            <span className="flex items-start justify-between gap-1">
-                <span className={`${NUMBER} ${tone.text}`}>{parsha.ordinal}</span>
-                <span className="flex flex-col items-end">
+            {/* Номер и транслитерация слева — в одну строку с ивритом справа. */}
+            <span className="flex flex-wrap items-baseline justify-between gap-x-1.5">
+                <span className="flex min-w-0 items-baseline gap-1.5">
+                    <span className={`${NUMBER} ${tone.text}`}>{parsha.ordinal}</span>
+                    {locale === 'he' ? null : <span className={TRANSLIT}>{parsha.translit[locale]}</span>}
+                </span>
+                <span className="ms-auto flex flex-col items-end">
                     <span dir="rtl" className={`font-hebrew ${TITLE} ${tone.text}`}>{parsha.he}</span>
                     <span title={MESSAGES[locale].gematria} className={GEMATRIA}>
                         {MESSAGES[locale].gematriaShort} {gematria(parsha.he)}
@@ -88,9 +93,7 @@ const openFace = (parsha: IParsha, face: IFace): ReactNode => {
                 </span>
             </span>
             {locale === 'he' ? null : (
-                <span className="text-[clamp(13px,1.9vw,18px)] leading-tight text-ink">
-                    {parsha.translit[locale]} <span className="text-mute">· «{parsha.title[locale]}»</span>
-                </span>
+                <span className="text-[clamp(13px,1.9vw,18px)] leading-tight text-mute">«{parsha.title[locale]}»</span>
             )}
             <span className="text-[clamp(12px,1.6vw,15px)] leading-tight text-faint">
                 <bdi dir="ltr">{formatRange(parsha.range)}</bdi>
