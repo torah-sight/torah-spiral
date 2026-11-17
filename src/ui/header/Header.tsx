@@ -56,11 +56,11 @@ export class Header extends ScopedAntiHookComponent {
                         <LocaleSwitch />
                     </div>
                 </div>
-                <div className="mt-4">
+                <div className="mt-4 text-center">
                     <h1>
                         <button type="button" onClick={this.goHome} className={TITLE}>{t.appTitle}</button>
                     </h1>
-                    <p className="mt-1 max-w-2xl text-sm text-mute">{t.tagline}</p>
+                    <p className="mx-auto mt-1 max-w-2xl text-sm text-mute">{t.tagline}</p>
                 </div>
                 {panel === null ? null : (
                     <nav className="glass mt-4 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 rounded-2xl px-3 py-2.5">

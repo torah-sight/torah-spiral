@@ -46,8 +46,6 @@ export interface IMessages {
     chapters: string;
     /** «Недельные главы 1–12». */
     portions: string;
-    /** Подсказка: на нижнем этаже карточка короткая. */
-    floorHint: string;
     hidden: string;
     theme: string;
     themeLight: string;

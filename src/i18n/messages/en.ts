@@ -38,7 +38,6 @@ export const EN: IMessages = {
     footerText: 'Texts for the calculations — Sefaria: the Torah “Tanach with Text Only” (Public Domain), the vocalized “Miqra according to the Masorah” (CC BY-SA); mitzvot — Sefer HaChinuch.',
     chapters: 'Chapters',
     portions: 'Weekly portions',
-    floorHint: 'Go up a level to open the portion more deeply.',
     hidden: 'Hidden until answered',
     theme: 'Theme',
     themeLight: 'Light',

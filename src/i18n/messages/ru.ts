@@ -38,7 +38,6 @@ export const RU: IMessages = {
     footerText: 'Тексты для расчётов — Sefaria: Тора «Tanach with Text Only» (Public Domain), огласованная «Miqra according to the Masorah» (CC BY-SA); заповеди — «Сефер а-Хинух».',
     chapters: 'Главы',
     portions: 'Недельные главы',
-    floorHint: 'Поднимитесь на этаж выше, чтобы раскрыть главу глубже.',
     hidden: 'Скрыто до ответа',
     theme: 'Тема',
     themeLight: 'Светлая',

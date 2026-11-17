@@ -17,3 +17,7 @@ updates:
         dependency-type: development
       runtime:
         dependency-type: production
+    ignore:
+      # Типы Node — в версии рантайма (Node 24 в CI и engines), без мажорных скачков.
+      - dependency-name: "@types/node"
+        update-types: ["version-update:semver-major"]

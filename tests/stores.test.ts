@@ -71,12 +71,27 @@ describe('SelectionStore', () => {
     it('карточка книги и карточка главы не открыты вместе', () => {
         const selection = new SelectionStore();
         selection.openBook(2);
-        expect(selection.getData()).toEqual({open: null, book: 2});
+        expect(selection.getData()).toEqual({open: null, book: 2, floor: null});
         selection.openParsha(24);
-        expect(selection.getData()).toEqual({open: 24, book: null});
+        expect(selection.getData()).toEqual({open: 24, book: null, floor: null});
         selection.openBook(4);
         selection.close();
-        expect(selection.getData()).toEqual({open: null, book: null});
+        expect(selection.getData()).toEqual({open: null, book: null, floor: null});
+    });
+
+    it('этаж карточки держится при листании и сбрасывается при новой карточке', () => {
+        const selection = new SelectionStore();
+        selection.openParsha(10);
+        selection.setFloor(1);
+        selection.step(1);
+        expect(selection.getData().floor).toBe(1);
+        selection.setFloor(9);
+        expect(selection.getData().floor).toBe(3);
+        selection.openParsha(20);
+        expect(selection.getData().floor).toBeNull();
+        selection.setFloor(2);
+        selection.close();
+        expect(selection.getData().floor).toBeNull();
     });
 });
 

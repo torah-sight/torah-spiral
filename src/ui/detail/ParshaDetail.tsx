@@ -10,6 +10,7 @@ import {gameToken} from '#src/stores/game/gameToken.ts';
 import {navToken} from '#src/stores/nav/navToken.ts';
 import {prefsToken} from '#src/stores/prefs/prefsToken.ts';
 import {selectionToken} from '#src/stores/selection/selectionToken.ts';
+import {FloorButtons} from '#src/ui/common/FloorButtons.tsx';
 import {TONES} from '#src/ui/common/tones.ts';
 import {CellFloors} from '#src/ui/table/CellFloors.tsx';
 import {DetailNav} from './DetailNav.tsx';
@@ -99,13 +100,14 @@ export class ParshaDetail extends ScopedAntiHookComponent {
     /** Модальная карточка или ничего. */
     public render(): ReactNode {
         const selection = this.resolve(selectionToken);
-        const {open} = this.useCarburetor(selection);
+        const {open, floor: picked} = this.useCarburetor(selection);
         if (open === null) return null;
         const prefs = this.useCarburetor(this.resolve(prefsToken));
         const {locale} = prefs;
-        // Этажи выбираются только в «Обзоре»; из «Статистики» и игры карточка открывается целиком.
+        // Карточка открывается на этаже таблицы в «Обзоре», а из «Статистики» и игры — целиком;
+        // дальше этаж меняется прямо в карточке.
         const overview = this.useCarburetor(this.resolve(navToken)).view === 'overview';
-        const floor = overview ? prefs.floor : ALL_FLOORS;
+        const floor = picked ?? (overview ? prefs.floor : ALL_FLOORS);
         const parsha = PARSHIOT[open]!;
         const book = BOOKS[parsha.book]!;
         const tone = TONES[book.tone];
@@ -167,8 +169,10 @@ export class ParshaDetail extends ScopedAntiHookComponent {
                         {sizeLabel(parsha.letters, parsha.letterRank, 'letters', locale)}
                     </p>
                     <TallyLines parsha={parsha} locale={locale} chip={tone.chip} />
+                    <div className="mt-3 border-t border-line pt-3">
+                        <FloorButtons floor={floor} locale={locale} onPick={selection.setFloor} />
+                    </div>
                     <CellFloors parsha={parsha} floor={floor} locale={locale} chip={tone.chip} large />
-                    {floor < ALL_FLOORS ? <p className="mt-3 text-sm text-faint">{t.floorHint}</p> : null}
                 </article>
             </div>
         );

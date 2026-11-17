@@ -6,7 +6,12 @@ export interface ISelection {
     open: number | null;
     /** Индекс книги 0–4 или null. */
     book: number | null;
+    /** Этаж, выбранный в карточке главы; null — этаж по умолчанию (таблицы или верхний). */
+    floor: number | null;
 }
+
+/** Верхний этаж. */
+const TOP_FLOOR = 3;
 
 /** Последний индекс: 54 недельные главы. */
 const LAST = 53;
@@ -14,11 +19,17 @@ const LAST = 53;
 const setOpen = (draft: ISelection, open: number | null): void => {
     draft.open = open;
     draft.book = null;
+    draft.floor = null;
 };
 
 const setBook = (draft: ISelection, book: number): void => {
     draft.open = null;
     draft.book = book;
+    draft.floor = null;
+};
+
+const setFloor = (draft: ISelection, floor: number): void => {
+    draft.floor = Math.min(TOP_FLOOR, Math.max(0, Math.round(floor)));
 };
 
 const stepOpen = (draft: ISelection, delta: number): void => {
@@ -30,7 +41,7 @@ const stepOpen = (draft: ISelection, delta: number): void => {
 export class SelectionStore extends Carburetor<ISelection> {
     /** Ничего не открыто. */
     public constructor() {
-        super({open: null, book: null});
+        super({open: null, book: null, floor: null});
     }
 
     /** Открывает карточку главы (карточка книги закрывается). */
@@ -41,6 +52,12 @@ export class SelectionStore extends Carburetor<ISelection> {
     /** Открывает карточку книги. */
     public openBook(book: number): void {
         this.update(setBook, book);
+    }
+
+    /** Этаж карточки главы; держится при листании, сбрасывается при открытии и закрытии. */
+    @bind
+    public setFloor(floor: number): void {
+        this.update(setFloor, floor);
     }
 
     /** Листает открытую карточку: +1 — следующая глава, −1 — предыдущая; на краях стоит. */

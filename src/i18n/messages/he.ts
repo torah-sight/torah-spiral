@@ -38,7 +38,6 @@ export const HE: IMessages = {
     footerText: 'טקסטים לחישובים — ספריא: התורה «Tanach with Text Only» (נחלת הכלל), המנוקדת «מקרא על פי המסורה» (CC BY-SA); המצוות — ספר החינוך.',
     chapters: 'פרקים',
     portions: 'פרשות',
-    floorHint: 'עלו קומה כדי לפתוח את הפרשה לעומק.',
     hidden: 'מוסתר עד לתשובה',
     theme: 'ערכת צבעים',
     themeLight: 'בהירה',
