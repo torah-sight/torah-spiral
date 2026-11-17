@@ -7,8 +7,8 @@ import type {View} from '#src/stores/nav/NavStore.ts';
 import {navToken} from '#src/stores/nav/navToken.ts';
 import {prefsToken} from '#src/stores/prefs/prefsToken.ts';
 import {NavTabs} from '#src/ui/home/NavTabs.tsx';
-import {FloorSwitch} from './FloorSwitch.tsx';
 import {GameButton} from './GameButton.tsx';
+import {LayerSwitch} from './LayerSwitch.tsx';
 import {LayoutSwitch} from './LayoutSwitch.tsx';
 import {LocaleSwitch} from './LocaleSwitch.tsx';
 import {SizeSwitch} from './SizeSwitch.tsx';
@@ -22,7 +22,7 @@ const TOP_BAR = 'glass flex flex-wrap items-center justify-between gap-2 rounded
 
 /** Переключатели текущего раздела; в игре — только во время раунда. */
 const controls = (view: View, inRound: boolean): ReactNode => {
-    if (view === 'overview') return <><FloorSwitch /><LayoutSwitch /></>;
+    if (view === 'overview') return <><LayerSwitch /><LayoutSwitch /></>;
     if (view === 'sizes') return <SizeSwitch />;
     if (view === 'game' && inRound) return <><LayoutSwitch /><GameButton /></>;
     return null;

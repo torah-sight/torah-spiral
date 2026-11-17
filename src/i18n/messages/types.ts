@@ -1,11 +1,15 @@
+import type {Floor} from '#src/domain/density/quotas/floors.ts';
 /** Строки интерфейса одного языка. */
 export interface IMessages {
     appTitle: string;
     tagline: string;
     language: string;
-    /** Подписи этажей 0–4: названия, имена, слова, фразы, сюжет. */
-    floors: readonly [string, string, string, string];
+    /** Подписи слоёв поверх названий. */
+    floors: Record<Floor, string>;
     floorLabel: string;
+    /** Сводка выбора слоёв: все или ни одного. */
+    layersAll: string;
+    layersNone: string;
     layoutLabel: string;
     layoutGrid: string;
     layoutBooks: string;

@@ -18,15 +18,17 @@ const memoryStorage = (): IStorageLike & {items: Map<string, string>} => {
 };
 
 describe('PrefsStore', () => {
-    it('этаж ограничен 0–3, язык и раскладка меняются', () => {
+    it('слои включаются по одному, язык и раскладка меняются', () => {
         const prefs = new PrefsStore();
-        prefs.setFloor(9);
-        expect(prefs.getData().floor).toBe(3);
-        prefs.setFloor(-3);
-        expect(prefs.getData().floor).toBe(0);
+        expect(prefs.getData().layers).toEqual({names: false, phrases: false, story: false});
+        prefs.setLayers({names: false, phrases: true, story: true});
+        expect(prefs.getData().layers).toEqual({names: false, phrases: true, story: true});
         prefs.setLocale('he');
         prefs.setLayout('books');
-        expect(prefs.getData()).toEqual({locale: 'he', layout: 'books', floor: 0, theme: 'light', sizeBy: 'havaya'});
+        expect(prefs.getData()).toEqual({
+            locale: 'he', layout: 'books', layers: {names: false, phrases: true, story: true}, theme: 'light',
+            sizeBy: 'havaya'
+        });
         prefs.setSizeBy('words');
         expect(prefs.getData().sizeBy).toBe('words');
     });
@@ -71,27 +73,26 @@ describe('SelectionStore', () => {
     it('карточка книги и карточка главы не открыты вместе', () => {
         const selection = new SelectionStore();
         selection.openBook(2);
-        expect(selection.getData()).toEqual({open: null, book: 2, floor: null});
+        expect(selection.getData()).toEqual({open: null, book: 2, layers: null});
         selection.openParsha(24);
-        expect(selection.getData()).toEqual({open: 24, book: null, floor: null});
+        expect(selection.getData()).toEqual({open: 24, book: null, layers: null});
         selection.openBook(4);
         selection.close();
-        expect(selection.getData()).toEqual({open: null, book: null, floor: null});
+        expect(selection.getData()).toEqual({open: null, book: null, layers: null});
     });
 
-    it('этаж карточки держится при листании и сбрасывается при новой карточке', () => {
+    it('слои карточки держатся при листании и сбрасываются при новой карточке', () => {
         const selection = new SelectionStore();
+        const story = {names: false, phrases: false, story: true};
         selection.openParsha(10);
-        selection.setFloor(1);
+        selection.setLayers(story);
         selection.step(1);
-        expect(selection.getData().floor).toBe(1);
-        selection.setFloor(9);
-        expect(selection.getData().floor).toBe(3);
+        expect(selection.getData().layers).toEqual(story);
         selection.openParsha(20);
-        expect(selection.getData().floor).toBeNull();
-        selection.setFloor(2);
+        expect(selection.getData().layers).toBeNull();
+        selection.setLayers(story);
         selection.close();
-        expect(selection.getData().floor).toBeNull();
+        expect(selection.getData().layers).toBeNull();
     });
 });
 
@@ -101,7 +102,7 @@ describe('createAppScope', () => {
         const first = createAppScope(storage);
         try {
             const prefs = first.scope.get(prefsToken);
-            prefs.setFloor(3);
+            prefs.setLayers({names: true, phrases: true, story: true});
             prefs.setLocale('en');
             prefs.setTheme('dark');
             flush(prefs);
@@ -112,7 +113,8 @@ describe('createAppScope', () => {
         const second = createAppScope(storage);
         try {
             expect(second.scope.get(prefsToken).getData()).toEqual({
-                locale: 'en', layout: 'grid', floor: 3, theme: 'dark', sizeBy: 'havaya'
+                locale: 'en', layout: 'grid', layers: {names: true, phrases: true, story: true}, theme: 'dark',
+                sizeBy: 'havaya'
             });
         } finally {
             second.dispose();

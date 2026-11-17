@@ -21,25 +21,18 @@ export interface ITallyLinesProps {
     locale: Locale;
     /** Классы плашки в цвете книги. */
     chip: string;
-    /** Глубина карточки: с 1 в таблице есть строка имён. */
-    floor: number;
-    /** Выбор глубины — справа от первой строки. */
-    floorSelect: ReactNode;
+    /** Включён слой имён — в таблице есть их строка. */
+    names: boolean;
 }
 
 const CHIP = 'inline-flex items-baseline gap-1.5 rounded-lg border px-2 py-0.5';
 /**
  * Таблица: заголовки — первый столбец по ширине самого длинного, значения начинаются с одного отступа;
- * заголовок — на уровне первой строки плашек. Выбор глубины — третий столбец первой строки.
- * На телефоне — один столбец: выбор глубины, затем заголовок над своими плашками.
+ * заголовок — на уровне первой строки плашек. На телефоне — заголовок над своими плашками.
  */
-const GRID = 'mt-3 grid grid-cols-1 items-start gap-y-1.5 '
-    + 'sm:grid-cols-[auto_minmax(0,1fr)_auto] sm:gap-x-4 sm:gap-y-2';
+const GRID = 'mt-3 grid grid-cols-1 items-start gap-y-1.5 sm:grid-cols-[auto_minmax(0,1fr)] sm:gap-x-4 sm:gap-y-2';
 const HEADING = 'pt-1 text-sm uppercase tracking-widest whitespace-nowrap text-mute sm:col-start-1';
 const VALUES = 'flex flex-wrap gap-1.5 sm:col-start-2';
-/** Строки ниже первой занимают и столбец выбора глубины: плашки идут до правого края. */
-const WIDE = `${VALUES} sm:col-span-2`;
-const FLOOR = 'justify-self-start sm:col-start-3 sm:row-start-1 sm:justify-self-end';
 
 /** Плашка топа: подпись, сколько и место. */
 const chipOf = (label: ReactNode, unit: Measure, props: ITallyLinesProps): ReactNode => {
@@ -63,7 +56,7 @@ const sevenOf = (names: readonly NameKey[]): number => names.filter(isSeven).len
 /** Имена, что стоят в главе хотя бы раз. */
 const namesOf = (parsha: IParsha): NameKey[] => NAME_KEYS.filter((key: NameKey): boolean => parsha.holy[key] > 0);
 
-/** Таблица карточки: заповеди и святые Имена (только то, что в главе есть), имена людей и выбор глубины. */
+/** Таблица карточки: заповеди и святые Имена (только то, что в главе есть) и имена людей. */
 export class TallyLines extends AntiHookComponent<ITallyLinesProps> {
     /** Плашка Имени. */
     @bind
@@ -72,18 +65,14 @@ export class TallyLines extends AntiHookComponent<ITallyLinesProps> {
         return chipOf(label, key, this.props);
     }
 
-    /** Строки таблицы и выбор глубины. */
+    /** Строки таблицы. */
     public render(): ReactNode {
-        const {parsha, locale, chip, floor, floorSelect} = this.props;
+        const {parsha, locale, chip} = this.props;
         const t = MESSAGES[locale];
         const names = namesOf(parsha);
         const {mitzvot, positive, negative} = parsha.mitzvot;
-        // Первая строка делит ширину с выбором глубины; остальные — во всю ширину.
-        const namesFirst = mitzvot === 0;
-        const peopleFirst = namesFirst && names.length === 0;
         return (
             <div className={GRID}>
-                <div className={FLOOR}>{floorSelect}</div>
                 {mitzvot > 0 ? <h3 className={HEADING}>{t.mitzvotLabel}</h3> : null}
                 {mitzvot > 0 ? (
                     <div className={VALUES}>
@@ -95,15 +84,15 @@ export class TallyLines extends AntiHookComponent<ITallyLinesProps> {
                 ) : null}
                 {names.length > 0 ? <h3 className={HEADING}>{t.namesLabel}</h3> : null}
                 {names.length > 0 ? (
-                    <div className={namesFirst ? VALUES : WIDE}>
+                    <div className={VALUES}>
                         {/* «Все Имена» — когда Имён больше одного: иначе плашка повторяет единственное. */}
                         {sevenOf(names) > 1 ? chipOf(`${t.namesAll}:`, 'allNames', this.props) : null}
                         {names.map(this.nameChip)}
                     </div>
                 ) : null}
-                {floor >= 1 ? <h3 className={HEADING}>1 · {t.floors[1]}</h3> : null}
-                {floor >= 1 ? (
-                    <div className={peopleFirst ? VALUES : WIDE}>
+                {this.props.names ? <h3 className={HEADING}>{t.floors.names}</h3> : null}
+                {this.props.names ? (
+                    <div className={VALUES}>
                         <Chips labels={labelsOf(parsha.names, locale)} className={chip} />
                     </div>
                 ) : null}

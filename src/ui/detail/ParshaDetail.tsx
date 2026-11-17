@@ -8,13 +8,14 @@ import {sizeLabel} from '#src/i18n/format/size/sizeLabel.ts';
 import {MESSAGES} from '#src/i18n/messages/messages.ts';
 import {gameToken} from '#src/stores/game/gameToken.ts';
 import {navToken} from '#src/stores/nav/navToken.ts';
+import type {Layers} from '#src/stores/prefs/PrefsStore.ts';
 import {prefsToken} from '#src/stores/prefs/prefsToken.ts';
 import {selectionToken} from '#src/stores/selection/selectionToken.ts';
 import type {IParsha} from '#src/content/model/types.ts';
 import type {Locale} from '#src/i18n/locales.ts';
 import {textDir} from '#src/i18n/format/textDir.ts';
 import {CloseButton} from '#src/ui/common/CloseButton.tsx';
-import {FloorSelect} from '#src/ui/common/FloorSelect.tsx';
+import {LayerPicker} from '#src/ui/common/LayerPicker.tsx';
 import {TONES} from '#src/ui/common/tones.ts';
 import {CellFloors} from '#src/ui/table/CellFloors.tsx';
 import {DetailNav} from './DetailNav.tsx';
@@ -22,8 +23,8 @@ import {OVERLAY} from './overlay.ts';
 import {ScrollLock} from './ScrollLock.tsx';
 import {TallyLines} from './TallyLines.tsx';
 
-/** Верхний этаж: имена, фразы и сюжет. */
-const ALL_FLOORS = 3;
+/** Все слои: из «Статистики» и игры карточка открывается целиком. */
+const ALL_LAYERS: Layers = {names: true, phrases: true, story: true};
 
 /** id фона карточки: прокрутка в начало при смене главы. */
 const DIALOG_ID = 'parsha-dialog';
@@ -145,19 +146,19 @@ export class ParshaDetail extends ScopedAntiHookComponent {
     /** Модальная карточка или ничего. */
     public render(): ReactNode {
         const selection = this.resolve(selectionToken);
-        const {open, floor: picked} = this.useCarburetor(selection);
+        const {open, layers: picked} = this.useCarburetor(selection);
         if (open === null) return null;
         const prefs = this.useCarburetor(this.resolve(prefsToken));
         const {locale} = prefs;
-        // Карточка открывается на этаже таблицы в «Обзоре», а из «Статистики» и игры — целиком;
-        // дальше этаж меняется прямо в карточке.
+        // Карточка открывается со слоями таблицы в «Обзоре», а из «Статистики» и игры — целиком;
+        // дальше слои меняются прямо в карточке.
         const overview = this.useCarburetor(this.resolve(navToken)).view === 'overview';
-        const floor = picked ?? (overview ? prefs.floor : ALL_FLOORS);
+        const layers = picked ?? (overview ? prefs.layers : ALL_LAYERS);
         const parsha = PARSHIOT[open]!;
         const book = BOOKS[parsha.book]!;
         const tone = TONES[book.tone];
         const t = MESSAGES[locale];
-        const floorSelect = <FloorSelect floor={floor} locale={locale} onPick={selection.setFloor} />;
+        const picker = <LayerPicker layers={layers} locale={locale} onChange={selection.setLayers} />;
         return (
             <div
                 id={DIALOG_ID}
@@ -176,6 +177,7 @@ export class ParshaDetail extends ScopedAntiHookComponent {
                         index={open}
                         before={placeOf(parsha, locale, tone.text)}
                         after={sizesOf(parsha, locale, tone.text)}
+                        tools={picker}
                     >
                         {titleOf(parsha, locale, tone.text)}
                     </DetailNav>
@@ -189,10 +191,9 @@ export class ParshaDetail extends ScopedAntiHookComponent {
                         parsha={parsha}
                         locale={locale}
                         chip={tone.chip}
-                        floor={floor}
-                        floorSelect={floorSelect}
+                        names={layers.names}
                     />
-                    <CellFloors parsha={parsha} floor={floor} locale={locale} chip={tone.chip} large />
+                    <CellFloors parsha={parsha} layers={layers} locale={locale} chip={tone.chip} large />
                 </article>
             </div>
         );

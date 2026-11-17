@@ -13,7 +13,7 @@
 English ([/en/](https://torah-sight.github.io/torah-spiral/en/)); a language link opens the site in that language.
 
 A static single-page app for learning the Torah as a spiral, like a times table: a 6 × 9 table (or five
-book columns) of the 54 weekly portions, opened level by level, ever deeper — titles, key names, key phrases, a very
+book columns) of the 54 weekly portions, with layers switched on as you like — titles, key names, key phrases, a very
 short storyline. The capacity of every level is proportional to the portion's density: its word count
 **after collapsing repeats** (verbatim repeats such as the twelve princes' offerings, and retellings
 such as Eliezer's story or Vayakhel–Pekudei).
@@ -33,7 +33,7 @@ copies for the language links (`dist/he/`, `dist/ru/`, `dist/en/`).
 английском ([/en/](https://torah-sight.github.io/torah-spiral/en/)); языковая ссылка открывает сайт сразу на этом языке.
 
 Статическое одностраничное приложение для изучения Торы по спирали, как таблицы умножения: таблица 6 × 9
-(или пять столбцов-книг) из 54 недельных глав, которые раскрываются всё глубже, уровень за уровнем, — названия, ключевые
+(или пять столбцов-книг) из 54 недельных глав, со слоями, которые включаются по выбору, — названия, ключевые
 имена, ключевые фразы, очень краткий сюжет. Ёмкость каждого уровня пропорциональна плотности главы: числу
 её слов **после схлопывания повторов** (дословных, как приношения двенадцати князей, и пересказов, как
 рассказ Элиэзера или Ваякхель–Пкудей).
@@ -53,7 +53,7 @@ TypeScript (tsgo) и Tailwind CSS. Результат сборки — один 
 ([/en/](https://torah-sight.github.io/torah-spiral/en/)); קישור של שפה פותח את האתר מיד בשפה הזאת.
 
 יישום סטטי בעמוד אחד ללימוד התורה בספירלה, כמו לוח הכפל: טבלה של 6 × 9 (או חמש עמודות של ספרים) עם
-54 פרשות השבוע, הנפתחות לעומק, רמה אחר רמה — שמות הפרשות, שמות מפתח, ביטויי מפתח ועלילה קצרה מאוד. הקיבולת
+54 פרשות השבוע, עם שכבות שנפתחות לפי בחירה — שמות הפרשות, שמות מפתח, ביטויי מפתח ועלילה קצרה מאוד. הקיבולת
 של כל רמה יחסית לצפיפות הפרשה: מספר המילים שלה **אחרי צמצום החזרות** (חזרות מילה במילה, כמו קורבנות
 שנים־עשר הנשיאים, וסיפורים חוזרים, כמו סיפור אליעזר או ויקהל–פקודי).
 

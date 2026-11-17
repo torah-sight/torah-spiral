@@ -12,6 +12,7 @@ import {MESSAGES} from '#src/i18n/messages/messages.ts';
 import {textDir} from '#src/i18n/format/textDir.ts';
 import {gameToken} from '#src/stores/game/gameToken.ts';
 import {navToken} from '#src/stores/nav/navToken.ts';
+import type {Layers} from '#src/stores/prefs/PrefsStore.ts';
 import {prefsToken} from '#src/stores/prefs/prefsToken.ts';
 import {selectionToken} from '#src/stores/selection/selectionToken.ts';
 import {TONES} from '#src/ui/common/tones.ts';
@@ -49,10 +50,13 @@ const GUESSED_MARK: ReactNode = (
 const OUTSIDE = 'invisible pointer-events-none';
 
 
+/** Вне обзора — только названия. */
+const NO_LAYERS: Layers = {names: false, phrases: false, story: false};
+
 /** Что видно в открытой клетке. */
 interface IFace {
     locale: Locale;
-    floor: number;
+    layers: Layers;
     inGame: boolean;
     unit: Measure;
     /** Раздел «Статистика»: градусники стихов и слов (и букв для этой меры) вместо строки размера. */
@@ -75,7 +79,7 @@ const gauges = (parsha: IParsha, unit: Measure, bar: string, locale: Locale): Re
 
 /** Открытая клетка: номер, иврит, перевод, диапазон, размер, этажи. */
 const openFace = (parsha: IParsha, face: IFace): ReactNode => {
-    const {locale, floor, inGame, unit} = face;
+    const {locale, layers, inGame, unit} = face;
     const tone = TONES[BOOKS[parsha.book]!.tone];
     return (
         <>
@@ -100,7 +104,7 @@ const openFace = (parsha: IParsha, face: IFace): ReactNode => {
                 {face.sizes ? null : ` · ${sizeLabel(parsha.verses, parsha.sizeRank, 'verses', locale)}`}
             </span>
             {inGame ? null : (
-                <CellFloors parsha={parsha} floor={floor} locale={locale} chip={tone.chip} large={false} />
+                <CellFloors parsha={parsha} layers={layers} locale={locale} chip={tone.chip} large={false} />
             )}
             {face.sizes ? <span className="mt-auto" /> : null}
             {face.sizes ? gauges(parsha, unit, tone.bar, locale) : null}
@@ -136,8 +140,8 @@ export class ParshaCell extends ScopedAntiHookComponent<IParshaCellProps> {
         const prefs = this.useCarburetor(this.resolve(prefsToken));
         const {view} = this.useCarburetor(this.resolve(navToken));
         const {locale} = prefs;
-        // Этажи — только в обзоре; мера размера выбирается в разделе «Статистика».
-        const floor = view === 'overview' ? prefs.floor : 0;
+        // Слои — только в обзоре; мера размера выбирается в разделе «Статистика».
+        const layers = view === 'overview' ? prefs.layers : NO_LAYERS;
         const unit: Measure = view === 'sizes' ? prefs.sizeBy : 'verses';
         const game = this.useCarburetor(this.resolve(gameToken));
         const playing = game.status === 'playing';
@@ -152,7 +156,7 @@ export class ParshaCell extends ScopedAntiHookComponent<IParshaCellProps> {
         // Рамка отгаданной главы — до конца раунда.
         const mark = wrong ? WRONG : inGame && guessed ? FOUND : '';
         const state = outside ? OUTSIDE : mark;
-        const face: IFace = {locale, floor, inGame, unit, sizes: view === 'sizes'};
+        const face: IFace = {locale, layers, inGame, unit, sizes: view === 'sizes'};
         const name = hidden ? MESSAGES[locale].hidden : parsha.translit.en;
         const label = `${parsha.ordinal}. ${name}`;
         return (

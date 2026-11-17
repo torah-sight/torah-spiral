@@ -16,23 +16,29 @@ export interface IDetailNavProps {
     /** Сведения по сторонам от заголовка: у предыдущей главы и у следующей. */
     before: ReactNode;
     after: ReactNode;
+    /** Выбор слоёв — под стрелкой к предыдущей главе. */
+    tools: ReactNode;
 }
 
 const ARROW = 'flex min-w-0 cursor-pointer items-center gap-2 rounded-lg border border-line px-3 py-1.5 text-sm '
     + 'text-soft transition hover:border-line-strong hover:text-ink';
 
 /**
- * Телефон: стрелки строкой сверху, заголовок под ними, сведения — во всю ширину ниже.
+ * Телефон: стрелки строкой сверху, заголовок под ними, сведения — во всю ширину ниже, выбор слоёв — последним.
  * С sm до lg сведения — двумя столбцами под заголовком.
- * С lg — одной строкой: стрелка, сведения, заголовок, сведения, стрелка.
+ * С lg — стрелка, сведения, заголовок, сведения, стрелка; выбор слоёв — под стрелкой к предыдущей главе.
  */
 const ROW = 'mb-3 grid grid-cols-2 items-center gap-x-4 gap-y-2 border-b border-line pb-3 '
-    + 'lg:grid-cols-[auto_minmax(0,1fr)_auto_minmax(0,1fr)_auto]';
-const PREV_SLOT = 'col-start-1 row-start-1 justify-self-start';
-const NEXT_SLOT = 'col-start-2 row-start-1 justify-self-end lg:col-start-5';
-const TITLE_SLOT = 'col-span-2 row-start-2 lg:col-span-1 lg:col-start-3 lg:row-start-1';
-const BEFORE_SLOT = 'col-span-2 row-start-3 sm:col-span-1 sm:col-start-1 lg:col-start-2 lg:row-start-1';
-const AFTER_SLOT = 'col-span-2 row-start-4 sm:col-span-1 sm:col-start-2 sm:row-start-3 lg:col-start-4 lg:row-start-1';
+    + 'lg:grid-cols-[auto_minmax(0,1fr)_auto_minmax(0,1fr)_auto] lg:grid-rows-[auto_auto]';
+const PREV_SLOT = 'col-start-1 row-start-1 justify-self-start lg:self-end';
+const NEXT_SLOT = 'col-start-2 row-start-1 justify-self-end lg:col-start-5 lg:row-span-2';
+const TITLE_SLOT = 'col-span-2 row-start-2 lg:col-span-1 lg:col-start-3 lg:row-start-1 lg:row-span-2';
+const BEFORE_SLOT = 'col-span-2 row-start-3 sm:col-span-1 sm:col-start-1 lg:col-start-2 lg:row-start-1 '
+    + 'lg:row-span-2';
+const AFTER_SLOT = 'col-span-2 row-start-4 sm:col-span-1 sm:col-start-2 sm:row-start-3 lg:col-start-4 lg:row-start-1 '
+    + 'lg:row-span-2';
+const TOOLS_SLOT = 'col-span-2 row-start-5 justify-self-center sm:row-start-4 lg:col-span-1 lg:col-start-1 '
+    + 'lg:row-start-2 lg:self-start lg:justify-self-start';
 const PREV = `${ARROW} ${PREV_SLOT}`;
 const NEXT = `${ARROW} ${NEXT_SLOT}`;
 
@@ -57,7 +63,7 @@ export class DetailNav extends ScopedAntiHookComponent<IDetailNavProps> {
     public render(): ReactNode {
         const {locale} = this.useCarburetor(this.resolve(prefsToken));
         const {status} = this.useCarburetor(this.resolve(gameToken));
-        const {index, children, before, after} = this.props;
+        const {index, children, before, after, tools} = this.props;
         const t = MESSAGES[locale];
         const playing = status === 'playing';
         const prev = playing ? undefined : PARSHIOT[index - 1];
@@ -73,6 +79,7 @@ export class DetailNav extends ScopedAntiHookComponent<IDetailNavProps> {
                 <div className={BEFORE_SLOT}>{before}</div>
                 <div className={TITLE_SLOT}>{children}</div>
                 <div className={AFTER_SLOT}>{after}</div>
+                <div className={TOOLS_SLOT}>{tools}</div>
                 {next === undefined ? <span className={NEXT_SLOT} /> : (
                     <button type="button" onClick={this.next} aria-label={t.nextParsha} className={NEXT}>
                         <bdi className="truncate">{nameOf(next, locale)}</bdi>

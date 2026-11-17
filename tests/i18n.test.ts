@@ -22,7 +22,7 @@ describe('MESSAGES', () => {
                 const parts = Array.isArray(value) ? value : [value];
                 for (const part of parts) expect(String(part).length).toBeGreaterThan(0);
             }
-            expect(MESSAGES[locale].floors).toHaveLength(4);
+            expect(Object.keys(MESSAGES[locale].floors).toSorted()).toEqual(['names', 'phrases', 'story']);
             // Итог раунда — число глав этого раунда, а не всегда 54.
             expect(MESSAGES[locale].gameDone).toContain('{n}');
             expect(MESSAGES[locale].gameDone).not.toContain('54');
