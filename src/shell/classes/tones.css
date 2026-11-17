@@ -3,7 +3,7 @@
   @apply bg-surface-page text-neutral-ink border-neutral-edge;
 }
 @utility tone-neutral-chip {
-  @apply bg-neutral-veil/4 text-neutral-ink-soft border-neutral-edge/12 hover:text-neutral-ink hover:border-neutral-edge/28;
+  @apply bg-neutral-veil/4 text-neutral-ink-soft border-neutral-edge/12 hover:text-neutral-ink hover:border-neutral-edge/28 inset-shadow-transparent;
 }
 @utility tone-neutral-panel {
   @apply bg-neutral-wash text-neutral-ink border-neutral-edge/12 shadow-neutral-shadow/30;
@@ -42,7 +42,7 @@
   @apply text-neutral-ink-faint border-neutral-edge/12;
 }
 @utility tone-accent-chip {
-  @apply bg-accent-veil text-accent-ink border-accent-edge;
+  @apply bg-accent-veil text-accent-ink border-accent-edge inset-shadow-accent-edge;
 }
 @utility tone-accent-check {
   @apply accent-accent-edge;
@@ -72,7 +72,7 @@
   @apply ring-danger-ring;
 }
 @utility tone-genesis-cell {
-  @apply from-genesis-wash bg-genesis-base to-transparent text-genesis-ink border-genesis-edge/20 inset-shadow-genesis-edge/80 hover:border-genesis-edge/40;
+  @apply from-genesis-wash bg-genesis-base to-transparent text-genesis-ink border-genesis-edge/20 inset-shadow-genesis-edge/80 hover:border-genesis-edge/40 hover:shadow-genesis-edge/40;
 }
 @utility tone-genesis-plate {
   @apply from-genesis-wash to-transparent text-genesis-ink border-genesis-edge/20;
@@ -87,7 +87,7 @@
   @apply text-genesis-ink;
 }
 @utility tone-exodus-cell {
-  @apply from-exodus-wash bg-exodus-base to-transparent text-exodus-ink border-exodus-edge/20 inset-shadow-exodus-edge/80 hover:border-exodus-edge/40;
+  @apply from-exodus-wash bg-exodus-base to-transparent text-exodus-ink border-exodus-edge/20 inset-shadow-exodus-edge/80 hover:border-exodus-edge/40 hover:shadow-exodus-edge/40;
 }
 @utility tone-exodus-plate {
   @apply from-exodus-wash to-transparent text-exodus-ink border-exodus-edge/20;
@@ -102,7 +102,7 @@
   @apply text-exodus-ink;
 }
 @utility tone-leviticus-cell {
-  @apply from-leviticus-wash bg-leviticus-base to-transparent text-leviticus-ink border-leviticus-edge/20 inset-shadow-leviticus-edge/80 hover:border-leviticus-edge/40;
+  @apply from-leviticus-wash bg-leviticus-base to-transparent text-leviticus-ink border-leviticus-edge/20 inset-shadow-leviticus-edge/80 hover:border-leviticus-edge/40 hover:shadow-leviticus-edge/40;
 }
 @utility tone-leviticus-plate {
   @apply from-leviticus-wash to-transparent text-leviticus-ink border-leviticus-edge/20;
@@ -117,7 +117,7 @@
   @apply text-leviticus-ink;
 }
 @utility tone-numbers-cell {
-  @apply from-numbers-wash bg-numbers-base to-transparent text-numbers-ink border-numbers-edge/20 inset-shadow-numbers-edge/80 hover:border-numbers-edge/40;
+  @apply from-numbers-wash bg-numbers-base to-transparent text-numbers-ink border-numbers-edge/20 inset-shadow-numbers-edge/80 hover:border-numbers-edge/40 hover:shadow-numbers-edge/40;
 }
 @utility tone-numbers-plate {
   @apply from-numbers-wash to-transparent text-numbers-ink border-numbers-edge/20;
@@ -132,7 +132,7 @@
   @apply text-numbers-ink;
 }
 @utility tone-deuteronomy-cell {
-  @apply from-deuteronomy-wash bg-deuteronomy-base to-transparent text-deuteronomy-ink border-deuteronomy-edge/20 inset-shadow-deuteronomy-edge/80 hover:border-deuteronomy-edge/40;
+  @apply from-deuteronomy-wash bg-deuteronomy-base to-transparent text-deuteronomy-ink border-deuteronomy-edge/20 inset-shadow-deuteronomy-edge/80 hover:border-deuteronomy-edge/40 hover:shadow-deuteronomy-edge/40;
 }
 @utility tone-deuteronomy-plate {
   @apply from-deuteronomy-wash to-transparent text-deuteronomy-ink border-deuteronomy-edge/20;

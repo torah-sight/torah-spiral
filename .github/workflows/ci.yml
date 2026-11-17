@@ -39,6 +39,8 @@ jobs:
         run: npm test
       - name: Docs in three languages match root-docs/ (polydoc)
         run: npm run docs:check
+      - name: Palette matches the Roles that read it
+        run: npm run palette:check
       - name: Content against the Torah text (Sefaria)
         run: npm run content:check
       - name: Build single-file site

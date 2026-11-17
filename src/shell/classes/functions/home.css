@@ -10,7 +10,7 @@
     @apply layout-home-grid tone-neutral-plain;
   }
   .home-card {
-    @apply shape-home-card layout-home-card type-start motion-lift effect-panel tone-neutral-panel;
+    @apply pattern-panel shape-home-card layout-home-card type-start motion-lift tone-neutral-panel effect-card-lift;
   }
   .home-card-icon {
     @apply type-home-icon tone-neutral-plain;

@@ -1,4 +1,46 @@
-/* Patterns: бесцветный скелет элемента. */
+/* Patterns: бесцветный скелет элемента из Traits; общие для нескольких Functions. */
 @utility pattern-chip {
-  @apply shape-chip type-chip motion-fade;
+  @apply shape-chip type-chip motion-fade effect-chip-inset;
+}
+@utility pattern-button {
+  @apply shape-button type-small motion-fade;
+}
+@utility pattern-action {
+  @apply shape-action motion-fade;
+}
+@utility pattern-arrow {
+  @apply shape-arrow layout-row-2 type-small;
+}
+@utility pattern-plate {
+  @apply shape-plate type-wrap motion-fade effect-plate-hover;
+}
+@utility pattern-cell-overlay {
+  @apply layout-overlay shape-overlay behavior-inert;
+}
+@utility pattern-gauge-track {
+  @apply shape-round layout-track focus-track;
+}
+@utility pattern-gauge-caption {
+  @apply layout-gauge-caption type-gauge-caption;
+}
+@utility pattern-gauge-line {
+  @apply shape-gap-top-half layout-gauge-line;
+}
+@utility pattern-feedback {
+  @apply shape-feedback layout-inline-block;
+}
+@utility pattern-floors {
+  @apply shape-gap-top-1 layout-floors;
+}
+@utility pattern-tagline {
+  @apply shape-tagline type-small;
+}
+@utility pattern-ellipsis {
+  @apply layout-clip type-ellipsis;
+}
+@utility pattern-cell-number {
+  @apply type-cell-number effect-dim;
+}
+@utility pattern-panel {
+  @apply shape-panel effect-panel;
 }

@@ -78,7 +78,7 @@
     @apply type-caption tone-neutral-subtle;
   }
   .detail-text {
-    @apply shape-text-top tone-neutral-plain;
+    @apply shape-gap-top-half tone-neutral-plain;
   }
   .detail-sizes-mobile {
     @apply shape-gap-bottom layout-hide-from-lg tone-neutral-inherit;
@@ -87,16 +87,16 @@
     @apply layout-detail-nav shape-detail-nav tone-neutral-line;
   }
   .detail-arrow-prev {
-    @apply shape-arrow layout-arrow layout-prev-slot type-small motion-fade behavior-pointer tone-neutral-chip;
+    @apply pattern-arrow layout-prev-slot motion-fade behavior-pointer tone-neutral-chip;
   }
   .detail-arrow-next {
-    @apply shape-arrow layout-arrow layout-next-slot type-small motion-fade behavior-pointer tone-neutral-chip;
+    @apply pattern-arrow layout-next-slot motion-fade behavior-pointer tone-neutral-chip;
   }
   .detail-edge-prev {
-    @apply shape-arrow shape-arrow-dashed layout-arrow layout-prev-slot type-small behavior-disabled tone-neutral-dashed;
+    @apply pattern-arrow shape-arrow-dashed layout-prev-slot behavior-disabled tone-neutral-dashed;
   }
   .detail-edge-next {
-    @apply shape-arrow shape-arrow-dashed layout-arrow layout-next-slot type-small behavior-disabled tone-neutral-dashed;
+    @apply pattern-arrow shape-arrow-dashed layout-next-slot behavior-disabled tone-neutral-dashed;
   }
   .detail-spacer-prev {
     @apply layout-prev-slot tone-neutral-inherit;
@@ -105,10 +105,10 @@
     @apply layout-next-slot tone-neutral-inherit;
   }
   .detail-arrow-glyph {
-    @apply type-glyph tone-neutral-inherit;
+    @apply type-lg tone-neutral-inherit;
   }
   .detail-arrow-name {
-    @apply layout-clip type-ellipsis tone-neutral-inherit;
+    @apply pattern-ellipsis tone-neutral-inherit;
   }
   .detail-arrow-full {
     @apply layout-from-sm tone-neutral-inherit;
@@ -126,7 +126,7 @@
     @apply shape-shrinkable layout-detail-tools tone-neutral-plain;
   }
   .tally-grid {
-    @apply shape-tally layout-tally-grid tone-neutral-plain;
+    @apply shape-gap-top layout-tally-grid tone-neutral-plain;
   }
   .tally-heading {
     @apply shape-tally-heading type-tally-heading layout-tally-heading tone-neutral-subtle;
@@ -135,7 +135,7 @@
     @apply layout-tally-values tone-neutral-plain;
   }
   .tally-chip {
-    @apply shape-tally-chip layout-tally-chip tone-genesis-tag;
+    @apply shape-tally-chip layout-inline-baseline tone-genesis-tag;
 
     &[data-book="1"] {
       @apply tone-exodus-tag;
@@ -238,7 +238,7 @@
     @apply shape-gap-top-1 layout-book-row tone-neutral-plain;
   }
   .book-detail-name {
-    @apply type-detail-name tone-neutral-plain;
+    @apply type-lg tone-neutral-plain;
   }
   .book-detail-literal {
     @apply tone-neutral-subtle;
@@ -282,7 +282,7 @@
     }
   }
   .book-detail-story {
-    @apply shape-gap-top-1 layout-story tone-neutral-plain;
+    @apply shape-gap-top-1 layout-column-1 tone-neutral-plain;
   }
   .portion-list {
     @apply shape-gap-top-1 layout-portion-list tone-neutral-plain;

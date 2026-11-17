@@ -34,7 +34,9 @@
     "phrases": "node scripts/phrases.ts",
     "names": "node scripts/names.ts",
     "docs": "node scripts/repo/docs.ts",
-    "docs:check": "node scripts/repo/docs.ts --check"
+    "docs:check": "node scripts/repo/docs.ts --check",
+    "palette": "node scripts/repo/palette.ts",
+    "palette:check": "node scripts/repo/palette.ts --check"
   },
   "dependencies": {
     "@react-carburetor/core": "0.3.0",

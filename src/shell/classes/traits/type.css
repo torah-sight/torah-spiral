@@ -14,9 +14,6 @@
 @utility type-title {
   @apply text-3xl font-semibold tracking-tight sm:text-5xl;
 }
-@utility type-tagline {
-  @apply text-sm;
-}
 @utility type-small {
   @apply text-sm;
 }
@@ -29,7 +26,7 @@
 @utility type-caption {
   @apply text-sm uppercase tracking-widest;
 }
-@utility type-close {
+@utility type-xl {
   @apply text-xl;
 }
 @utility type-footer {
@@ -65,10 +62,7 @@
 @utility type-plate-top {
   @apply text-center sm:text-start;
 }
-@utility type-plate {
-  @apply text-start [overflow-wrap:anywhere] hyphens-auto;
-}
-@utility type-plate-line {
+@utility type-line {
   @apply text-[clamp(13px,1.9vw,18px)] leading-tight;
 }
 @utility type-plate-hebrew {
@@ -77,14 +71,11 @@
 @utility type-plate-span {
   @apply text-[clamp(12px,1.6vw,15px)];
 }
-@utility type-cell {
+@utility type-wrap {
   @apply text-start [overflow-wrap:anywhere] hyphens-auto;
 }
 @utility type-cell-number {
   @apply text-[13px] font-semibold sm:text-sm;
-}
-@utility type-cell-translit {
-  @apply text-[clamp(13px,1.9vw,18px)] leading-tight;
 }
 @utility type-cell-hebrew {
   @apply font-hebrew text-[clamp(18px,3.2vw,32px)] leading-tight;
@@ -92,14 +83,8 @@
 @utility type-cell-gematria {
   @apply text-[clamp(11px,1.4vw,13px)] leading-tight tabular-nums;
 }
-@utility type-cell-subtitle {
-  @apply text-[clamp(13px,1.9vw,18px)] leading-tight;
-}
 @utility type-cell-range {
   @apply text-[clamp(12px,1.6vw,15px)] leading-tight;
-}
-@utility type-question {
-  @apply text-xl;
 }
 @utility type-mark {
   @apply text-base font-bold;
@@ -134,7 +119,7 @@
 @utility type-detail-book-name {
   @apply font-hebrew text-base;
 }
-@utility type-glyph {
+@utility type-lg {
   @apply text-lg;
 }
 @utility type-tally-heading {
@@ -145,9 +130,6 @@
 }
 @utility type-hebrew-title {
   @apply font-hebrew text-xl leading-tight text-ellipsis whitespace-nowrap;
-}
-@utility type-detail-name {
-  @apply text-lg;
 }
 @utility type-book-hebrew {
   @apply font-hebrew text-5xl leading-tight;
@@ -166,9 +148,6 @@
 }
 @utility type-game-stats {
   @apply text-xs sm:text-sm;
-}
-@utility type-game-done {
-  @apply text-xl;
 }
 @utility type-setup-title {
   @apply text-2xl font-semibold;

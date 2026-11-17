@@ -18,10 +18,10 @@
     @apply shape-flag layout-flag focus-flag-ring tone-neutral-outline;
   }
   .close-button {
-    @apply layout-close shape-close type-close motion-fade effect-modal behavior-pointer tone-neutral-modal;
+    @apply layout-close shape-close type-xl motion-fade effect-modal behavior-pointer tone-neutral-modal;
   }
   .footer-bar {
-    @apply shape-footer layout-column-gap type-footer tone-neutral-faint;
+    @apply shape-footer layout-column-1 type-footer tone-neutral-faint;
   }
   .footer-link {
     @apply type-link motion-fade tone-neutral-link;
@@ -39,7 +39,7 @@
     @apply shape-picker-summary layout-summary type-no-marker type-small motion-fade behavior-pointer tone-neutral-chip;
   }
   .layer-picker-text {
-    @apply layout-clip type-ellipsis tone-neutral-plain;
+    @apply pattern-ellipsis tone-neutral-plain;
   }
   .layer-picker-arrow {
     @apply type-tiny tone-neutral-subtle;

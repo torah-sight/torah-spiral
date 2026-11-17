@@ -50,7 +50,7 @@
 @utility layout-close {
   @apply fixed end-3 top-3 z-[60] flex items-center justify-center sm:end-5 sm:top-4;
 }
-@utility layout-column-gap {
+@utility layout-column-1 {
   @apply flex flex-col gap-1;
 }
 @utility layout-picker {
@@ -122,7 +122,7 @@
 @utility layout-cell-title-right {
   @apply flex flex-col items-end;
 }
-@utility layout-gauges {
+@utility layout-column-tight {
   @apply flex flex-col gap-1.5;
 }
 @utility layout-ghost {
@@ -148,9 +148,6 @@
 }
 @utility layout-columns-two {
   @apply flex flex-col gap-2 lg:grid lg:grid-cols-2 lg:gap-x-8 lg:gap-y-0;
-}
-@utility layout-phrase-list {
-  @apply flex flex-col gap-1.5;
 }
 @utility layout-block {
   @apply block;
@@ -188,9 +185,6 @@
 @utility layout-detail-nav {
   @apply grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-x-2 gap-y-2 lg:grid-cols-[auto_minmax(0,1fr)_auto_minmax(0,1fr)_auto] lg:grid-rows-[auto_auto] lg:gap-x-4;
 }
-@utility layout-arrow {
-  @apply flex items-center gap-2;
-}
 @utility layout-prev-slot {
   @apply col-start-1 row-start-1 justify-self-start lg:self-end;
 }
@@ -218,9 +212,6 @@
 @utility layout-tally-values {
   @apply flex flex-wrap gap-1.5 sm:col-start-2;
 }
-@utility layout-tally-chip {
-  @apply inline-flex items-baseline gap-1.5;
-}
 @utility layout-avoid-break {
   @apply break-inside-avoid;
 }
@@ -239,16 +230,13 @@
 @utility layout-book-row {
   @apply flex flex-wrap items-baseline justify-between gap-x-4;
 }
-@utility layout-story {
-  @apply flex flex-col gap-1;
-}
 @utility layout-portion-list {
   @apply gap-x-4 lg:columns-2;
 }
 @utility layout-clue-row {
   @apply flex flex-wrap items-baseline gap-x-3;
 }
-@utility layout-clue-name {
+@utility layout-inline-baseline {
   @apply inline-flex items-baseline gap-1.5;
 }
 @utility layout-game-bar {
@@ -274,4 +262,7 @@
 }
 @utility layout-backdrop {
   @apply fixed inset-0 -z-20;
+}
+@utility layout-slot {
+  @apply grid;
 }

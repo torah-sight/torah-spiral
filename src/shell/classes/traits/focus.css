@@ -2,10 +2,7 @@
 @utility focus-flag-ring {
   @apply ring-1;
 }
-@utility focus-found {
-  @apply ring-2;
-}
-@utility focus-wrong {
+@utility focus-frame {
   @apply ring-2;
 }
 @utility focus-track {

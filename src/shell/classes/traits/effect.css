@@ -12,7 +12,7 @@
   @apply hover:brightness-110;
 }
 @utility effect-cell {
-  @apply inset-shadow-[0_3px_0];
+  @apply inset-shadow-[0_3px_0] hover:shadow-[0_12px_30px_-18px];
 }
 @utility effect-dim {
   @apply opacity-80;
@@ -28,4 +28,10 @@
 }
 @utility effect-disabled-dim {
   @apply disabled:opacity-40;
+}
+@utility effect-chip-inset {
+  @apply inset-shadow-[0_0_0_1px];
+}
+@utility effect-card-lift {
+  @apply hover:shadow-[0_16px_36px_-20px];
 }

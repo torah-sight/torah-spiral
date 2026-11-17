@@ -7,7 +7,6 @@ import {formatRange} from '#src/domain/ranges/formatRange.ts';
 import {sizeLabel} from '#src/i18n/format/size/sizeLabel.ts';
 import {MESSAGES} from '#src/i18n/messages/messages.ts';
 import {gameToken} from '#src/stores/game/gameToken.ts';
-import {navToken} from '#src/stores/nav/navToken.ts';
 import {copyLayers} from '#src/stores/prefs/copyLayers.ts';
 import type {Layers} from '#src/stores/prefs/PrefsStore.ts';
 import {prefsToken} from '#src/stores/prefs/prefsToken.ts';
@@ -23,7 +22,10 @@ import {DetailNav} from './DetailNav.tsx';
 import {ScrollLock} from './ScrollLock.tsx';
 import {TallyLines} from './TallyLines.tsx';
 
-/** Все слои: из «Статистики» и игры карточка открывается целиком. */
+/**
+ * Слои карточки по умолчанию: каждый из нынешних назван явно. Новый слой в этот список сам не попадёт:
+ * тип `Layers` потребует решить для него отдельно, и он останется выключенным, пока его не включат здесь.
+ */
 const ALL_LAYERS: Layers = {names: true, phrases: true, story: true};
 
 /** id панели карточки: прокрутка в начало при смене главы. */
@@ -184,12 +186,9 @@ export class ParshaDetail extends ScopedAntiHookComponent {
         const selection = this.resolve(selectionToken);
         const {open, layers: picked} = this.useCarburetor(selection);
         if (open === null) return null;
-        const prefs = this.useCarburetor(this.resolve(prefsToken));
-        const {locale} = prefs;
-        // Карточка открывается со слоями таблицы в «Обзоре», а из «Статистики» и игры — целиком;
-        // дальше слои меняются прямо в карточке.
-        const overview = this.useCarburetor(this.resolve(navToken)).view === 'overview';
-        const layers = copyLayers(picked ?? (overview ? prefs.layers : ALL_LAYERS));
+        const {locale} = this.useCarburetor(this.resolve(prefsToken));
+        // Карточка всегда открывается со всеми слоями; дальше слои меняются прямо в ней.
+        const layers = copyLayers(picked ?? ALL_LAYERS);
         const parsha = PARSHIOT[open]!;
         return (
             <div

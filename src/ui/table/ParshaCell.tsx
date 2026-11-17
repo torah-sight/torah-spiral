@@ -164,17 +164,19 @@ export class ParshaCell extends ScopedAntiHookComponent<IParshaCellProps> {
         const face: IFace = {locale, layers, inGame: state.inGame, unit, sizes: view === 'sizes'};
         const name = state.hidden ? MESSAGES[locale].hidden : parsha.translit.en;
         return (
-            <button
-                type="button"
-                onClick={this.onClick}
-                aria-label={`${parsha.ordinal}. ${name}`}
-                dir={textDir(locale)}
-                data-book={parsha.book}
-                className="parsha-cell"
-            >
-                {state.hidden ? hiddenFace(parsha, face) : openFace(parsha, face)}
-                {markOf(state)}
-            </button>
+            <div className={state.wrong ? 'cell-slot-wrong' : 'cell-slot'}>
+                <button
+                    type="button"
+                    onClick={this.onClick}
+                    aria-label={`${parsha.ordinal}. ${name}`}
+                    dir={textDir(locale)}
+                    data-book={parsha.book}
+                    className="parsha-cell"
+                >
+                    {state.hidden ? hiddenFace(parsha, face) : openFace(parsha, face)}
+                    {markOf(state)}
+                </button>
+            </div>
         );
     }
 }

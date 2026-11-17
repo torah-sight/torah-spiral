@@ -25,7 +25,7 @@
     @apply layout-round-section tone-neutral-plain;
   }
   .book-plate-column {
-    @apply shape-plate shape-plate-column layout-plate-column type-plate motion-fade effect-plate-hover tone-genesis-plate;
+    @apply pattern-plate shape-plate-column layout-plate-column tone-genesis-plate;
 
     &[data-book="1"] {
       @apply tone-exodus-plate;
@@ -44,7 +44,7 @@
     }
   }
   .book-plate-compact {
-    @apply shape-plate shape-plate-compact layout-plate-compact type-plate motion-fade effect-plate-hover tone-genesis-plate;
+    @apply pattern-plate shape-plate-compact layout-plate-compact tone-genesis-plate;
 
     &[data-book="1"] {
       @apply tone-exodus-plate;
@@ -66,7 +66,7 @@
     @apply layout-plate-top type-plate-top tone-neutral-inherit;
   }
   .plate-line {
-    @apply type-plate-line tone-neutral-inherit;
+    @apply type-line tone-neutral-inherit;
   }
   .plate-hebrew {
     @apply type-plate-hebrew tone-neutral-inherit;
@@ -81,7 +81,7 @@
     @apply type-plate-span tone-neutral-subtle;
   }
   .parsha-cell {
-    @apply shape-cell layout-cell type-cell motion-cell effect-cell behavior-pointer tone-genesis-cell;
+    @apply shape-cell layout-cell type-wrap motion-cell effect-cell behavior-pointer tone-genesis-cell;
 
     &[data-book="1"] {
       @apply tone-exodus-cell;
@@ -112,10 +112,10 @@
     @apply shape-end layout-cell-title-right tone-neutral-inherit;
   }
   .cell-number {
-    @apply type-cell-number effect-dim tone-neutral-inherit;
+    @apply pattern-cell-number tone-neutral-inherit;
   }
   .cell-translit {
-    @apply shape-shrinkable type-cell-translit tone-neutral-plain;
+    @apply shape-shrinkable type-line tone-neutral-plain;
   }
   .cell-hebrew {
     @apply type-cell-hebrew tone-neutral-inherit;
@@ -124,7 +124,7 @@
     @apply type-cell-gematria tone-neutral-faint;
   }
   .cell-subtitle {
-    @apply type-cell-subtitle tone-neutral-subtle;
+    @apply type-line tone-neutral-subtle;
   }
   .cell-range {
     @apply type-cell-range tone-neutral-faint;
@@ -136,25 +136,25 @@
     @apply shape-spacer tone-neutral-inherit;
   }
   .cell-gauges {
-    @apply shape-gauges layout-gauges tone-neutral-inherit;
+    @apply shape-gauges layout-column-tight tone-neutral-inherit;
   }
   .cell-ghost {
     @apply shape-shrinkable layout-ghost tone-neutral-inherit;
   }
   .cell-corner-number {
-    @apply layout-corner type-cell-number effect-dim tone-neutral-inherit;
+    @apply layout-corner pattern-cell-number tone-neutral-inherit;
   }
   .cell-question {
-    @apply layout-center-overlay type-question tone-neutral-faint;
+    @apply layout-center-overlay type-xl tone-neutral-faint;
   }
   .cell-found {
-    @apply layout-overlay shape-overlay focus-found behavior-inert tone-success-found;
+    @apply pattern-cell-overlay focus-frame tone-success-found;
   }
   .cell-found-mark {
     @apply layout-mark shape-mark type-mark tone-success-mark;
   }
   .cell-wrong {
-    @apply layout-overlay shape-overlay focus-wrong behavior-inert motion-wrong tone-danger-wrong;
+    @apply pattern-cell-overlay focus-frame tone-danger-wrong;
   }
   .chip-row {
     @apply layout-chip-row tone-neutral-inherit;
@@ -179,10 +179,10 @@
     }
   }
   .floors-cell {
-    @apply shape-floors layout-floors type-floors-cell tone-neutral-inherit;
+    @apply pattern-floors type-floors-cell tone-neutral-inherit;
   }
   .floors-card {
-    @apply shape-floors layout-floors type-small tone-neutral-inherit;
+    @apply pattern-floors type-small tone-neutral-inherit;
   }
   .floors-columns {
     @apply layout-floors tone-neutral-inherit;
@@ -191,7 +191,7 @@
     @apply layout-columns-two tone-neutral-inherit;
   }
   .phrase-list {
-    @apply layout-phrase-list tone-neutral-inherit;
+    @apply layout-column-tight tone-neutral-inherit;
   }
   .phrase-item {
     @apply shape-phrase tone-neutral-box;
@@ -200,7 +200,7 @@
     @apply layout-block type-phrase-hebrew tone-neutral-plain;
   }
   .phrase-translation {
-    @apply layout-block shape-phrase-translation type-phrase-translation tone-neutral-subtle;
+    @apply layout-block shape-gap-top-half type-phrase-translation tone-neutral-subtle;
   }
   .floors-caption {
     @apply shape-floors-caption type-caption tone-neutral-subtle;
@@ -215,28 +215,28 @@
     @apply layout-block tone-neutral-inherit;
   }
   .gauge-caption {
-    @apply layout-gauge-caption type-gauge-caption tone-neutral-subtle;
+    @apply pattern-gauge-caption tone-neutral-subtle;
   }
   .gauge-caption-active {
-    @apply layout-gauge-caption type-gauge-caption type-semibold tone-neutral-plain;
+    @apply pattern-gauge-caption type-semibold tone-neutral-plain;
   }
   .gauge-rank {
     @apply type-tabular tone-neutral-faint;
   }
   .gauge-line {
-    @apply shape-gauge-line layout-gauge-line tone-neutral-inherit;
+    @apply pattern-gauge-line tone-neutral-inherit;
   }
   .gauge-line-dim {
-    @apply shape-gauge-line layout-gauge-line effect-dim-line tone-neutral-inherit;
+    @apply pattern-gauge-line effect-dim-line tone-neutral-inherit;
   }
   .gauge-track {
-    @apply shape-track shape-track-thin layout-track focus-track tone-neutral-track;
+    @apply pattern-gauge-track shape-track-thin tone-neutral-track;
   }
   .gauge-track-active {
-    @apply shape-track shape-track-thick layout-track focus-track tone-neutral-track;
+    @apply pattern-gauge-track shape-track-thick tone-neutral-track;
   }
   .gauge-fill {
-    @apply shape-gauge-fill layout-gauge-fill tone-genesis-fill;
+    @apply shape-round layout-gauge-fill tone-genesis-fill;
 
     &[data-book="1"] {
       @apply tone-exodus-fill;
@@ -253,5 +253,11 @@
     &[data-book="4"] {
       @apply tone-deuteronomy-fill;
     }
+  }
+  .cell-slot {
+    @apply shape-shrinkable layout-slot tone-neutral-inherit;
+  }
+  .cell-slot-wrong {
+    @apply shape-shrinkable layout-slot motion-wrong tone-neutral-inherit;
   }
 }

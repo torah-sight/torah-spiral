@@ -102,14 +102,6 @@
       "active"
     ],
     "deliveries": {
-      "solid": [
-        "fill",
-        "on-fill"
-      ],
-      "soft": [
-        "wash",
-        "ink"
-      ],
       "chip": [
         "veil",
         "ink",

@@ -13,7 +13,7 @@
     @apply shape-header tone-neutral-plain;
   }
   .topbar-panel {
-    @apply shape-topbar layout-topbar effect-panel tone-neutral-panel;
+    @apply pattern-panel shape-topbar layout-topbar tone-neutral-panel;
   }
   .topbar-logo {
     @apply shape-logo layout-fixed motion-fade effect-brighten tone-neutral-plain;
@@ -25,7 +25,7 @@
     @apply shape-tab-slot layout-tab-slot tone-neutral-plain;
   }
   .topbar-switches {
-    @apply shape-switches layout-switches tone-neutral-plain;
+    @apply shape-end layout-switches tone-neutral-plain;
   }
   .tab-list {
     @apply layout-tab-list tone-neutral-plain;
@@ -52,16 +52,16 @@
     @apply shape-title type-title tone-brand-gradient;
   }
   .tagline-text {
-    @apply shape-tagline type-tagline tone-neutral-subtle;
+    @apply pattern-tagline tone-neutral-subtle;
   }
   .tagline-collapsed {
-    @apply shape-tagline type-tagline layout-from-sm-block tone-neutral-subtle;
+    @apply pattern-tagline layout-from-sm-block tone-neutral-subtle;
   }
   .controls-panel {
-    @apply shape-controls layout-controls effect-panel tone-neutral-panel;
+    @apply pattern-panel shape-controls layout-controls tone-neutral-panel;
   }
   .restart-button {
-    @apply shape-restart type-small motion-fade tone-brand-primary;
+    @apply pattern-button tone-brand-primary;
   }
   .size-panel {
     @apply layout-size-panel tone-neutral-plain;

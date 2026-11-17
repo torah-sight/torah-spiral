@@ -13,7 +13,7 @@
     @apply layout-clue-row tone-neutral-plain;
   }
   .clue-name {
-    @apply layout-clue-name tone-neutral-plain;
+    @apply layout-inline-baseline tone-neutral-plain;
   }
   .clue-label {
     @apply type-small tone-neutral-subtle;
@@ -28,7 +28,7 @@
     @apply type-tabular tone-neutral-plain;
   }
   .game-bar {
-    @apply shape-game-bar layout-game-bar effect-panel effect-blur tone-neutral-panel;
+    @apply pattern-panel shape-game-bar layout-game-bar effect-blur tone-neutral-panel;
   }
   .game-stats {
     @apply layout-game-stats type-game-stats tone-neutral-text-soft;
@@ -43,25 +43,25 @@
     @apply tone-danger-plain;
   }
   .game-feedback-good {
-    @apply shape-feedback layout-inline-block tone-success-plain;
+    @apply pattern-feedback tone-success-plain;
   }
   .game-feedback-bad {
-    @apply shape-feedback layout-inline-block tone-danger-plain;
+    @apply pattern-feedback tone-danger-plain;
   }
   .game-done {
-    @apply type-game-done tone-success-plain;
+    @apply type-xl tone-success-plain;
   }
   .game-actions {
     @apply layout-actions tone-neutral-plain;
   }
   .again-button {
-    @apply shape-restart type-small motion-fade tone-success-primary;
+    @apply pattern-button tone-success-primary;
   }
   .setup-section {
     @apply shape-setup-section tone-neutral-plain;
   }
   .setup-panel {
-    @apply shape-setup-panel effect-panel tone-neutral-panel;
+    @apply pattern-panel shape-setup-panel tone-neutral-panel;
   }
   .setup-title {
     @apply type-setup-title tone-neutral-plain;
@@ -76,16 +76,16 @@
     @apply layout-setup-books tone-neutral-plain;
   }
   .setup-note {
-    @apply shape-setup-note type-small tone-neutral-subtle;
+    @apply shape-gap-top-2 type-small tone-neutral-subtle;
   }
   .setup-actions {
     @apply shape-setup-actions layout-actions-end tone-neutral-plain;
   }
   .cancel-button {
-    @apply shape-action motion-fade tone-neutral-chip;
+    @apply pattern-action tone-neutral-chip;
   }
   .play-button {
-    @apply shape-action motion-fade behavior-disabled-lock effect-disabled-dim tone-success-primary;
+    @apply pattern-action behavior-disabled-lock effect-disabled-dim tone-success-primary;
   }
   .book-label-he {
     @apply layout-from-sm tone-neutral-inherit;

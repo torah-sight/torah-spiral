@@ -12,19 +12,16 @@
   @apply mx-auto max-w-7xl px-2 pt-3 sm:px-4 sm:pt-4;
 }
 @utility shape-topbar {
-  @apply rounded-2xl border px-2 py-2 sm:px-3;
+  @apply px-2 py-2 sm:px-3;
 }
 @utility shape-controls {
-  @apply mt-3 rounded-2xl border px-2.5 py-2.5 sm:mt-4 sm:px-3;
+  @apply mt-3 px-2.5 py-2.5 sm:mt-4 sm:px-3;
 }
 @utility shape-logo {
   @apply rounded-[9px];
 }
 @utility shape-logo-image {
   @apply size-9;
-}
-@utility shape-switches {
-  @apply ms-auto;
 }
 @utility shape-tab-slot {
   @apply w-full sm:w-auto;
@@ -41,7 +38,7 @@
 @utility shape-flag {
   @apply h-[0.85em] w-auto rounded-[2px];
 }
-@utility shape-restart {
+@utility shape-button {
   @apply rounded-lg border px-3 py-1;
 }
 @utility shape-group-caption {
@@ -81,7 +78,7 @@
   @apply mb-4;
 }
 @utility shape-home-card {
-  @apply rounded-2xl border p-4 sm:min-h-44 sm:p-5;
+  @apply p-4 sm:min-h-44 sm:p-5;
 }
 @utility shape-hairline {
   @apply h-px bg-linear-to-r;
@@ -125,13 +122,10 @@
 @utility shape-tag {
   @apply rounded-md border px-1 py-px;
 }
-@utility shape-floors {
-  @apply mt-1;
-}
 @utility shape-phrase {
   @apply rounded-lg border px-2 py-1;
 }
-@utility shape-phrase-translation {
+@utility shape-gap-top-half {
   @apply mt-0.5;
 }
 @utility shape-floors-caption {
@@ -140,10 +134,7 @@
 @utility shape-story-cell {
   @apply border-t pt-2;
 }
-@utility shape-gauge-line {
-  @apply mt-0.5;
-}
-@utility shape-track {
+@utility shape-round {
   @apply rounded-full;
 }
 @utility shape-track-thin {
@@ -151,9 +142,6 @@
 }
 @utility shape-track-thick {
   @apply h-2;
-}
-@utility shape-gauge-fill {
-  @apply rounded-full;
 }
 @utility shape-modal-overlay {
   @apply p-3 pt-16 sm:p-8 sm:pt-16 xl:pt-8;
@@ -176,9 +164,6 @@
 @utility shape-gap-bottom {
   @apply mb-3;
 }
-@utility shape-text-top {
-  @apply mt-0.5;
-}
 @utility shape-detail-nav {
   @apply border-b pb-3;
 }
@@ -187,9 +172,6 @@
 }
 @utility shape-arrow-dashed {
   @apply border-dashed;
-}
-@utility shape-tally {
-  @apply mt-3;
 }
 @utility shape-tally-heading {
   @apply pt-1;
@@ -210,7 +192,7 @@
   @apply mt-2;
 }
 @utility shape-game-bar {
-  @apply mx-auto mb-3 max-w-7xl rounded-2xl border px-3 py-1.5 sm:px-4 sm:py-2;
+  @apply mx-auto mb-3 max-w-7xl px-3 py-1.5 sm:px-4 sm:py-2;
 }
 @utility shape-feedback {
   @apply min-w-[4.5rem] sm:min-w-[6.5rem];
@@ -219,17 +201,17 @@
   @apply px-1.5 sm:px-0;
 }
 @utility shape-setup-panel {
-  @apply mx-auto mt-2 w-full max-w-2xl rounded-2xl border p-4 sm:p-6;
+  @apply mx-auto mt-2 w-full max-w-2xl p-4 sm:p-6;
 }
 @utility shape-setup-caption {
   @apply mb-2 mt-4;
-}
-@utility shape-setup-note {
-  @apply mt-2;
 }
 @utility shape-setup-actions {
   @apply mt-6;
 }
 @utility shape-action {
   @apply rounded-lg border px-4 py-1.5;
+}
+@utility shape-panel {
+  @apply rounded-2xl border;
 }
