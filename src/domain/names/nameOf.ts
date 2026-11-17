@@ -29,8 +29,8 @@ const NUN_KAMATZ = /נָי$/;
 /** Точка шин (справа): שַׁדַּי; у שָׂדָי («поля») точка син. */
 const SHIN_DOT = 'ׁ';
 
-/** ה с мапиком: אֱלוֹהַּ, יָהּ (в «эти» — אֵלֶּה — его нет). */
-const MAPPIQ_HE = 'הּ';
+/** ה с мапиком в любом порядке огласовок: אֱלוֹהַּ, יָהּ (в «эти» — אֵלֶּה — его нет). */
+const MAPPIQ_HE = /ה[ְ-ׇ]*ּ/;
 
 /**
  * Какое Имя написано в слове — по буквам и огласовке MAM.
@@ -41,11 +41,11 @@ export const nameOf = (word: string): NameKey | null => {
     const letters = lettersOf(word);
     if (HAVAYA.test(letters)) return 'havaya';
     if (ELOKIM.test(letters) && LAMED_HOLAM.test(word)) return 'elokim';
-    if (ELOAH.test(letters) && word.includes(MAPPIQ_HE)) return 'eloah';
+    if (ELOAH.test(letters) && MAPPIQ_HE.test(word)) return 'eloah';
     if (EL.test(letters) && ALEF_TSERE.test(word)) return 'el';
     if (ADNUT.test(letters) && NUN_KAMATZ.test(word)) return 'adnut';
     if (SHAKAI.test(letters) && word.includes(SHIN_DOT)) return 'shakai';
-    if (letters === 'יה' && word.includes(MAPPIQ_HE)) return 'yah';
+    if (letters === 'יה' && MAPPIQ_HE.test(word)) return 'yah';
     if (letters === 'אהיה') return 'ehyeh';
     return null;
 };
