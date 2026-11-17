@@ -6,12 +6,15 @@ import {prefsToken} from '#src/stores/prefs/prefsToken.ts';
 import {FLAGS} from '#src/ui/common/flags.tsx';
 import {ToggleButton} from '#src/ui/common/ToggleButton.tsx';
 
-/** Флаг и подпись языка. */
-const LABELS = {
-    he: <span className="flex items-center gap-1.5">{FLAGS.he}עברית</span>,
-    ru: <span className="flex items-center gap-1.5">{FLAGS.ru}Рус</span>,
-    en: <span className="flex items-center gap-1.5">{FLAGS.en}Eng</span>
-};
+/** Флаг и подпись языка; на телефоне — один крупный флаг, подпись в подсказке. */
+const label = (locale: Locale, text: string): ReactNode => (
+    <span className="flag-label">
+        {FLAGS[locale]}
+        <span className="flag-name">{text}</span>
+    </span>
+);
+
+const LABELS = {he: label('he', 'עברית'), ru: label('ru', 'Рус'), en: label('en', 'Eng')};
 
 /** Переключатель языка с флагами: Израиль, Россия, США. */
 export class LocaleSwitch extends ScopedAntiHookComponent {
@@ -21,14 +24,27 @@ export class LocaleSwitch extends ScopedAntiHookComponent {
         this.resolve(prefsToken).setLocale(locale);
     }
 
+    /** Кнопка языка: флаг, подсказка с названием. */
+    protected button(value: Locale, title: string, current: Locale): ReactNode {
+        return (
+            <ToggleButton
+                value={value}
+                active={current === value}
+                label={LABELS[value]}
+                title={title}
+                onPick={this.pick}
+            />
+        );
+    }
+
     /** Три кнопки языков. */
     public render(): ReactNode {
         const {locale} = this.useCarburetor(this.resolve(prefsToken));
         return (
-            <div role="group" aria-label={MESSAGES[locale].language} className="flex gap-1">
-                <ToggleButton value="he" active={locale === 'he'} label={LABELS.he} onPick={this.pick} />
-                <ToggleButton value="ru" active={locale === 'ru'} label={LABELS.ru} onPick={this.pick} />
-                <ToggleButton value="en" active={locale === 'en'} label={LABELS.en} onPick={this.pick} />
+            <div role="group" aria-label={MESSAGES[locale].language} className="switch-group">
+                {this.button('he', 'עברית', locale)}
+                {this.button('ru', 'Русский', locale)}
+                {this.button('en', 'English', locale)}
             </div>
         );
     }

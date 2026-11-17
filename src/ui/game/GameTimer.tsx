@@ -40,7 +40,7 @@ export class GameTimer extends ScopedAntiHookComponent<{}, ITimerState> {
         const elapsed = (finishedAt ?? this.state.now) - startedAt;
         return (
             <span>
-                ⏱ {MESSAGES[locale].gameTime}: <b className="tabular-nums text-ink">{formatDuration(elapsed)}</b>
+                ⏱ {MESSAGES[locale].gameTime}: <b className="timer-value">{formatDuration(elapsed)}</b>
             </span>
         );
     }

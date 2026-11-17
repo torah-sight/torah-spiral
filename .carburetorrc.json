@@ -2,6 +2,7 @@
   "rules": {
     "carburetor/max-line-length": "error",
     "carburetor/max-render-depth": "error",
+    "carburetor/max-render-lines": "error",
     "carburetor/no-async-effect": "error",
     "carburetor/no-async-transaction": "error",
     "carburetor/no-blank-line-after-tsdoc": "error",
@@ -9,13 +10,16 @@
     "carburetor/no-closure-in-update": "error",
     "carburetor/no-computed-get-in-computed": "error",
     "carburetor/no-computed-get-in-render": "error",
+    "carburetor/no-conflicting-classes": "error",
     "carburetor/no-direct-data-write": "error",
+    "carburetor/no-duplicate-class": "error",
     "carburetor/no-duplicate-effect-name": "error",
     "carburetor/no-escaping-tracked-data": "error",
     "carburetor/no-external-data-mutation": "error",
     "carburetor/no-function-in-render": "error",
     "carburetor/no-get-data-in-render": "error",
     "carburetor/no-handler-created-in-render": "error",
+    "carburetor/no-inline-store-effect": "error",
     "carburetor/no-lifecycle-class-property": "error",
     "carburetor/no-memo-over-store-read": "error",
     "carburetor/no-module-level-store": "error",
@@ -31,21 +35,206 @@
       }
     ],
     "carburetor/no-react-hooks-in-components": "error",
+    "carburetor/no-store-read-in-effect-deps": "error",
     "carburetor/no-store-write-in-render": "error",
     "carburetor/no-tracked-data-mutation": "error",
+    "carburetor/no-unknown-class-reference": "error",
+    "carburetor/no-unrecognized-base": "error",
     "carburetor/no-untrackable-draft-mutation": "error",
     "carburetor/no-untrackable-store-data": "error",
+    "carburetor/no-unused-class": "error",
     "carburetor/no-use-carburetor-outside-render": "error",
     "carburetor/one-export-per-file": "error",
     "carburetor/prefer-readonly-array-param": "error",
+    "carburetor/prefer-store-effect": "error",
     "carburetor/require-bind-for-passed-method": "error",
     "carburetor/require-effect-deps": "error",
     "carburetor/require-emit-after-draft-write": "error",
+    "carburetor/require-function-class": "error",
+    "carburetor/require-hoisted-constant": "error",
     "carburetor/require-method-for-closure": "error",
     "carburetor/require-module-function": "error",
     "carburetor/require-subscription-disposal": "error",
     "carburetor/require-super-in-lifecycle": "error",
     "carburetor/require-tsdoc": "error",
-    "carburetor/tsdoc-blank-line-before-tags": "error"
+    "carburetor/tsdoc-blank-line-before-tags": "error",
+    "carburetor/valid-color-role": "error",
+    "carburetor/valid-function-class": "error",
+    "carburetor/valid-palette-token": "error",
+    "carburetor/valid-pattern-class": "error",
+    "carburetor/valid-tone-class": "error",
+    "carburetor/valid-trait-class": "error"
+  },
+  "classes": {
+    "css": [
+      "src/shell/classes/**/*.css"
+    ],
+    "families": [
+      "neutral",
+      "accent",
+      "brand",
+      "success",
+      "danger",
+      "genesis",
+      "exodus",
+      "leviticus",
+      "numbers",
+      "deuteronomy"
+    ],
+    "slots": [
+      "fill",
+      "on-fill",
+      "wash",
+      "veil",
+      "solid",
+      "ink",
+      "ink-soft",
+      "ink-subtle",
+      "ink-faint",
+      "edge",
+      "shadow",
+      "ring",
+      "scrim",
+      "base"
+    ],
+    "states": [
+      "hover",
+      "active"
+    ],
+    "deliveries": {
+      "solid": [
+        "fill",
+        "on-fill"
+      ],
+      "soft": [
+        "wash",
+        "ink"
+      ],
+      "chip": [
+        "veil",
+        "ink",
+        "ink-soft",
+        "edge"
+      ],
+      "plain": [
+        "ink"
+      ],
+      "text-soft": [
+        "ink-soft"
+      ],
+      "subtle": [
+        "ink-subtle"
+      ],
+      "faint": [
+        "ink-faint"
+      ],
+      "outline": [
+        "edge",
+        "ink"
+      ],
+      "gradient": [
+        "ink",
+        "ink-soft",
+        "ink-subtle"
+      ],
+      "panel": [
+        "wash",
+        "ink",
+        "edge",
+        "shadow"
+      ],
+      "modal": [
+        "solid",
+        "ink",
+        "edge",
+        "shadow"
+      ],
+      "primary": [
+        "fill",
+        "on-fill",
+        "edge"
+      ],
+      "cell": [
+        "wash",
+        "base",
+        "ink",
+        "edge"
+      ],
+      "plate": [
+        "wash",
+        "ink",
+        "edge"
+      ],
+      "tag": [
+        "veil",
+        "ink",
+        "edge"
+      ],
+      "fill": [
+        "fill"
+      ],
+      "found": [
+        "veil",
+        "ring"
+      ],
+      "mark": [
+        "solid",
+        "on-fill"
+      ],
+      "wrong": [
+        "ring"
+      ],
+      "link": [
+        "ink-soft",
+        "ink",
+        "edge"
+      ],
+      "line": [
+        "edge"
+      ],
+      "row": [
+        "veil",
+        "ink"
+      ],
+      "dashed": [
+        "ink-faint",
+        "edge"
+      ],
+      "check": [
+        "edge"
+      ],
+      "inherit": [
+        "ink"
+      ],
+      "track": [
+        "veil",
+        "edge"
+      ],
+      "box": [
+        "veil",
+        "ink",
+        "edge"
+      ],
+      "story": [
+        "ink-soft",
+        "edge"
+      ],
+      "rule-strong": [
+        "ink-soft"
+      ],
+      "rule-soft": [
+        "ink-faint"
+      ],
+      "scrim": [
+        "scrim"
+      ],
+      "ground": [
+        "solid",
+        "ink"
+      ]
+    },
+    "surfaceLevels": [
+      "page"
+    ]
   }
 }

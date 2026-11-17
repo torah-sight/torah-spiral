@@ -1,0 +1,4 @@
+/* Patterns: бесцветный скелет элемента. */
+@utility pattern-chip {
+  @apply shape-chip type-chip motion-fade;
+}

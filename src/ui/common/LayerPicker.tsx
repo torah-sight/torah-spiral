@@ -13,14 +13,11 @@ export interface ILayerPickerProps {
     onChange: (layers: Layers) => void;
 }
 
-const SUMMARY = 'flex cursor-pointer list-none items-center gap-2 rounded-lg border border-line bg-veil px-2.5 py-1 '
-    + 'text-sm text-ink transition hover:border-line-strong [&::-webkit-details-marker]:hidden';
-const MENU = 'panel absolute end-0 top-full z-10 mt-1 min-w-44 rounded-xl p-1.5 text-sm';
-const OPTION = 'flex cursor-pointer items-center gap-2 rounded-lg px-2 py-1 text-ink hover:bg-veil';
-const BOX = 'size-4 cursor-pointer accent-stone-700 dark:accent-cyan-400';
-
 /** Метка списка слоёв — по ней находится открытый список. */
 const MARK = 'data-layer-picker';
+
+/** Открытый список выбора слоёв. */
+const OPEN_PICKER = `details[${MARK}][open]`;
 
 const ALL_ON: Layers = {names: true, phrases: true, story: true};
 const ALL_OFF: Layers = {names: false, phrases: false, story: false};
@@ -59,7 +56,7 @@ export class LayerPicker extends AntiHookComponent<ILayerPickerProps> {
     /** Закрывает открытый список, если нажали не по нему. */
     @bind
     protected onOutside(event: PointerEvent): void {
-        const open = document.querySelector<HTMLDetailsElement>(`details[${MARK}][open]`);
+        const open = document.querySelector<HTMLDetailsElement>(OPEN_PICKER);
         if (open !== null && !open.contains(event.target as Node)) open.open = false;
     }
 
@@ -79,8 +76,8 @@ export class LayerPicker extends AntiHookComponent<ILayerPickerProps> {
     /** Строка списка: галочка и подпись. */
     protected option(value: string, checked: boolean, label: string): ReactNode {
         return (
-            <label className={OPTION}>
-                <input type="checkbox" value={value} checked={checked} onChange={this.onToggle} className={BOX} />
+            <label className="layer-picker-option">
+                <input type="checkbox" value={value} checked={checked} onChange={this.onToggle} className="layer-picker-box" />
                 {label}
             </label>
         );
@@ -91,16 +88,16 @@ export class LayerPicker extends AntiHookComponent<ILayerPickerProps> {
         const {layers, locale} = this.props;
         const t = MESSAGES[locale];
         return (
-            <div dir={textDir(locale)} className="flex items-center gap-2 text-sm">
-                <span className="uppercase tracking-widest text-mute">{t.floorLabel}</span>
-                <details data-layer-picker className="relative">
-                    <summary className={SUMMARY}>
-                        {summaryOf(layers, locale)}
-                        <span aria-hidden className="text-xs text-mute">▾</span>
+            <div dir={textDir(locale)} className="layer-picker">
+                <span className="layer-picker-caption">{t.floorLabel}</span>
+                <details data-layer-picker className="layer-picker-details">
+                    <summary className="layer-picker-summary">
+                        <span className="layer-picker-text">{summaryOf(layers, locale)}</span>
+                        <span aria-hidden className="layer-picker-arrow">▾</span>
                     </summary>
-                    <div className={MENU}>
+                    <div className="layer-picker-menu">
                         {this.option('all', isAll(layers), t.layersAll)}
-                        <div className="my-1 border-t border-line" />
+                        <div className="layer-picker-rule" />
                         {this.option('names', layers.names, t.floors.names)}
                         {this.option('phrases', layers.phrases, t.floors.phrases)}
                         {this.option('story', layers.story, t.floors.story)}

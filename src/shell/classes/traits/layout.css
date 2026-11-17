@@ -1,0 +1,277 @@
+/* Traits раскладки: display, flex, grid, позиция, переполнение. */
+@utility layout-topbar {
+  @apply flex flex-wrap items-center gap-x-2 gap-y-2;
+}
+@utility layout-fixed {
+  @apply shrink-0;
+}
+@utility layout-tab-slot {
+  @apply order-last sm:order-none;
+}
+@utility layout-tab-list {
+  @apply grid grid-cols-3 gap-1 sm:flex sm:flex-wrap;
+}
+@utility layout-tab-label {
+  @apply flex flex-col items-center gap-0.5 sm:flex-row sm:gap-1.5;
+}
+@utility layout-switches {
+  @apply flex gap-2;
+}
+@utility layout-switch-group {
+  @apply flex gap-1;
+}
+@utility layout-flag-label {
+  @apply flex items-center gap-1.5;
+}
+@utility layout-from-sm {
+  @apply hidden sm:inline;
+}
+@utility layout-from-sm-block {
+  @apply hidden sm:block;
+}
+@utility layout-controls {
+  @apply flex flex-wrap items-center justify-center gap-x-5 gap-y-2;
+}
+@utility layout-flag {
+  @apply inline-block shrink-0;
+}
+@utility layout-span-two {
+  @apply col-span-2 sm:col-span-1;
+}
+@utility layout-size-panel {
+  @apply flex flex-col gap-y-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-center sm:gap-x-4 sm:gap-y-2;
+}
+@utility layout-group-row {
+  @apply flex flex-wrap items-center gap-1;
+}
+@utility layout-group-row-center {
+  @apply flex flex-wrap items-center justify-center gap-1;
+}
+@utility layout-close {
+  @apply fixed end-3 top-3 z-[60] flex items-center justify-center sm:end-5 sm:top-4;
+}
+@utility layout-column-gap {
+  @apply flex flex-col gap-1;
+}
+@utility layout-picker {
+  @apply flex items-center justify-center gap-2 lg:justify-start;
+}
+@utility layout-relative {
+  @apply relative;
+}
+@utility layout-summary {
+  @apply flex items-center gap-2 [&::-webkit-details-marker]:hidden;
+}
+@utility layout-clip {
+  @apply overflow-hidden;
+}
+@utility layout-menu {
+  @apply absolute end-0 top-full z-10;
+}
+@utility layout-row-2 {
+  @apply flex items-center gap-2;
+}
+@utility layout-home-grid {
+  @apply grid gap-3 sm:grid-cols-3 sm:gap-4;
+}
+@utility layout-home-card {
+  @apply flex items-center gap-3 sm:flex-col sm:items-start sm:gap-2;
+}
+@utility layout-home-card-body {
+  @apply flex flex-col gap-1 sm:gap-2;
+}
+@utility layout-flow-tight {
+  @apply flex flex-col gap-2 sm:gap-3;
+}
+@utility layout-legend {
+  @apply flex gap-1 sm:grid sm:grid-cols-5 sm:gap-2;
+}
+@utility layout-rule-box {
+  @apply flex flex-col gap-[3px];
+}
+@utility layout-cells {
+  @apply grid auto-rows-fr grid-cols-3 gap-1.5 sm:gap-2 md:grid-cols-6;
+}
+@utility layout-round-table {
+  @apply flex flex-col gap-3 sm:gap-4;
+}
+@utility layout-round-section {
+  @apply flex flex-col gap-1.5 sm:gap-2;
+}
+@utility layout-plate-column {
+  @apply flex-1 overflow-hidden sm:flex-none;
+}
+@utility layout-plate-compact {
+  @apply flex items-center gap-3 overflow-hidden;
+}
+@utility layout-plate-top {
+  @apply flex flex-col-reverse items-center sm:flex-row sm:flex-wrap sm:items-baseline sm:justify-between sm:gap-x-2;
+}
+@utility layout-cell {
+  @apply relative flex flex-col overflow-hidden;
+}
+@utility layout-invisible {
+  @apply invisible;
+}
+@utility layout-cell-head {
+  @apply flex flex-wrap items-baseline justify-between gap-x-1.5;
+}
+@utility layout-cell-title-left {
+  @apply flex items-baseline gap-1.5;
+}
+@utility layout-cell-title-right {
+  @apply flex flex-col items-end;
+}
+@utility layout-gauges {
+  @apply flex flex-col gap-1.5;
+}
+@utility layout-ghost {
+  @apply invisible flex flex-1 flex-col;
+}
+@utility layout-corner {
+  @apply absolute start-1 top-1 sm:start-2 sm:top-2;
+}
+@utility layout-center-overlay {
+  @apply absolute inset-0 flex items-center justify-center;
+}
+@utility layout-overlay {
+  @apply absolute inset-0;
+}
+@utility layout-mark {
+  @apply absolute bottom-1 end-1 flex items-center justify-center;
+}
+@utility layout-chip-row {
+  @apply flex flex-wrap gap-0.5 sm:gap-1;
+}
+@utility layout-floors {
+  @apply flex flex-col gap-2;
+}
+@utility layout-columns-two {
+  @apply flex flex-col gap-2 lg:grid lg:grid-cols-2 lg:gap-x-8 lg:gap-y-0;
+}
+@utility layout-phrase-list {
+  @apply flex flex-col gap-1.5;
+}
+@utility layout-block {
+  @apply block;
+}
+@utility layout-gauge-caption {
+  @apply flex items-baseline justify-between gap-1;
+}
+@utility layout-gauge-line {
+  @apply flex items-center;
+}
+@utility layout-track {
+  @apply relative block flex-1 overflow-hidden;
+}
+@utility layout-gauge-fill {
+  @apply absolute inset-y-0 start-0;
+}
+@utility layout-modal-overlay {
+  @apply fixed inset-0 z-50 flex items-start justify-center;
+}
+@utility layout-modal-panel {
+  @apply relative overflow-y-auto overscroll-contain;
+}
+@utility layout-sticky {
+  @apply sticky top-0 z-20;
+}
+@utility layout-hide-short {
+  @apply [@media(max-height:560px)]:hidden;
+}
+@utility layout-detail-side {
+  @apply flex flex-wrap items-center justify-center gap-x-3 lg:flex-col lg:gap-x-0;
+}
+@utility layout-hide-from-lg {
+  @apply lg:hidden;
+}
+@utility layout-detail-nav {
+  @apply grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-x-2 gap-y-2 lg:grid-cols-[auto_minmax(0,1fr)_auto_minmax(0,1fr)_auto] lg:grid-rows-[auto_auto] lg:gap-x-4;
+}
+@utility layout-arrow {
+  @apply flex items-center gap-2;
+}
+@utility layout-prev-slot {
+  @apply col-start-1 row-start-1 justify-self-start lg:self-end;
+}
+@utility layout-next-slot {
+  @apply col-start-3 row-start-1 justify-self-end lg:col-start-5 lg:self-end;
+}
+@utility layout-detail-before {
+  @apply col-span-3 row-start-3 [@media(max-height:560px)]:hidden lg:col-span-1 lg:col-start-2 lg:row-start-1 lg:row-span-2;
+}
+@utility layout-detail-title {
+  @apply col-span-3 row-start-2 lg:col-span-1 lg:col-start-3 lg:row-start-1 lg:row-span-2;
+}
+@utility layout-detail-after {
+  @apply hidden lg:col-start-4 lg:row-start-1 lg:row-span-2 lg:block;
+}
+@utility layout-detail-tools {
+  @apply col-start-2 row-start-1 lg:col-start-1 lg:row-start-2 lg:self-start lg:justify-self-start;
+}
+@utility layout-tally-grid {
+  @apply grid grid-cols-1 items-start gap-y-1.5 sm:grid-cols-[auto_minmax(0,1fr)] sm:gap-x-4 sm:gap-y-2;
+}
+@utility layout-tally-heading {
+  @apply sm:col-start-1;
+}
+@utility layout-tally-values {
+  @apply flex flex-wrap gap-1.5 sm:col-start-2;
+}
+@utility layout-tally-chip {
+  @apply inline-flex items-baseline gap-1.5;
+}
+@utility layout-avoid-break {
+  @apply break-inside-avoid;
+}
+@utility layout-portion-row {
+  @apply grid grid-cols-[2rem_minmax(0,1fr)_auto] items-center gap-x-3;
+}
+@utility layout-portion-badge {
+  @apply row-span-2 flex items-center justify-center;
+}
+@utility layout-portion-hebrew {
+  @apply justify-self-start overflow-hidden;
+}
+@utility layout-portion-sub {
+  @apply col-span-2 col-start-2 overflow-hidden;
+}
+@utility layout-book-row {
+  @apply flex flex-wrap items-baseline justify-between gap-x-4;
+}
+@utility layout-story {
+  @apply flex flex-col gap-1;
+}
+@utility layout-portion-list {
+  @apply gap-x-4 lg:columns-2;
+}
+@utility layout-clue-row {
+  @apply flex flex-wrap items-baseline gap-x-3;
+}
+@utility layout-clue-name {
+  @apply inline-flex items-baseline gap-1.5;
+}
+@utility layout-game-bar {
+  @apply sticky top-2 z-40 flex flex-wrap items-center justify-center gap-x-5 gap-y-1;
+}
+@utility layout-game-stats {
+  @apply flex flex-wrap justify-center gap-x-3 sm:gap-x-4;
+}
+@utility layout-inline-block {
+  @apply inline-block;
+}
+@utility layout-actions {
+  @apply flex flex-wrap gap-2;
+}
+@utility layout-group-gap {
+  @apply flex flex-wrap gap-1.5;
+}
+@utility layout-setup-books {
+  @apply grid grid-cols-2 gap-1.5 sm:flex sm:flex-col sm:items-stretch;
+}
+@utility layout-actions-end {
+  @apply flex justify-end gap-2;
+}
+@utility layout-backdrop {
+  @apply fixed inset-0 -z-20;
+}

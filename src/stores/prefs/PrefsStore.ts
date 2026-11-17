@@ -3,9 +3,6 @@ import {FLOORS, type Floor} from '#src/domain/density/quotas/floors.ts';
 import type {Measure} from '#src/i18n/format/size/units.ts';
 import type {Locale} from '#src/i18n/locales.ts';
 
-/** Раскладка таблицы: сетка 6×9 или пять столбцов-книг. */
-export type Layout = 'grid' | 'books';
-
 /** Мера таблицы «Статистика»: святое Имя или размер главы. */
 export type SizeBy = Measure;
 
@@ -18,7 +15,6 @@ export type Theme = 'light' | 'dark';
 /** Настройки пользователя (сохраняются в localStorage). */
 export interface IPrefs {
     locale: Locale;
-    layout: Layout;
     /** Слои клеток обзора; названия видны всегда. */
     layers: Layers;
     theme: Theme;
@@ -27,10 +23,6 @@ export interface IPrefs {
 
 const setLocale = (draft: IPrefs, locale: Locale): void => {
     draft.locale = locale;
-};
-
-const setLayout = (draft: IPrefs, layout: Layout): void => {
-    draft.layout = layout;
 };
 
 const setLayers = (draft: IPrefs, layers: Layers): void => {
@@ -45,12 +37,12 @@ const setTheme = (draft: IPrefs, theme: Theme): void => {
     draft.theme = theme;
 };
 
-/** Язык, раскладка, этаж, тема и мера размера. */
+/** Язык, слои, тема и мера размера. */
 export class PrefsStore extends Carburetor<IPrefs> {
-    /** Русский, сетка, только названия, светлая тема, топ по четырёхбуквенному Имени. */
+    /** Русский, только названия, светлая тема, топ по четырёхбуквенному Имени. */
     public constructor() {
         super({
-            locale: 'ru', layout: 'grid', layers: {names: false, phrases: false, story: false}, theme: 'light',
+            locale: 'ru', layers: {names: false, phrases: false, story: false}, theme: 'light',
             sizeBy: 'havaya'
         });
     }
@@ -58,11 +50,6 @@ export class PrefsStore extends Carburetor<IPrefs> {
     /** Меняет язык интерфейса. */
     public setLocale(locale: Locale): void {
         this.update(setLocale, locale);
-    }
-
-    /** Меняет раскладку таблицы. */
-    public setLayout(layout: Layout): void {
-        this.update(setLayout, layout);
     }
 
     /** Задаёт слои клеток обзора. */

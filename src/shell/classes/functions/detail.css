@@ -1,0 +1,290 @@
+/* Functions карточек главы и книги: модалка, шапка со стрелками, таблица итогов, строки глав. */
+@layer components {
+  .modal-overlay {
+    @apply layout-modal-overlay shape-modal-overlay effect-backdrop tone-neutral-scrim;
+  }
+  .modal-panel {
+    @apply shape-modal-panel layout-modal-panel effect-modal tone-neutral-modal;
+  }
+  .modal-head {
+    @apply layout-sticky shape-modal-head tone-neutral-ground;
+  }
+  .modal-body {
+    @apply shape-modal-body tone-neutral-plain;
+  }
+  .detail-title {
+    @apply type-center tone-genesis-plain;
+
+    &[data-book="1"] {
+      @apply tone-exodus-plain;
+    }
+
+    &[data-book="2"] {
+      @apply tone-leviticus-plain;
+    }
+
+    &[data-book="3"] {
+      @apply tone-numbers-plain;
+    }
+
+    &[data-book="4"] {
+      @apply tone-deuteronomy-plain;
+    }
+  }
+  .detail-hebrew {
+    @apply type-detail-hebrew tone-neutral-inherit;
+  }
+  .detail-translit {
+    @apply layout-hide-short tone-neutral-plain;
+  }
+  .detail-sub {
+    @apply tone-neutral-subtle;
+  }
+  .detail-gematria {
+    @apply type-small layout-hide-short tone-neutral-subtle;
+  }
+  .detail-gematria-value {
+    @apply type-tabular tone-neutral-plain;
+  }
+  .detail-side {
+    @apply type-detail-side layout-detail-side tone-genesis-plain;
+
+    &[data-book="1"] {
+      @apply tone-exodus-plain;
+    }
+
+    &[data-book="2"] {
+      @apply tone-leviticus-plain;
+    }
+
+    &[data-book="3"] {
+      @apply tone-numbers-plain;
+    }
+
+    &[data-book="4"] {
+      @apply tone-deuteronomy-plain;
+    }
+  }
+  .detail-book-name {
+    @apply type-detail-book-name tone-neutral-inherit;
+  }
+  .detail-section {
+    @apply shape-detail-section tone-neutral-box;
+  }
+  .detail-section-spaced {
+    @apply shape-detail-section shape-gap-top tone-neutral-box;
+  }
+  .detail-heading {
+    @apply type-caption tone-neutral-subtle;
+  }
+  .detail-text {
+    @apply shape-text-top tone-neutral-plain;
+  }
+  .detail-sizes-mobile {
+    @apply shape-gap-bottom layout-hide-from-lg tone-neutral-inherit;
+  }
+  .detail-nav {
+    @apply layout-detail-nav shape-detail-nav tone-neutral-line;
+  }
+  .detail-arrow-prev {
+    @apply shape-arrow layout-arrow layout-prev-slot type-small motion-fade behavior-pointer tone-neutral-chip;
+  }
+  .detail-arrow-next {
+    @apply shape-arrow layout-arrow layout-next-slot type-small motion-fade behavior-pointer tone-neutral-chip;
+  }
+  .detail-edge-prev {
+    @apply shape-arrow shape-arrow-dashed layout-arrow layout-prev-slot type-small behavior-disabled tone-neutral-dashed;
+  }
+  .detail-edge-next {
+    @apply shape-arrow shape-arrow-dashed layout-arrow layout-next-slot type-small behavior-disabled tone-neutral-dashed;
+  }
+  .detail-spacer-prev {
+    @apply layout-prev-slot tone-neutral-inherit;
+  }
+  .detail-spacer-next {
+    @apply layout-next-slot tone-neutral-inherit;
+  }
+  .detail-arrow-glyph {
+    @apply type-glyph tone-neutral-inherit;
+  }
+  .detail-arrow-name {
+    @apply layout-clip type-ellipsis tone-neutral-inherit;
+  }
+  .detail-arrow-full {
+    @apply layout-from-sm tone-neutral-inherit;
+  }
+  .detail-before {
+    @apply layout-detail-before tone-neutral-plain;
+  }
+  .detail-title-slot {
+    @apply layout-detail-title tone-neutral-plain;
+  }
+  .detail-after {
+    @apply layout-detail-after tone-neutral-plain;
+  }
+  .detail-tools {
+    @apply shape-shrinkable layout-detail-tools tone-neutral-plain;
+  }
+  .tally-grid {
+    @apply shape-tally layout-tally-grid tone-neutral-plain;
+  }
+  .tally-heading {
+    @apply shape-tally-heading type-tally-heading layout-tally-heading tone-neutral-subtle;
+  }
+  .tally-values {
+    @apply layout-tally-values tone-neutral-plain;
+  }
+  .tally-chip {
+    @apply shape-tally-chip layout-tally-chip tone-genesis-tag;
+
+    &[data-book="1"] {
+      @apply tone-exodus-tag;
+    }
+
+    &[data-book="2"] {
+      @apply tone-leviticus-tag;
+    }
+
+    &[data-book="3"] {
+      @apply tone-numbers-tag;
+    }
+
+    &[data-book="4"] {
+      @apply tone-deuteronomy-tag;
+    }
+  }
+  .tally-rank {
+    @apply tone-neutral-subtle;
+  }
+  .hebrew-inherit {
+    @apply type-hebrew tone-neutral-inherit;
+  }
+  .portion-item {
+    @apply layout-avoid-break tone-neutral-plain;
+  }
+  .portion-row {
+    @apply shape-portion-row layout-portion-row type-start motion-fade behavior-pointer tone-neutral-row;
+  }
+  .portion-badge {
+    @apply shape-portion-badge layout-portion-badge type-portion-badge tone-genesis-tag;
+
+    &[data-book="1"] {
+      @apply tone-exodus-tag;
+    }
+
+    &[data-book="2"] {
+      @apply tone-leviticus-tag;
+    }
+
+    &[data-book="3"] {
+      @apply tone-numbers-tag;
+    }
+
+    &[data-book="4"] {
+      @apply tone-deuteronomy-tag;
+    }
+  }
+  .portion-hebrew {
+    @apply layout-portion-hebrew type-hebrew-title tone-genesis-plain;
+
+    &[data-book="1"] {
+      @apply tone-exodus-plain;
+    }
+
+    &[data-book="2"] {
+      @apply tone-leviticus-plain;
+    }
+
+    &[data-book="3"] {
+      @apply tone-numbers-plain;
+    }
+
+    &[data-book="4"] {
+      @apply tone-deuteronomy-plain;
+    }
+  }
+  .portion-verses {
+    @apply type-small type-tabular tone-neutral-subtle;
+  }
+  .portion-sub {
+    @apply layout-portion-sub type-ellipsis type-small tone-neutral-text-soft;
+  }
+  .portion-range {
+    @apply tone-neutral-faint;
+  }
+  .book-detail-head {
+    @apply shape-detail-nav tone-neutral-line;
+  }
+  .book-detail-span {
+    @apply type-small tone-genesis-plain;
+
+    &[data-book="1"] {
+      @apply tone-exodus-plain;
+    }
+
+    &[data-book="2"] {
+      @apply tone-leviticus-plain;
+    }
+
+    &[data-book="3"] {
+      @apply tone-numbers-plain;
+    }
+
+    &[data-book="4"] {
+      @apply tone-deuteronomy-plain;
+    }
+  }
+  .book-detail-row {
+    @apply shape-gap-top-1 layout-book-row tone-neutral-plain;
+  }
+  .book-detail-name {
+    @apply type-detail-name tone-neutral-plain;
+  }
+  .book-detail-literal {
+    @apply tone-neutral-subtle;
+  }
+  .book-detail-hebrew {
+    @apply type-book-hebrew tone-genesis-plain;
+
+    &[data-book="1"] {
+      @apply tone-exodus-plain;
+    }
+
+    &[data-book="2"] {
+      @apply tone-leviticus-plain;
+    }
+
+    &[data-book="3"] {
+      @apply tone-numbers-plain;
+    }
+
+    &[data-book="4"] {
+      @apply tone-deuteronomy-plain;
+    }
+  }
+  .book-detail-totals {
+    @apply shape-gap-top-2 type-small tone-genesis-plain;
+
+    &[data-book="1"] {
+      @apply tone-exodus-plain;
+    }
+
+    &[data-book="2"] {
+      @apply tone-leviticus-plain;
+    }
+
+    &[data-book="3"] {
+      @apply tone-numbers-plain;
+    }
+
+    &[data-book="4"] {
+      @apply tone-deuteronomy-plain;
+    }
+  }
+  .book-detail-story {
+    @apply shape-gap-top-1 layout-story tone-neutral-plain;
+  }
+  .portion-list {
+    @apply shape-gap-top-1 layout-portion-list tone-neutral-plain;
+  }
+}

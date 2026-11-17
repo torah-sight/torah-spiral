@@ -11,68 +11,85 @@ import {navToken} from '#src/stores/nav/navToken.ts';
 import {copyLayers} from '#src/stores/prefs/copyLayers.ts';
 import type {Layers} from '#src/stores/prefs/PrefsStore.ts';
 import {prefsToken} from '#src/stores/prefs/prefsToken.ts';
+import type {ISelection} from '#src/stores/selection/SelectionStore.ts';
 import {selectionToken} from '#src/stores/selection/selectionToken.ts';
 import type {IParsha} from '#src/content/model/types.ts';
 import type {Locale} from '#src/i18n/locales.ts';
 import {textDir} from '#src/i18n/format/textDir.ts';
 import {CloseButton} from '#src/ui/common/CloseButton.tsx';
 import {LayerPicker} from '#src/ui/common/LayerPicker.tsx';
-import {TONES} from '#src/ui/common/tones.ts';
 import {CellFloors} from '#src/ui/table/CellFloors.tsx';
 import {DetailNav} from './DetailNav.tsx';
-import {OVERLAY} from './overlay.ts';
 import {ScrollLock} from './ScrollLock.tsx';
 import {TallyLines} from './TallyLines.tsx';
 
 /** Все слои: из «Статистики» и игры карточка открывается целиком. */
 const ALL_LAYERS: Layers = {names: true, phrases: true, story: true};
 
-/** id фона карточки: прокрутка в начало при смене главы. */
+/** id панели карточки: прокрутка в начало при смене главы. */
 const DIALOG_ID = 'parsha-dialog';
 
 /** Свайп: сдвиг пальца по горизонтали не меньше этого и заметно больше вертикального. */
 const SWIPE_PX = 60;
 
-/** Заголовок между стрелками: иврит крупно, под ним транслитерация, перевод и гематрия. */
-const titleOf = (parsha: IParsha, locale: Locale, text: string): ReactNode => (
-    <div dir={textDir(locale)} className="text-center">
-        <h2 dir="rtl" className={`neon-text font-hebrew text-4xl leading-tight sm:text-5xl ${text}`}>{parsha.he}</h2>
+/** Какая глава открыта. */
+const selectOpen = (data: Readonly<ISelection>): number | null => data.open;
+
+/** Заголовок между стрелками: иврит, под ним транслитерация, перевод и гематрия; на низком экране — один иврит. */
+const titleOf = (parsha: IParsha, locale: Locale): ReactNode => (
+    <div dir={textDir(locale)} data-book={parsha.book} className="detail-title">
+        <h2 dir="rtl" className="detail-hebrew">{parsha.he}</h2>
         {locale === 'he' ? null : (
-            <p className="text-ink">
-                {parsha.translit[locale]} <span className="text-mute">· «{parsha.title[locale]}»</span>
+            <p className="detail-translit">
+                {parsha.translit[locale]} <span className="detail-sub">· «{parsha.title[locale]}»</span>
             </p>
         )}
-        <p className="text-sm text-mute">
-            {MESSAGES[locale].gematria}: <span className="tabular-nums text-ink">{gematria(parsha.he)}</span>
+        <p className="detail-gematria">
+            {MESSAGES[locale].gematria}: <span className="detail-gematria-value">{gematria(parsha.he)}</span>
         </p>
     </div>
 );
 
-/** Сведения сбоку: на телефоне строки идут в линию, с sm — столбиком. */
-const SIDE = 'flex flex-wrap items-center justify-center gap-x-3 text-center text-sm leading-relaxed '
-    + 'sm:flex-col sm:gap-x-0';
-
 /** Сбоку от заголовка: номер главы, стихи и книга. */
-const placeOf = (parsha: IParsha, locale: Locale, text: string): ReactNode => {
+const placeOf = (parsha: IParsha, locale: Locale): ReactNode => {
     const book = BOOKS[parsha.book]!;
     const t = MESSAGES[locale];
     return (
-        <div dir={textDir(locale)} className={`${SIDE} ${text}`}>
+        <div dir={textDir(locale)} data-book={parsha.book} className="detail-side">
             <p>{t.parsha} {parsha.ordinal} · <bdi dir="ltr">{formatRange(parsha.range)}</bdi></p>
-            <p>{t.book}: <span dir="rtl" className="font-hebrew text-base">{book.he}</span></p>
+            <p>{t.book}: <span dir="rtl" className="detail-book-name">{book.he}</span></p>
             {locale === 'he' ? null : <p>{book.translit[locale]} · {book.common[locale]}</p>}
         </div>
     );
 };
 
 /** Сбоку от заголовка: размеры главы с местами. */
-const sizesOf = (parsha: IParsha, locale: Locale, text: string): ReactNode => (
-    <div dir={textDir(locale)} className={`${SIDE} ${text}`}>
+const sizesOf = (parsha: IParsha, locale: Locale): ReactNode => (
+    <div dir={textDir(locale)} data-book={parsha.book} className="detail-side">
         <p>{sizeLabel(parsha.verses, parsha.sizeRank, 'verses', locale)}</p>
         <p>{sizeLabel(parsha.raw, parsha.wordRank, 'words', locale)}</p>
         <p>{sizeLabel(parsha.letters, parsha.letterRank, 'letters', locale)}</p>
     </div>
 );
+
+/** Содержимое: откуда название, заповеди и Имена, выбранные слои. */
+const bodyOf = (parsha: IParsha, locale: Locale, layers: Layers): ReactNode => {
+    const t = MESSAGES[locale];
+    return (
+        <div className="modal-body">
+            {/* До lg размеры главы здесь, а не в шапке. */}
+            <div className="detail-sizes-mobile">{sizesOf(parsha, locale)}</div>
+            <section className="detail-section">
+                <h3 className="detail-heading">
+                    {t.nameOrigin} · <bdi dir="ltr">{parsha.origin.ref}</bdi>
+                </h3>
+                <p className="detail-text">{parsha.origin.note[locale]}</p>
+            </section>
+            <TallyLines parsha={parsha} locale={locale} names={layers.names} />
+            <CellFloors parsha={parsha} layers={layers} locale={locale} large />
+        </div>
+    );
+};
 
 /** Карточка главы поверх таблицы: размер и все открытые этажи крупно; стрелки и свайп листают главы. */
 export class ParshaDetail extends ScopedAntiHookComponent {
@@ -82,7 +99,7 @@ export class ParshaDetail extends ScopedAntiHookComponent {
     /** Escape закрывает карточку главы или книги; новая глава открывается с начала. */
     protected useEffects(): void {
         this.useEffect('escape', this.listenEscape, []);
-        this.useEffect('scroll-top', this.scrollTop, [this.resolve(selectionToken).getData().open]);
+        this.useStoreEffect('scroll-top', this.resolve(selectionToken), selectOpen, this.scrollTop);
     }
 
     /** Новая глава открывается с начала: верх карточки всегда на одной высоте. */
@@ -144,6 +161,24 @@ export class ParshaDetail extends ScopedAntiHookComponent {
         if (event.target === event.currentTarget) this.resolve(selectionToken).close();
     }
 
+    /** Шапка карточки: стрелки при листании не сдвигаются, между ними — название и сведения. */
+    protected renderHead(parsha: IParsha, locale: Locale, layers: Layers): ReactNode {
+        const selection = this.resolve(selectionToken);
+        const picker = <LayerPicker layers={layers} locale={locale} onChange={selection.setLayers} />;
+        return (
+            <header className="modal-head">
+                <DetailNav
+                    index={parsha.index}
+                    before={placeOf(parsha, locale)}
+                    after={sizesOf(parsha, locale)}
+                    tools={picker}
+                >
+                    {titleOf(parsha, locale)}
+                </DetailNav>
+            </header>
+        );
+    }
+
     /** Модальная карточка или ничего. */
     public render(): ReactNode {
         const selection = this.resolve(selectionToken);
@@ -156,45 +191,20 @@ export class ParshaDetail extends ScopedAntiHookComponent {
         const overview = this.useCarburetor(this.resolve(navToken)).view === 'overview';
         const layers = copyLayers(picked ?? (overview ? prefs.layers : ALL_LAYERS));
         const parsha = PARSHIOT[open]!;
-        const book = BOOKS[parsha.book]!;
-        const tone = TONES[book.tone];
-        const t = MESSAGES[locale];
-        const picker = <LayerPicker layers={layers} locale={locale} onChange={selection.setLayers} />;
         return (
             <div
-                id={DIALOG_ID}
                 role="dialog"
                 aria-modal="true"
                 onClick={this.onBackdrop}
                 onTouchStart={this.onTouchStart}
                 onTouchEnd={this.onTouchEnd}
-                className={OVERLAY}
+                className="modal-overlay"
             >
                 <ScrollLock />
-                <CloseButton label={t.close} onClose={selection.close} />
-                <article className="panel w-full max-w-2xl rounded-2xl p-4 sm:p-6 lg:max-w-5xl">
-                    {/* Стрелки сверху: при листании они не сдвигаются; между ними — название и сведения. */}
-                    <DetailNav
-                        index={open}
-                        before={placeOf(parsha, locale, tone.text)}
-                        after={sizesOf(parsha, locale, tone.text)}
-                        tools={picker}
-                    >
-                        {titleOf(parsha, locale, tone.text)}
-                    </DetailNav>
-                    <section className="rounded-xl border border-line bg-veil px-3 py-2">
-                        <h3 className="text-sm uppercase tracking-widest text-mute">
-                            {t.nameOrigin} · <bdi dir="ltr">{parsha.origin.ref}</bdi>
-                        </h3>
-                        <p className="mt-0.5 text-ink">{parsha.origin.note[locale]}</p>
-                    </section>
-                    <TallyLines
-                        parsha={parsha}
-                        locale={locale}
-                        chip={tone.chip}
-                        names={layers.names}
-                    />
-                    <CellFloors parsha={parsha} layers={layers} locale={locale} chip={tone.chip} large />
+                <CloseButton label={MESSAGES[locale].close} onClose={selection.close} />
+                <article id={DIALOG_ID} className="modal-panel">
+                    {this.renderHead(parsha, locale, layers)}
+                    {bodyOf(parsha, locale, layers)}
                 </article>
             </div>
         );

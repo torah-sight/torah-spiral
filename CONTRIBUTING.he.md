@@ -38,10 +38,14 @@ npm run build
 
 - הארכיטקטורה לפי [React Carburetor](https://github.com/PHPCraftdream/ReactCarburetor): מאגרי מצב
   (stores) עם פונקציות שינוי ברמת המודול, רכיבי `ScopedAntiHookComponent`, אסימונים (tokens) ו־scopes.
-  כל 37 כללי ה־lint של Carburetor פעילים; נא לא לכבות אותם.
+  כל 54 כללי ה־lint של Carburetor פעילים, כולל כללי המחלקות הפונקציונליות; נא לא לכבות אותם.
 - עד 500 שורות בקובץ קוד ועד 7 פריטים בתיקייה בתוך `src`, `scripts`, `tests` ו־`.github`
   ‏(`scripts/repo/checkStructure.ts`).
 - ייבוא בתוך הפרויקט — דרך `#src/*`.
+- העיצוב בנוי ממחלקות פונקציונליות: לרכיב יש מחלקה אחת שקוראת לו לפי תפקידו (`topbar-panel`,
+  ‏`parsha-cell`). הקומות Palette → Role → Tone ו־Brick → Trait → Pattern → Function נמצאות ב־
+  `src/shell/classes`, ו־`npm run lint` בודק אותן. אין מחלקות Tailwind ב־markup ואין וריאנטים של `dark:`:
+  הערכה הכהה מחליפה Roles תחת `[data-theme="dark"]`.
 - כל מחרוזת שהמשתמש רואה עוברת דרך `src/i18n` וקיימת בעברית, ברוסית ובאנגלית.
 - הערות בקוד — קצרות.
 

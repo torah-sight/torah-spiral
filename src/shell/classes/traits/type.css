@@ -1,0 +1,178 @@
+/* Traits текста: шрифт, кегль, интерлиньяж, выравнивание. */
+@utility type-chip {
+  @apply text-sm sm:text-base;
+}
+@utility type-center {
+  @apply text-center;
+}
+@utility type-tab-caption {
+  @apply text-xs leading-tight sm:text-base;
+}
+@utility type-flag-label {
+  @apply text-xl sm:text-base;
+}
+@utility type-title {
+  @apply text-3xl font-semibold tracking-tight sm:text-5xl;
+}
+@utility type-tagline {
+  @apply text-sm;
+}
+@utility type-small {
+  @apply text-sm;
+}
+@utility type-hebrew {
+  @apply font-hebrew;
+}
+@utility type-group-caption {
+  @apply text-xs uppercase tracking-widest sm:text-sm;
+}
+@utility type-caption {
+  @apply text-sm uppercase tracking-widest;
+}
+@utility type-close {
+  @apply text-xl;
+}
+@utility type-footer {
+  @apply text-center text-sm;
+}
+@utility type-link {
+  @apply underline underline-offset-2;
+}
+@utility type-caps {
+  @apply uppercase tracking-widest;
+}
+@utility type-tiny {
+  @apply text-xs;
+}
+@utility type-ellipsis {
+  @apply text-ellipsis whitespace-nowrap;
+}
+@utility type-home-heading {
+  @apply text-center text-xl sm:text-2xl;
+}
+@utility type-start {
+  @apply text-start;
+}
+@utility type-home-icon {
+  @apply text-3xl sm:text-4xl;
+}
+@utility type-home-title {
+  @apply text-xl font-semibold sm:text-2xl;
+}
+@utility type-no-marker {
+  @apply list-none;
+}
+@utility type-plate-top {
+  @apply text-center sm:text-start;
+}
+@utility type-plate {
+  @apply text-start [overflow-wrap:anywhere] hyphens-auto;
+}
+@utility type-plate-line {
+  @apply text-[clamp(13px,1.9vw,18px)] leading-tight;
+}
+@utility type-plate-hebrew {
+  @apply font-hebrew text-lg leading-tight sm:text-2xl;
+}
+@utility type-plate-span {
+  @apply text-[clamp(12px,1.6vw,15px)];
+}
+@utility type-cell {
+  @apply text-start [overflow-wrap:anywhere] hyphens-auto;
+}
+@utility type-cell-number {
+  @apply text-[13px] font-semibold sm:text-sm;
+}
+@utility type-cell-translit {
+  @apply text-[clamp(13px,1.9vw,18px)] leading-tight;
+}
+@utility type-cell-hebrew {
+  @apply font-hebrew text-[clamp(18px,3.2vw,32px)] leading-tight;
+}
+@utility type-cell-gematria {
+  @apply text-[clamp(11px,1.4vw,13px)] leading-tight tabular-nums;
+}
+@utility type-cell-subtitle {
+  @apply text-[clamp(13px,1.9vw,18px)] leading-tight;
+}
+@utility type-cell-range {
+  @apply text-[clamp(12px,1.6vw,15px)] leading-tight;
+}
+@utility type-question {
+  @apply text-xl;
+}
+@utility type-mark {
+  @apply text-base font-bold;
+}
+@utility type-floors-cell {
+  @apply text-[clamp(12px,1.7vw,16px)] leading-snug;
+}
+@utility type-phrase-hebrew {
+  @apply font-hebrew text-[1.12em] leading-snug;
+}
+@utility type-phrase-translation {
+  @apply text-[0.92em] leading-snug;
+}
+@utility type-story {
+  @apply leading-relaxed;
+}
+@utility type-gauge-caption {
+  @apply text-[clamp(11px,1.5vw,15px)] leading-tight;
+}
+@utility type-semibold {
+  @apply font-semibold;
+}
+@utility type-tabular {
+  @apply tabular-nums;
+}
+@utility type-detail-hebrew {
+  @apply font-hebrew text-4xl leading-tight sm:text-5xl [@media(max-height:560px)]:text-3xl;
+}
+@utility type-detail-side {
+  @apply text-center text-xs leading-relaxed sm:text-sm;
+}
+@utility type-detail-book-name {
+  @apply font-hebrew text-base;
+}
+@utility type-glyph {
+  @apply text-lg;
+}
+@utility type-tally-heading {
+  @apply text-sm uppercase tracking-widest whitespace-nowrap;
+}
+@utility type-portion-badge {
+  @apply text-sm font-semibold tabular-nums;
+}
+@utility type-hebrew-title {
+  @apply font-hebrew text-xl leading-tight text-ellipsis whitespace-nowrap;
+}
+@utility type-detail-name {
+  @apply text-lg;
+}
+@utility type-book-hebrew {
+  @apply font-hebrew text-5xl leading-tight;
+}
+@utility type-clue-hebrew {
+  @apply font-hebrew text-3xl;
+}
+@utility type-clue-ref {
+  @apply font-hebrew text-2xl;
+}
+@utility type-clue-story {
+  @apply text-lg font-medium;
+}
+@utility type-clue-question {
+  @apply text-2xl;
+}
+@utility type-game-stats {
+  @apply text-xs sm:text-sm;
+}
+@utility type-game-done {
+  @apply text-xl;
+}
+@utility type-setup-title {
+  @apply text-2xl font-semibold;
+}
+@utility type-nowrap {
+  @apply whitespace-nowrap;
+}

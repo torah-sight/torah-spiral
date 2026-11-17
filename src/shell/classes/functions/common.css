@@ -1,0 +1,59 @@
+/* Functions общих компонентов: кнопки-переключатели, флаги. */
+@layer components {
+  .toggle-button {
+    @apply pattern-chip tone-neutral-chip;
+
+    &[aria-pressed="true"] {
+      @apply tone-accent-chip;
+    }
+  }
+  .toggle-button-wide {
+    @apply pattern-chip layout-span-two tone-neutral-chip;
+
+    &[aria-pressed="true"] {
+      @apply tone-accent-chip;
+    }
+  }
+  .flag-icon {
+    @apply shape-flag layout-flag focus-flag-ring tone-neutral-outline;
+  }
+  .close-button {
+    @apply layout-close shape-close type-close motion-fade effect-modal behavior-pointer tone-neutral-modal;
+  }
+  .footer-bar {
+    @apply shape-footer layout-column-gap type-footer tone-neutral-faint;
+  }
+  .footer-link {
+    @apply type-link motion-fade tone-neutral-link;
+  }
+  .layer-picker {
+    @apply shape-shrinkable layout-picker type-small tone-neutral-plain;
+  }
+  .layer-picker-caption {
+    @apply layout-from-sm type-caps tone-neutral-subtle;
+  }
+  .layer-picker-details {
+    @apply shape-shrinkable layout-relative tone-neutral-plain;
+  }
+  .layer-picker-summary {
+    @apply shape-picker-summary layout-summary type-no-marker type-small motion-fade behavior-pointer tone-neutral-chip;
+  }
+  .layer-picker-text {
+    @apply layout-clip type-ellipsis tone-neutral-plain;
+  }
+  .layer-picker-arrow {
+    @apply type-tiny tone-neutral-subtle;
+  }
+  .layer-picker-menu {
+    @apply shape-menu layout-menu type-small effect-modal tone-neutral-modal;
+  }
+  .layer-picker-option {
+    @apply shape-option layout-row-2 behavior-pointer tone-neutral-row;
+  }
+  .layer-picker-box {
+    @apply shape-box behavior-pointer tone-accent-check;
+  }
+  .layer-picker-rule {
+    @apply shape-rule tone-neutral-line;
+  }
+}

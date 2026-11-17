@@ -27,8 +27,8 @@ export class LayerButtons extends AntiHookComponent<ILayerButtonsProps> {
         const {layers, locale} = this.props;
         const t = MESSAGES[locale];
         return (
-            <div role="group" aria-label={t.floorLabel} className="flex flex-wrap items-center justify-center gap-1">
-                <span className="me-1 text-sm uppercase tracking-widest text-mute">{t.floorLabel}</span>
+            <div role="group" aria-label={t.floorLabel} className="layer-group">
+                <span className="layer-caption">{t.floorLabel}</span>
                 <ToggleButton value="names" active={layers.names} label={t.floors.names} onPick={this.toggle} />
                 <ToggleButton value="phrases" active={layers.phrases} label={t.floors.phrases} onPick={this.toggle} />
                 <ToggleButton value="story" active={layers.story} label={t.floors.story} onPick={this.toggle} />

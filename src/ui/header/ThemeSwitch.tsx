@@ -18,7 +18,7 @@ export class ThemeSwitch extends ScopedAntiHookComponent {
         const {locale, theme} = this.useCarburetor(this.resolve(prefsToken));
         const t = MESSAGES[locale];
         return (
-            <div role="group" aria-label={t.theme} className="flex gap-1">
+            <div role="group" aria-label={t.theme} className="switch-group">
                 <ToggleButton
                     value="light"
                     active={theme === 'light'}

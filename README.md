@@ -8,8 +8,8 @@
 **Site:** https://torah-sight.github.io/torah-spiral/en/ · the interface is in Hebrew ([/he/](https://torah-sight.github.io/torah-spiral/he/)), Russian ([/ru/](https://torah-sight.github.io/torah-spiral/ru/)) and
 English ([/en/](https://torah-sight.github.io/torah-spiral/en/)); a language link opens the site in that language.
 
-A static single-page app for learning the Torah as a spiral, like a times table: a 6 × 9 table (or five
-book columns) of the 54 weekly portions, with layers switched on as you like — titles, key names, key phrases, a very
+A static single-page app for learning the Torah as a spiral, like a times table: a 6 × 9 table (three columns
+on a phone) of the 54 weekly portions, with layers switched on as you like — titles, key names, key phrases, a very
 short storyline. The capacity of every level is proportional to the portion's density: its word count
 **after collapsing repeats** (verbatim repeats such as the twelve princes' offerings, and retellings
 such as Eliezer's story or Vayakhel–Pekudei).
@@ -20,7 +20,7 @@ copies for the language links (`dist/he/`, `dist/ru/`, `dist/en/`).
 
 ## Features
 
-- **Portions overview** — a 6 × 9 table or five book columns; titles always, names, phrases and the storyline switched on one by one.
+- **Portions overview** — a 6 × 9 table by book (three columns on a phone); titles always, names, phrases and the storyline switched on one by one.
 - **Portion statistics** — portions ranked by the non-erasable Divine Names, by the mitzvot (Sefer
   HaChinuch: all, positive, negative) and by verses, words or letters.
 - **Game** — find a portion's place (by name, between, before, after) or recognise it by its story and

@@ -1,0 +1,43 @@
+/* Functions стартового экрана: заголовок и карточки режимов. */
+@layer components {
+  .home-section {
+    @apply shape-home tone-neutral-plain;
+  }
+  .home-heading {
+    @apply shape-home-heading type-home-heading tone-neutral-text-soft;
+  }
+  .home-grid {
+    @apply layout-home-grid tone-neutral-plain;
+  }
+  .home-card {
+    @apply shape-home-card layout-home-card type-start motion-lift effect-panel tone-neutral-panel;
+  }
+  .home-card-icon {
+    @apply type-home-icon tone-neutral-plain;
+  }
+  .home-card-body {
+    @apply layout-home-card-body tone-neutral-plain;
+  }
+  .home-card-title {
+    @apply type-home-title tone-genesis-plain;
+
+    &[data-book="1"] {
+      @apply tone-exodus-plain;
+    }
+
+    &[data-book="2"] {
+      @apply tone-leviticus-plain;
+    }
+
+    &[data-book="3"] {
+      @apply tone-numbers-plain;
+    }
+
+    &[data-book="4"] {
+      @apply tone-deuteronomy-plain;
+    }
+  }
+  .home-card-text {
+    @apply type-small tone-neutral-text-soft;
+  }
+}

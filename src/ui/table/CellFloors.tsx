@@ -15,19 +15,9 @@ export interface ICellFloorsProps {
     /** Какие слои показать. */
     layers: Layers;
     locale: Locale;
-    chip: string;
     /** Крупный шрифт для карточки, мелкий для клетки. */
     large: boolean;
 }
-
-/** Фраза — отдельная плашка: иврит от правого края, перевод под ним мельче. */
-const PHRASE = 'rounded-lg border border-line bg-veil px-2 py-1';
-const HEBREW = 'block font-hebrew text-[1.12em] leading-snug text-ink';
-const TRANSLATION = 'mt-0.5 block text-[0.92em] leading-snug text-mute';
-/** В карточке на широком экране фразы и сюжет — два столбца, если включены оба. */
-const TWO_COLUMNS = 'space-y-2 lg:grid lg:grid-cols-2 lg:gap-x-8 lg:space-y-0';
-/** Сюжет отделён от фраз линией. */
-const STORY = 'border-t border-line pt-2 leading-relaxed text-soft';
 
 const labelsOf = (terms: readonly Term[], locale: Locale): string[] =>
     terms.map((term: Term): string => termLabel(term, locale));
@@ -39,9 +29,9 @@ export class CellFloors extends AntiHookComponent<ICellFloorsProps> {
     protected renderPhrase(term: Term): ReactNode {
         const translation = termTranslation(term, this.props.locale);
         return (
-            <li key={term[0]} className={PHRASE}>
-                <span dir="rtl" className={HEBREW}>{term[0]}</span>
-                {translation ? <span className={TRANSLATION}>{translation}</span> : null}
+            <li key={term[0]} className="phrase-item">
+                <span dir="rtl" className="phrase-hebrew">{term[0]}</span>
+                {translation ? <span className="phrase-translation">{translation}</span> : null}
             </li>
         );
     }
@@ -49,35 +39,46 @@ export class CellFloors extends AntiHookComponent<ICellFloorsProps> {
     /** Подпись слоя (только в карточке). */
     protected caption(layer: Floor): ReactNode {
         if (!this.props.large) return null;
-        const label = MESSAGES[this.props.locale].floors[layer];
-        return <h3 className="mb-1 mt-3 text-sm uppercase tracking-widest text-mute">{label}</h3>;
+        return <h3 className="floors-caption">{MESSAGES[this.props.locale].floors[layer]}</h3>;
+    }
+
+    /** Фразы: подпись и список плашек. */
+    protected renderPhrases(): ReactNode {
+        const {parsha, layers} = this.props;
+        if (!layers.phrases) return null;
+        return (
+            <div>
+                {this.caption('phrases')}
+                <ul className="phrase-list">{parsha.phrases.map(this.renderPhrase)}</ul>
+            </div>
+        );
+    }
+
+    /** Сюжет: подпись и абзац. */
+    protected renderStory(): ReactNode {
+        const {parsha, layers, locale, large} = this.props;
+        if (!layers.story) return null;
+        return (
+            <div>
+                {this.caption('story')}
+                <p className={large ? 'story-card' : 'story-cell'}>{parsha.story[locale].join(' ')}</p>
+            </div>
+        );
     }
 
     /** Накопленные этажи до текущего. */
     public render(): ReactNode {
-        const {parsha, layers, locale, chip, large} = this.props;
+        const {parsha, layers, locale, large} = this.props;
         // В карточке имена — строкой таблицы над слоями (TallyLines).
         const names = layers.names && !large;
         if (!names && !layers.phrases && !layers.story) return null;
-        const size = large ? 'text-sm space-y-2' : 'text-[clamp(12px,1.7vw,16px)] leading-snug space-y-2';
+        const both = large && layers.phrases && layers.story;
         return (
-            <div className={`mt-1 ${size}`}>
-                {names ? <Chips labels={labelsOf(parsha.names, locale)} className={chip} /> : null}
-                <div className={large && layers.phrases && layers.story ? TWO_COLUMNS : 'space-y-2'}>
-                    <div>
-                        {layers.phrases ? this.caption('phrases') : null}
-                        {layers.phrases ? (
-                            <ul className="space-y-1.5">{parsha.phrases.map(this.renderPhrase)}</ul>
-                        ) : null}
-                    </div>
-                    <div>
-                        {layers.story ? this.caption('story') : null}
-                        {layers.story ? (
-                            <p className={large ? 'leading-relaxed text-soft' : STORY}>
-                                {parsha.story[locale].join(' ')}
-                            </p>
-                        ) : null}
-                    </div>
+            <div className={large ? 'floors-card' : 'floors-cell'}>
+                {names ? <Chips labels={labelsOf(parsha.names, locale)} book={parsha.book} /> : null}
+                <div className={both ? 'floors-columns-two' : 'floors-columns'}>
+                    {this.renderPhrases()}
+                    {this.renderStory()}
                 </div>
             </div>
         );

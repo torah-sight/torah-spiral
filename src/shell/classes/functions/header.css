@@ -1,0 +1,84 @@
+/* Functions шапки: панель вкладок и настроек, заголовок, панель переключателей. */
+@layer components {
+  .app-shell {
+    @apply shape-app-shell tone-neutral-plain;
+  }
+  .page-backdrop {
+    @apply layout-backdrop tone-surface-page;
+  }
+  .app-main {
+    @apply shape-main tone-neutral-plain;
+  }
+  .header-shell {
+    @apply shape-header tone-neutral-plain;
+  }
+  .topbar-panel {
+    @apply shape-topbar layout-topbar effect-panel tone-neutral-panel;
+  }
+  .topbar-logo {
+    @apply shape-logo layout-fixed motion-fade effect-brighten tone-neutral-plain;
+  }
+  .topbar-logo-image {
+    @apply shape-logo-image tone-neutral-plain;
+  }
+  .topbar-tabs {
+    @apply shape-tab-slot layout-tab-slot tone-neutral-plain;
+  }
+  .topbar-switches {
+    @apply shape-switches layout-switches tone-neutral-plain;
+  }
+  .tab-list {
+    @apply layout-tab-list tone-neutral-plain;
+  }
+  .tab-label {
+    @apply layout-tab-label tone-neutral-plain;
+  }
+  .tab-caption {
+    @apply type-tab-caption tone-neutral-plain;
+  }
+  .switch-group {
+    @apply layout-switch-group tone-neutral-plain;
+  }
+  .flag-label {
+    @apply layout-flag-label type-flag-label tone-neutral-plain;
+  }
+  .flag-name {
+    @apply layout-from-sm tone-neutral-plain;
+  }
+  .title-block {
+    @apply shape-title-block type-center tone-neutral-plain;
+  }
+  .title-button {
+    @apply shape-title type-title tone-brand-gradient;
+  }
+  .tagline-text {
+    @apply shape-tagline type-tagline tone-neutral-subtle;
+  }
+  .tagline-collapsed {
+    @apply shape-tagline type-tagline layout-from-sm-block tone-neutral-subtle;
+  }
+  .controls-panel {
+    @apply shape-controls layout-controls effect-panel tone-neutral-panel;
+  }
+  .restart-button {
+    @apply shape-restart type-small motion-fade tone-brand-primary;
+  }
+  .size-panel {
+    @apply layout-size-panel tone-neutral-plain;
+  }
+  .size-group {
+    @apply layout-group-row tone-neutral-plain;
+  }
+  .size-caption {
+    @apply shape-group-caption type-group-caption tone-neutral-subtle;
+  }
+  .layer-group {
+    @apply layout-group-row-center tone-neutral-plain;
+  }
+  .layer-caption {
+    @apply shape-caption-end type-caption tone-neutral-subtle;
+  }
+  .hebrew-label {
+    @apply type-hebrew tone-neutral-plain;
+  }
+}

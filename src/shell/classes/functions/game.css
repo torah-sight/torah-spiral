@@ -1,0 +1,96 @@
+/* Functions игры: подсказки раунда, панель игры, страница выбора режима. */
+@layer components {
+  .clue-hebrew {
+    @apply type-clue-hebrew tone-neutral-plain;
+  }
+  .clue-ref {
+    @apply type-clue-ref tone-neutral-plain;
+  }
+  .clue-story {
+    @apply type-clue-story tone-neutral-plain;
+  }
+  .clue-row {
+    @apply layout-clue-row tone-neutral-plain;
+  }
+  .clue-name {
+    @apply layout-clue-name tone-neutral-plain;
+  }
+  .clue-label {
+    @apply type-small tone-neutral-subtle;
+  }
+  .clue-text {
+    @apply tone-neutral-plain;
+  }
+  .clue-question-mark {
+    @apply type-clue-question tone-neutral-subtle;
+  }
+  .timer-value {
+    @apply type-tabular tone-neutral-plain;
+  }
+  .game-bar {
+    @apply shape-game-bar layout-game-bar effect-panel effect-blur tone-neutral-panel;
+  }
+  .game-stats {
+    @apply layout-game-stats type-game-stats tone-neutral-text-soft;
+  }
+  .game-mode {
+    @apply layout-from-sm tone-neutral-subtle;
+  }
+  .game-good {
+    @apply tone-success-plain;
+  }
+  .game-bad {
+    @apply tone-danger-plain;
+  }
+  .game-feedback-good {
+    @apply shape-feedback layout-inline-block tone-success-plain;
+  }
+  .game-feedback-bad {
+    @apply shape-feedback layout-inline-block tone-danger-plain;
+  }
+  .game-done {
+    @apply type-game-done tone-success-plain;
+  }
+  .game-actions {
+    @apply layout-actions tone-neutral-plain;
+  }
+  .again-button {
+    @apply shape-restart type-small motion-fade tone-success-primary;
+  }
+  .setup-section {
+    @apply shape-setup-section tone-neutral-plain;
+  }
+  .setup-panel {
+    @apply shape-setup-panel effect-panel tone-neutral-panel;
+  }
+  .setup-title {
+    @apply type-setup-title tone-neutral-plain;
+  }
+  .setup-caption {
+    @apply shape-setup-caption type-caption tone-neutral-subtle;
+  }
+  .setup-row {
+    @apply layout-group-gap tone-neutral-plain;
+  }
+  .setup-books {
+    @apply layout-setup-books tone-neutral-plain;
+  }
+  .setup-note {
+    @apply shape-setup-note type-small tone-neutral-subtle;
+  }
+  .setup-actions {
+    @apply shape-setup-actions layout-actions-end tone-neutral-plain;
+  }
+  .cancel-button {
+    @apply shape-action motion-fade tone-neutral-chip;
+  }
+  .play-button {
+    @apply shape-action motion-fade behavior-disabled-lock effect-disabled-dim tone-success-primary;
+  }
+  .book-label-he {
+    @apply layout-from-sm tone-neutral-inherit;
+  }
+  .book-label-count {
+    @apply type-nowrap tone-neutral-inherit;
+  }
+}

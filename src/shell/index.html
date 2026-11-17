@@ -12,7 +12,7 @@
       // Тема до первого рендера — без мигания светлой страницы у тёмной темы.
       try {
         var prefs = JSON.parse(localStorage.getItem('torah-spiral/prefs') || '{}');
-        if (prefs.theme === 'dark') document.documentElement.classList.add('dark');
+        document.documentElement.dataset.theme = prefs.theme === 'dark' ? 'dark' : 'light';
       } catch (error) {}
     </script>
   </head>

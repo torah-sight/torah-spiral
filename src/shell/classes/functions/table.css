@@ -1,0 +1,257 @@
+/* Functions таблицы глав: клетки, плашки книг, этажи, градусники. */
+@layer components {
+  .table-flow {
+    @apply layout-flow-tight tone-neutral-plain;
+  }
+  .legend-row {
+    @apply layout-legend tone-neutral-plain;
+  }
+  .book-rule {
+    @apply shape-rule-box layout-rule-box tone-neutral-plain;
+  }
+  .book-rule-strong {
+    @apply shape-hairline tone-neutral-rule-strong;
+  }
+  .book-rule-soft {
+    @apply shape-hairline tone-neutral-rule-soft;
+  }
+  .cells-grid {
+    @apply layout-cells tone-neutral-plain;
+  }
+  .round-table {
+    @apply layout-round-table tone-neutral-plain;
+  }
+  .round-section {
+    @apply layout-round-section tone-neutral-plain;
+  }
+  .book-plate-column {
+    @apply shape-plate shape-plate-column layout-plate-column type-plate motion-fade effect-plate-hover tone-genesis-plate;
+
+    &[data-book="1"] {
+      @apply tone-exodus-plate;
+    }
+
+    &[data-book="2"] {
+      @apply tone-leviticus-plate;
+    }
+
+    &[data-book="3"] {
+      @apply tone-numbers-plate;
+    }
+
+    &[data-book="4"] {
+      @apply tone-deuteronomy-plate;
+    }
+  }
+  .book-plate-compact {
+    @apply shape-plate shape-plate-compact layout-plate-compact type-plate motion-fade effect-plate-hover tone-genesis-plate;
+
+    &[data-book="1"] {
+      @apply tone-exodus-plate;
+    }
+
+    &[data-book="2"] {
+      @apply tone-leviticus-plate;
+    }
+
+    &[data-book="3"] {
+      @apply tone-numbers-plate;
+    }
+
+    &[data-book="4"] {
+      @apply tone-deuteronomy-plate;
+    }
+  }
+  .plate-top {
+    @apply layout-plate-top type-plate-top tone-neutral-inherit;
+  }
+  .plate-line {
+    @apply type-plate-line tone-neutral-inherit;
+  }
+  .plate-hebrew {
+    @apply type-plate-hebrew tone-neutral-inherit;
+  }
+  .plate-hebrew-end {
+    @apply shape-hebrew-end type-plate-hebrew tone-neutral-inherit;
+  }
+  .plate-notes {
+    @apply layout-from-sm-block tone-neutral-inherit;
+  }
+  .plate-span {
+    @apply type-plate-span tone-neutral-subtle;
+  }
+  .parsha-cell {
+    @apply shape-cell layout-cell type-cell motion-cell effect-cell behavior-pointer tone-genesis-cell;
+
+    &[data-book="1"] {
+      @apply tone-exodus-cell;
+    }
+
+    &[data-book="2"] {
+      @apply tone-leviticus-cell;
+    }
+
+    &[data-book="3"] {
+      @apply tone-numbers-cell;
+    }
+
+    &[data-book="4"] {
+      @apply tone-deuteronomy-cell;
+    }
+  }
+  .cell-void {
+    @apply shape-cell-void layout-invisible behavior-inert tone-neutral-inherit;
+  }
+  .cell-head {
+    @apply layout-cell-head tone-neutral-inherit;
+  }
+  .cell-title-left {
+    @apply shape-shrinkable layout-cell-title-left tone-neutral-inherit;
+  }
+  .cell-title-right {
+    @apply shape-end layout-cell-title-right tone-neutral-inherit;
+  }
+  .cell-number {
+    @apply type-cell-number effect-dim tone-neutral-inherit;
+  }
+  .cell-translit {
+    @apply shape-shrinkable type-cell-translit tone-neutral-plain;
+  }
+  .cell-hebrew {
+    @apply type-cell-hebrew tone-neutral-inherit;
+  }
+  .cell-gematria {
+    @apply type-cell-gematria tone-neutral-faint;
+  }
+  .cell-subtitle {
+    @apply type-cell-subtitle tone-neutral-subtle;
+  }
+  .cell-range {
+    @apply type-cell-range tone-neutral-faint;
+  }
+  .cell-verses {
+    @apply layout-from-sm tone-neutral-inherit;
+  }
+  .cell-spacer {
+    @apply shape-spacer tone-neutral-inherit;
+  }
+  .cell-gauges {
+    @apply shape-gauges layout-gauges tone-neutral-inherit;
+  }
+  .cell-ghost {
+    @apply shape-shrinkable layout-ghost tone-neutral-inherit;
+  }
+  .cell-corner-number {
+    @apply layout-corner type-cell-number effect-dim tone-neutral-inherit;
+  }
+  .cell-question {
+    @apply layout-center-overlay type-question tone-neutral-faint;
+  }
+  .cell-found {
+    @apply layout-overlay shape-overlay focus-found behavior-inert tone-success-found;
+  }
+  .cell-found-mark {
+    @apply layout-mark shape-mark type-mark tone-success-mark;
+  }
+  .cell-wrong {
+    @apply layout-overlay shape-overlay focus-wrong behavior-inert motion-wrong tone-danger-wrong;
+  }
+  .chip-row {
+    @apply layout-chip-row tone-neutral-inherit;
+  }
+  .name-chip {
+    @apply shape-tag tone-genesis-tag;
+
+    &[data-book="1"] {
+      @apply tone-exodus-tag;
+    }
+
+    &[data-book="2"] {
+      @apply tone-leviticus-tag;
+    }
+
+    &[data-book="3"] {
+      @apply tone-numbers-tag;
+    }
+
+    &[data-book="4"] {
+      @apply tone-deuteronomy-tag;
+    }
+  }
+  .floors-cell {
+    @apply shape-floors layout-floors type-floors-cell tone-neutral-inherit;
+  }
+  .floors-card {
+    @apply shape-floors layout-floors type-small tone-neutral-inherit;
+  }
+  .floors-columns {
+    @apply layout-floors tone-neutral-inherit;
+  }
+  .floors-columns-two {
+    @apply layout-columns-two tone-neutral-inherit;
+  }
+  .phrase-list {
+    @apply layout-phrase-list tone-neutral-inherit;
+  }
+  .phrase-item {
+    @apply shape-phrase tone-neutral-box;
+  }
+  .phrase-hebrew {
+    @apply layout-block type-phrase-hebrew tone-neutral-plain;
+  }
+  .phrase-translation {
+    @apply layout-block shape-phrase-translation type-phrase-translation tone-neutral-subtle;
+  }
+  .floors-caption {
+    @apply shape-floors-caption type-caption tone-neutral-subtle;
+  }
+  .story-cell {
+    @apply shape-story-cell type-story tone-neutral-story;
+  }
+  .story-card {
+    @apply type-story tone-neutral-text-soft;
+  }
+  .gauge-row {
+    @apply layout-block tone-neutral-inherit;
+  }
+  .gauge-caption {
+    @apply layout-gauge-caption type-gauge-caption tone-neutral-subtle;
+  }
+  .gauge-caption-active {
+    @apply layout-gauge-caption type-gauge-caption type-semibold tone-neutral-plain;
+  }
+  .gauge-rank {
+    @apply type-tabular tone-neutral-faint;
+  }
+  .gauge-line {
+    @apply shape-gauge-line layout-gauge-line tone-neutral-inherit;
+  }
+  .gauge-line-dim {
+    @apply shape-gauge-line layout-gauge-line effect-dim-line tone-neutral-inherit;
+  }
+  .gauge-track {
+    @apply shape-track shape-track-thin layout-track focus-track tone-neutral-track;
+  }
+  .gauge-track-active {
+    @apply shape-track shape-track-thick layout-track focus-track tone-neutral-track;
+  }
+  .gauge-fill {
+    @apply shape-gauge-fill layout-gauge-fill tone-genesis-fill;
+
+    &[data-book="1"] {
+      @apply tone-exodus-fill;
+    }
+
+    &[data-book="2"] {
+      @apply tone-leviticus-fill;
+    }
+
+    &[data-book="3"] {
+      @apply tone-numbers-fill;
+    }
+
+    &[data-book="4"] {
+      @apply tone-deuteronomy-fill;
+    }
+  }
+}

@@ -1,4 +1,4 @@
-import {ScopedAntiHookComponent, bind} from '@react-carburetor/core';
+import {ScopedAntiHookComponent, bind, type TReadonly} from '@react-carburetor/core';
 import type {ReactNode} from 'react';
 import {BOOKS} from '#src/content/books/bookMeta.ts';
 import {BOOK_SPANS} from '#src/content/bookSpans.ts';
@@ -11,20 +11,18 @@ import {navToken} from '#src/stores/nav/navToken.ts';
 import {prefsToken} from '#src/stores/prefs/prefsToken.ts';
 import {ToggleButton} from '#src/ui/common/ToggleButton.tsx';
 
-const PANEL = 'glass mx-auto mt-2 w-full max-w-2xl rounded-2xl border border-stone-300/70 p-4 sm:p-6 '
-    + 'dark:border-fuchsia-300/30 dark:shadow-[0_0_50px_-14px_rgba(217,70,239,0.8)]';
-const PLAY = 'rounded-lg border border-emerald-900 bg-emerald-900 px-4 py-1.5 text-emerald-50 transition '
-    + 'hover:bg-emerald-950 disabled:cursor-not-allowed disabled:opacity-40 '
-    + 'dark:border-emerald-300/50 dark:bg-emerald-500/15 dark:text-emerald-100 dark:hover:bg-emerald-500/25';
-const CANCEL = 'rounded-lg border border-line px-4 py-1.5 text-soft transition hover:border-line-strong hover:text-ink';
-const TITLE = 'neon-text text-2xl font-semibold text-stone-900 dark:text-fuchsia-100';
-const CAPTION = 'mb-2 mt-4 text-sm uppercase tracking-widest text-mute';
+/** Включённые виды вопросов. */
+type Kinds = TReadonly<IGameSetup>['kinds'];
 
-const bookLabel = (book: number, locale: Locale): string => {
+/** Название книги; число глав не переносится отдельно от названия. */
+const bookLabel = (book: number, locale: Locale): ReactNode => {
     const meta = BOOKS[book]!;
     const span = BOOK_SPANS[book]!;
-    const name = locale === 'he' ? meta.he : `${meta.he} · ${meta.translit[locale]}`;
-    return `${name} · ${span.lastOrdinal - span.firstOrdinal + 1}`;
+    // На телефоне — только транслитерация: иврит с ней не помещается в столбец.
+    const name = locale === 'he' ? meta.he : (
+        <><span className="book-label-he">{meta.he} · </span>{meta.translit[locale]}</>
+    );
+    return <>{name} <span className="book-label-count">· {span.lastOrdinal - span.firstOrdinal + 1}</span></>;
 };
 
 /** Пять переключателей книг (мультивыбор). */
@@ -39,7 +37,7 @@ const bookToggles = (books: readonly boolean[], locale: Locale, onPick: (book: n
 );
 
 /** Вопросы режима «по сюжету»: элементы сюжета и/или ключевые фразы. */
-const textToggles = (kinds: IGameSetup['kinds'], t: IMessages, onPick: (kind: ClueKind) => void): ReactNode => (
+const textToggles = (kinds: Kinds, t: IMessages, onPick: (kind: ClueKind) => void): ReactNode => (
     <>
         <ToggleButton value="story" active={kinds.story} label={t.clueStory} onPick={onPick} />
         <ToggleButton value="phrase" active={kinds.phrase} label={t.cluePhrases} onPick={onPick} />
@@ -47,7 +45,7 @@ const textToggles = (kinds: IGameSetup['kinds'], t: IMessages, onPick: (kind: Cl
 );
 
 /** Вопросы режима «место»: названия, между, до, после (мультивыбор). */
-const kindToggles = (kinds: IGameSetup['kinds'], t: IMessages, onPick: (kind: ClueKind) => void): ReactNode => (
+const kindToggles = (kinds: Kinds, t: IMessages, onPick: (kind: ClueKind) => void): ReactNode => (
     <>
         <ToggleButton value="name" active={kinds.name} label={t.clueNames} onPick={onPick} />
         <ToggleButton value="between" active={kinds.between} label={t.clueBetween} onPick={onPick} />
@@ -83,13 +81,10 @@ export class GameSetup extends ScopedAntiHookComponent {
         this.resolve(gameToken).setReveal(reveal);
     }
 
-    /** Начинает раунд; если выбраны не все книги, таблица открывается сеткой 6 × 9. */
+    /** Начинает раунд. */
     @bind
     protected play(): void {
-        const game = this.resolve(gameToken);
-        game.start();
-        const {status, setup} = game.getData();
-        if (status === 'playing' && !setup.books.every(Boolean)) this.resolve(prefsToken).setLayout('grid');
+        this.resolve(gameToken).start();
     }
 
     /** Выбирает режим игры. */
@@ -98,67 +93,94 @@ export class GameSetup extends ScopedAntiHookComponent {
         this.resolve(gameToken).setMode(mode);
     }
 
+    /** Режим: найти место главы или угадать по сюжету. */
+    protected renderMode(story: boolean, t: IMessages): ReactNode {
+        return (
+            <>
+                <h3 className="setup-caption">{t.gameMode}</h3>
+                <div className="setup-row">
+                    <ToggleButton value="place" active={!story} label={t.modePlace} onPick={this.pickMode} />
+                    <ToggleButton value="story" active={story} label={t.modeStory} onPick={this.pickMode} />
+                </div>
+            </>
+        );
+    }
+
+    /** Книги: «Вся Тора» во всю ширину, книги по две в ряд (на телефоне) или столбиком. */
+    protected renderBooks(books: readonly boolean[], locale: Locale, t: IMessages): ReactNode {
+        return (
+            <>
+                <h3 className="setup-caption">{t.gameBooks}</h3>
+                <div className="setup-books">
+                    <ToggleButton
+                        value={-1}
+                        active={books.every(Boolean)}
+                        label={`${t.gameAll} · 54`}
+                        wide
+                        onPick={this.resolve(gameToken).selectAllBooks}
+                    />
+                    {bookToggles(books, locale, this.pickBook)}
+                </div>
+            </>
+        );
+    }
+
+    /** Виды вопросов и, в режиме «место», судьба отгаданных глав. */
+    protected renderClues(setup: TReadonly<IGameSetup>, t: IMessages): ReactNode {
+        const story = setup.mode === 'story';
+        return (
+            <>
+                <h3 className="setup-caption">{t.gameClues}</h3>
+                <div className="setup-row">
+                    {story ? textToggles(setup.kinds, t, this.pickKind) : kindToggles(setup.kinds, t, this.pickKind)}
+                </div>
+                <p className="setup-note">{story ? t.modeStoryNote : t.gameEdgesNote}</p>
+                {story ? null : this.renderReveal(setup.reveal, t)}
+            </>
+        );
+    }
+
+    /** Оставлять ли отгаданные главы открытыми. */
+    protected renderReveal(reveal: boolean, t: IMessages): ReactNode {
+        return (
+            <>
+                <h3 className="setup-caption">{t.guessedLabel}</h3>
+                <div className="setup-row">
+                    <ToggleButton value active={reveal} label={t.guessedShow} onPick={this.pickReveal} />
+                    <ToggleButton value={false} active={!reveal} label={t.guessedHide} onPick={this.pickReveal} />
+                </div>
+            </>
+        );
+    }
+
+    /** Отмена и начало раунда. */
+    protected renderActions(ready: boolean, t: IMessages): ReactNode {
+        return (
+            <div className="setup-actions">
+                <button type="button" onClick={this.cancel} className="cancel-button">{t.gameCancel}</button>
+                <button type="button" onClick={this.play} disabled={!ready} className="play-button">
+                    {t.gamePlay}
+                </button>
+            </div>
+        );
+    }
+
     /** Страница выбора режима (до начала раунда таблица не показывается). */
     public render(): ReactNode {
-        const store = this.resolve(gameToken);
-        const {setup} = this.useCarburetor(store);
+        const {setup} = this.useCarburetor(this.resolve(gameToken));
         const {locale} = this.useCarburetor(this.resolve(prefsToken));
         const t = MESSAGES[locale];
-        const books = setup.books;
-        const all = books.every(Boolean);
-        const story = setup.mode === 'story';
         const kinds = setup.kinds;
-        const ready = books.some(Boolean) && (story ? kinds.story || kinds.phrase : kinds.name || kinds.between
-            || kinds.before || kinds.after);
+        const picked = setup.mode === 'story' ? kinds.story || kinds.phrase
+            : kinds.name || kinds.between || kinds.before || kinds.after;
         return (
-            <section aria-label={t.gameSetup} className="px-1.5 sm:px-0">
-                <article className={PANEL}>
-                    <h2 className={TITLE}>🎯 {t.gameSetup}</h2>
-                    <h3 className={CAPTION}>{t.gameMode}</h3>
-                    <div className="flex flex-wrap gap-1.5">
-                        <ToggleButton value="place" active={!story} label={t.modePlace} onPick={this.pickMode} />
-                        <ToggleButton value="story" active={story} label={t.modeStory} onPick={this.pickMode} />
-                    </div>
-                    <h3 className={CAPTION}>{t.gameBooks}</h3>
-                    <div className="flex flex-col items-stretch gap-1.5">
-                        <ToggleButton
-                            value={-1}
-                            active={all}
-                            label={`${t.gameAll} · 54`}
-                            onPick={store.selectAllBooks}
-                        />
-                        {bookToggles(books, locale, this.pickBook)}
-                    </div>
-                    <h3 className={CAPTION}>{t.gameClues}</h3>
-                    <div className="flex flex-wrap gap-1.5">
-                        {story ? textToggles(kinds, t, this.pickKind) : kindToggles(kinds, t, this.pickKind)}
-                    </div>
-                    <p className="mt-2 text-sm text-mute">{story ? t.modeStoryNote : t.gameEdgesNote}</p>
-                    {story ? null : (
-                        <>
-                            <h3 className={CAPTION}>{t.guessedLabel}</h3>
-                            <div className="flex flex-wrap gap-1.5">
-                                <ToggleButton
-                                    value
-                                    active={setup.reveal}
-                                    label={t.guessedShow}
-                                    onPick={this.pickReveal}
-                                />
-                                <ToggleButton
-                                    value={false}
-                                    active={!setup.reveal}
-                                    label={t.guessedHide}
-                                    onPick={this.pickReveal}
-                                />
-                            </div>
-                        </>
-                    )}
-                    <div className="mt-6 flex justify-end gap-2">
-                        <button type="button" onClick={this.cancel} className={CANCEL}>{t.gameCancel}</button>
-                        <button type="button" onClick={this.play} disabled={!ready} className={PLAY}>
-                            {t.gamePlay}
-                        </button>
-                    </div>
+            <section aria-label={t.gameSetup} className="setup-section">
+                <article className="setup-panel">
+                    <h2 className="setup-title">🎯 {t.gameSetup}</h2>
+                    {this.renderMode(setup.mode === 'story', t)}
+                    {this.renderBooks(setup.books, locale, t)}
+                    {this.renderClues(setup, t)}
+                    {this.renderActions(setup.books.some(Boolean) && picked, t)}
                 </article>
             </section>
         );

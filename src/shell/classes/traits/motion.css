@@ -1,0 +1,13 @@
+/* Traits движения: переходы, анимации, трансформации. */
+@utility motion-fade {
+  @apply transition;
+}
+@utility motion-lift {
+  @apply transition duration-300 hover:-translate-y-1;
+}
+@utility motion-cell {
+  @apply transition duration-200;
+}
+@utility motion-wrong {
+  @apply animate-[flash-wrong_0.25s_ease-in-out_2];
+}

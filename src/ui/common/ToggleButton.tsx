@@ -7,15 +7,12 @@ export interface IToggleButtonProps<V> {
     active: boolean;
     label: ReactNode;
     title?: string;
+    /** Растянуть кнопку на две колонки сетки (на телефоне). */
+    wide?: boolean;
     onPick: (value: V) => void;
 }
 
-/** Светлая — слоновая кость в тёмной двойной рамке; тёмная — неон. */
-const ACTIVE = 'border-stone-700 bg-amber-50 text-stone-950 shadow-[inset_0_0_0_1px_rgba(68,64,60,0.9)] '
-    + 'dark:border-cyan-300/60 dark:bg-cyan-400/20 dark:text-cyan-50 dark:shadow-[0_0_18px_-4px_rgba(34,211,238,0.8)]';
-const IDLE = 'bg-veil text-soft border-line hover:text-ink hover:border-line-strong';
-
-/** Кнопка группы переключателей: матовое стекло, активная — с неоном. */
+/** Кнопка группы переключателей; выбранная помечена `aria-pressed`, по нему стиль и меняет цвет. */
 export class ToggleButton<V> extends AntiHookComponent<IToggleButtonProps<V>> {
     /** Сообщает выбранное значение. */
     @bind
@@ -25,14 +22,13 @@ export class ToggleButton<V> extends AntiHookComponent<IToggleButtonProps<V>> {
 
     /** Кнопка. */
     public render(): ReactNode {
-        const state = this.props.active ? ACTIVE : IDLE;
         return (
             <button
                 type="button"
                 title={this.props.title}
                 aria-pressed={this.props.active}
                 onClick={this.onClick}
-                className={`rounded-lg border px-2.5 py-1 text-sm sm:text-base transition ${state}`}
+                className={this.props.wide === true ? 'toggle-button-wide' : 'toggle-button'}
             >
                 {this.props.label}
             </button>

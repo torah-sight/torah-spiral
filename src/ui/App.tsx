@@ -4,6 +4,7 @@ import type {Locale} from '#src/i18n/locales.ts';
 import {MESSAGES} from '#src/i18n/messages/messages.ts';
 import {textDir} from '#src/i18n/format/textDir.ts';
 import {localePath} from '#src/i18n/route/localePath.ts';
+import type {IPrefs, Theme} from '#src/stores/prefs/PrefsStore.ts';
 import {prefsToken} from '#src/stores/prefs/prefsToken.ts';
 import {Footer} from './common/Footer.tsx';
 import {BookDetail} from './detail/BookDetail.tsx';
@@ -16,26 +17,39 @@ import {Home} from './home/Home.tsx';
 import {navToken} from '#src/stores/nav/navToken.ts';
 import {ParshaTable} from './table/ParshaTable.tsx';
 
+/** Язык интерфейса из настроек. */
+const selectLocale = (data: Readonly<IPrefs>): Locale => data.locale;
+
+/** Тема из настроек. */
+const selectTheme = (data: Readonly<IPrefs>): Theme => data.theme;
+
+/** Основная часть: выбор режима игры или таблица с панелью игры. */
+const mainOf = (choosing: boolean): ReactNode => {
+    return (
+        <main className="app-main">
+            {choosing ? <GameSetup /> : <><GameBar /><ParshaTable /></>}
+        </main>
+    );
+};
+
 /** Приложение: шапка, стартовый экран или раздел (таблица, игра), карточки главы и книги. */
 export class App extends ScopedAntiHookComponent {
     /** Язык, направление и тема документа следуют настройкам. */
     protected useEffects(): void {
-        const {locale, theme} = this.resolve(prefsToken).getData();
-        this.useEffect('document-locale', this.applyLocale, [locale]);
-        this.useEffect('document-theme', this.applyTheme, [theme]);
+        const prefs = this.resolve(prefsToken);
+        this.useStoreEffect('document-locale', prefs, selectLocale, this.applyLocale);
+        this.useStoreEffect('document-theme', prefs, selectTheme, this.applyTheme);
     }
 
-    /** Класс .dark на <html> включает тёмную тему. */
+    /** Атрибут data-theme на <html> переключает Roles цвета: страница, фон и все компоненты. */
     @bind
-    protected applyTheme(): void {
-        const dark = this.resolve(prefsToken).getData().theme === 'dark';
-        document.documentElement.classList.toggle('dark', dark);
+    protected applyTheme(theme: Theme): void {
+        document.documentElement.dataset.theme = theme;
     }
 
     /** Ставит lang, dir и title документа; адрес — ссылка на страницу языка. */
     @bind
-    protected applyLocale(): void {
-        const locale: Locale = this.resolve(prefsToken).getData().locale;
+    protected applyLocale(locale: Locale): void {
         document.documentElement.lang = locale;
         document.documentElement.dir = textDir(locale);
         document.title = MESSAGES[locale].appTitle;
@@ -48,19 +62,16 @@ export class App extends ScopedAntiHookComponent {
 
     /** Разметка страницы. */
     public render(): ReactNode {
-        const {locale, theme} = this.useCarburetor(this.resolve(prefsToken));
+        const {locale} = this.useCarburetor(this.resolve(prefsToken));
         const {view} = this.useCarburetor(this.resolve(navToken));
         const {status} = this.useCarburetor(this.resolve(gameToken));
         // В игре до начала раунда — только страница выбора режима, без таблицы.
         const choosing = view === 'game' && status !== 'playing' && status !== 'done';
         return (
-            <div dir={textDir(locale)} data-theme={theme} className="min-h-screen pb-10">
+            <div dir={textDir(locale)} className="app-shell">
+                <div aria-hidden className="page-backdrop" />
                 <Header />
-                {view === 'home' ? <Home /> : (
-                    <main className="mx-auto mt-4 max-w-7xl px-1.5 sm:px-4">
-                        {choosing ? <GameSetup /> : <><GameBar /><ParshaTable /></>}
-                    </main>
-                )}
+                {view === 'home' ? <Home /> : mainOf(choosing)}
                 <Footer />
                 <ParshaDetail />
                 <BookDetail />

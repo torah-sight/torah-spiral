@@ -10,9 +10,6 @@ export interface IMessages {
     /** Сводка выбора слоёв: все или ни одного. */
     layersAll: string;
     layersNone: string;
-    layoutLabel: string;
-    layoutGrid: string;
-    layoutBooks: string;
     layoutSize: string;
     /** Подсказка к полоске размера в стихах. */
     sizeHint: string;

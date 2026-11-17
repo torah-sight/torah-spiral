@@ -2,11 +2,15 @@
 ## Code rules
 
 - Architecture follows [React Carburetor](https://github.com/PHPCraftdream/ReactCarburetor): stores with
-  module-level mutators, `ScopedAntiHookComponent` components, tokens and scopes. All 37 Carburetor lint
-  rules are on; please do not disable them.
+  module-level mutators, `ScopedAntiHookComponent` components, tokens and scopes. All 54 Carburetor lint
+  rules are on, including the functional-class rules; please do not disable them.
 - At most 500 lines per code file and at most 7 entries per folder in `src`, `scripts`, `tests` and
   `.github` (`scripts/repo/checkStructure.ts`).
 - Imports inside the project use `#src/*`.
+- Styling uses functional classes: an element carries one class that names what it does (`topbar-panel`,
+  `parsha-cell`). The floors Palette → Role → Tone and Brick → Trait → Pattern → Function live in
+  `src/shell/classes`, and `npm run lint` checks them. No Tailwind utilities in markup and no `dark:`
+  variants: the dark theme overrides Roles under `[data-theme="dark"]`.
 - Every user-visible string goes through `src/i18n` and exists in Hebrew, Russian and English.
 - Code comments are short.
 
@@ -22,11 +26,15 @@ the generated `*.md` files by hand: CI runs `npm run docs:check`.
 ## Правила кода
 
 - Архитектура — по [React Carburetor](https://github.com/PHPCraftdream/ReactCarburetor): сторы с
-  мутаторами на уровне модуля, компоненты `ScopedAntiHookComponent`, токены и scope. Включены все 37
-  правил линтера Carburetor; пожалуйста, не отключайте их.
+  мутаторами на уровне модуля, компоненты `ScopedAntiHookComponent`, токены и scope. Включены все 54
+  правила линтера Carburetor, включая правила функциональных классов; пожалуйста, не отключайте их.
 - Не больше 500 строк в файле кода и не больше 7 элементов в папке в `src`, `scripts`, `tests` и
   `.github` (`scripts/repo/checkStructure.ts`).
 - Импорты внутри проекта — через `#src/*`.
+- Стили — функциональные классы: элемент несёт один класс, который называет, что он делает (`topbar-panel`,
+  `parsha-cell`). Этажи Palette → Role → Tone и Brick → Trait → Pattern → Function лежат в
+  `src/shell/classes`, их проверяет `npm run lint`. В разметке нет утилит Tailwind и нет вариантов `dark:`:
+  тёмная тема переопределяет Roles под `[data-theme="dark"]`.
 - Каждая строка, которую видит пользователь, идёт через `src/i18n` и есть на иврите, русском и английском.
 - Комментарии в коде — короткие.
 
@@ -43,10 +51,14 @@ README, CONTRIBUTING, CODE_OF_CONDUCT, SECURITY и шаблон pull request е�
 
 - הארכיטקטורה לפי [React Carburetor](https://github.com/PHPCraftdream/ReactCarburetor): מאגרי מצב
   (stores) עם פונקציות שינוי ברמת המודול, רכיבי `ScopedAntiHookComponent`, אסימונים (tokens) ו־scopes.
-  כל 37 כללי ה־lint של Carburetor פעילים; נא לא לכבות אותם.
+  כל 54 כללי ה־lint של Carburetor פעילים, כולל כללי המחלקות הפונקציונליות; נא לא לכבות אותם.
 - עד 500 שורות בקובץ קוד ועד 7 פריטים בתיקייה בתוך `src`, `scripts`, `tests` ו־`.github`
   ‏(`scripts/repo/checkStructure.ts`).
 - ייבוא בתוך הפרויקט — דרך `#src/*`.
+- העיצוב בנוי ממחלקות פונקציונליות: לרכיב יש מחלקה אחת שקוראת לו לפי תפקידו (`topbar-panel`,
+  ‏`parsha-cell`). הקומות Palette → Role → Tone ו־Brick → Trait → Pattern → Function נמצאות ב־
+  `src/shell/classes`, ו־`npm run lint` בודק אותן. אין מחלקות Tailwind ב־markup ואין וריאנטים של `dark:`:
+  הערכה הכהה מחליפה Roles תחת `[data-theme="dark"]`.
 - כל מחרוזת שהמשתמש רואה עוברת דרך `src/i18n` וקיימת בעברית, ברוסית ובאנגלית.
 - הערות בקוד — קצרות.
 

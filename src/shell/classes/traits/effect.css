@@ -1,0 +1,31 @@
+/* Traits эффектов: прозрачность, тени, фильтры. */
+@utility effect-panel {
+  @apply shadow-[0_10px_26px_-18px];
+}
+@utility effect-modal {
+  @apply shadow-[0_24px_60px_-20px];
+}
+@utility effect-brighten {
+  @apply hover:brightness-125;
+}
+@utility effect-plate-hover {
+  @apply hover:brightness-110;
+}
+@utility effect-cell {
+  @apply inset-shadow-[0_3px_0];
+}
+@utility effect-dim {
+  @apply opacity-80;
+}
+@utility effect-dim-line {
+  @apply opacity-60;
+}
+@utility effect-backdrop {
+  @apply backdrop-blur-sm;
+}
+@utility effect-blur {
+  @apply backdrop-blur-lg backdrop-saturate-150;
+}
+@utility effect-disabled-dim {
+  @apply disabled:opacity-40;
+}

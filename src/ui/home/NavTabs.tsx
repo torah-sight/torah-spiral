@@ -7,6 +7,14 @@ import {navToken} from '#src/stores/nav/navToken.ts';
 import {prefsToken} from '#src/stores/prefs/prefsToken.ts';
 import {ToggleButton} from '#src/ui/common/ToggleButton.tsx';
 
+/** Вкладка: значок над подписью на телефоне, в строку — на широком экране. */
+const tab = (icon: string, text: string): ReactNode => (
+    <span className="tab-label">
+        <span aria-hidden>{icon}</span>
+        <span className="tab-caption">{text}</span>
+    </span>
+);
+
 /** Вкладки разделов: обзор, размеры, игра. */
 export class NavTabs extends ScopedAntiHookComponent {
     /** Переход в раздел: из игры — с выходом из неё, в игру — с выбором режима. */
@@ -26,15 +34,20 @@ export class NavTabs extends ScopedAntiHookComponent {
         const {view} = this.useCarburetor(this.resolve(navToken));
         const t = MESSAGES[locale];
         return (
-            <div role="tablist" className="flex flex-wrap gap-1">
+            <div role="tablist" className="tab-list">
                 <ToggleButton
                     value="overview"
                     active={view === 'overview'}
-                    label={`📜 ${t.navOverview}`}
+                    label={tab('📜', t.navOverview)}
                     onPick={this.pick}
                 />
-                <ToggleButton value="sizes" active={view === 'sizes'} label={`📏 ${t.navSizes}`} onPick={this.pick} />
-                <ToggleButton value="game" active={view === 'game'} label={`🎯 ${t.navGame}`} onPick={this.pick} />
+                <ToggleButton
+                    value="sizes"
+                    active={view === 'sizes'}
+                    label={tab('📏', t.navSizes)}
+                    onPick={this.pick}
+                />
+                <ToggleButton value="game" active={view === 'game'} label={tab('🎯', t.navGame)} onPick={this.pick} />
             </div>
         );
     }

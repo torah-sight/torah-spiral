@@ -1,0 +1,235 @@
+/* Traits формы: размеры, отступы, поля, скругления, рамки, геометрия фона. */
+@utility shape-chip {
+  @apply rounded-lg border px-2 py-1 sm:px-2.5;
+}
+@utility shape-app-shell {
+  @apply min-h-screen pb-10;
+}
+@utility shape-main {
+  @apply mx-auto mt-4 max-w-7xl px-1.5 sm:px-4;
+}
+@utility shape-header {
+  @apply mx-auto max-w-7xl px-2 pt-3 sm:px-4 sm:pt-4;
+}
+@utility shape-topbar {
+  @apply rounded-2xl border px-2 py-2 sm:px-3;
+}
+@utility shape-controls {
+  @apply mt-3 rounded-2xl border px-2.5 py-2.5 sm:mt-4 sm:px-3;
+}
+@utility shape-logo {
+  @apply rounded-[9px];
+}
+@utility shape-logo-image {
+  @apply size-9;
+}
+@utility shape-switches {
+  @apply ms-auto;
+}
+@utility shape-tab-slot {
+  @apply w-full sm:w-auto;
+}
+@utility shape-title-block {
+  @apply mt-3 sm:mt-4;
+}
+@utility shape-title {
+  @apply bg-linear-to-r bg-clip-text pb-[0.18em];
+}
+@utility shape-tagline {
+  @apply mx-auto mt-1 max-w-2xl;
+}
+@utility shape-flag {
+  @apply h-[0.85em] w-auto rounded-[2px];
+}
+@utility shape-restart {
+  @apply rounded-lg border px-3 py-1;
+}
+@utility shape-group-caption {
+  @apply me-1 w-full sm:w-auto;
+}
+@utility shape-caption-end {
+  @apply me-1;
+}
+@utility shape-close {
+  @apply size-11 rounded-full border;
+}
+@utility shape-footer {
+  @apply mx-auto mt-8 max-w-7xl px-4;
+}
+@utility shape-shrinkable {
+  @apply min-w-0;
+}
+@utility shape-picker-summary {
+  @apply min-w-0 rounded-lg border px-2.5 py-1;
+}
+@utility shape-menu {
+  @apply mt-1 min-w-44 rounded-xl border p-1.5;
+}
+@utility shape-option {
+  @apply rounded-lg px-2 py-1;
+}
+@utility shape-box {
+  @apply size-4;
+}
+@utility shape-rule {
+  @apply my-1 border-t;
+}
+@utility shape-home {
+  @apply mx-auto mt-6 max-w-5xl px-2 sm:px-4;
+}
+@utility shape-home-heading {
+  @apply mb-4;
+}
+@utility shape-home-card {
+  @apply rounded-2xl border p-4 sm:min-h-44 sm:p-5;
+}
+@utility shape-hairline {
+  @apply h-px bg-linear-to-r;
+}
+@utility shape-rule-box {
+  @apply px-2 py-1;
+}
+@utility shape-plate {
+  @apply min-w-0 rounded-xl border py-1.5 bg-linear-to-b;
+}
+@utility shape-plate-column {
+  @apply px-1 sm:px-2;
+}
+@utility shape-plate-compact {
+  @apply px-3 w-fit max-w-full;
+}
+@utility shape-hebrew-end {
+  @apply sm:ml-auto;
+}
+@utility shape-cell {
+  @apply min-h-16 min-w-0 rounded-xl border p-1 sm:min-h-20 sm:p-2 bg-linear-to-b bg-[length:100%_12rem] bg-no-repeat;
+}
+@utility shape-cell-void {
+  @apply min-h-16 sm:min-h-20;
+}
+@utility shape-end {
+  @apply ms-auto;
+}
+@utility shape-spacer {
+  @apply mt-auto;
+}
+@utility shape-gauges {
+  @apply mt-1.5;
+}
+@utility shape-overlay {
+  @apply rounded-xl;
+}
+@utility shape-mark {
+  @apply size-7 rounded-full;
+}
+@utility shape-tag {
+  @apply rounded-md border px-1 py-px;
+}
+@utility shape-floors {
+  @apply mt-1;
+}
+@utility shape-phrase {
+  @apply rounded-lg border px-2 py-1;
+}
+@utility shape-phrase-translation {
+  @apply mt-0.5;
+}
+@utility shape-floors-caption {
+  @apply mb-1 mt-3;
+}
+@utility shape-story-cell {
+  @apply border-t pt-2;
+}
+@utility shape-gauge-line {
+  @apply mt-0.5;
+}
+@utility shape-track {
+  @apply rounded-full;
+}
+@utility shape-track-thin {
+  @apply h-1.5;
+}
+@utility shape-track-thick {
+  @apply h-2;
+}
+@utility shape-gauge-fill {
+  @apply rounded-full;
+}
+@utility shape-modal-overlay {
+  @apply p-3 pt-16 sm:p-8 sm:pt-16 xl:pt-8;
+}
+@utility shape-modal-panel {
+  @apply max-h-full w-full max-w-2xl rounded-2xl border lg:max-w-5xl;
+}
+@utility shape-modal-head {
+  @apply px-4 pt-4 sm:px-6 sm:pt-6;
+}
+@utility shape-modal-body {
+  @apply px-4 pb-4 pt-3 sm:px-6 sm:pb-6;
+}
+@utility shape-detail-section {
+  @apply rounded-xl border px-3 py-2;
+}
+@utility shape-gap-top {
+  @apply mt-3;
+}
+@utility shape-gap-bottom {
+  @apply mb-3;
+}
+@utility shape-text-top {
+  @apply mt-0.5;
+}
+@utility shape-detail-nav {
+  @apply border-b pb-3;
+}
+@utility shape-arrow {
+  @apply min-w-0 rounded-lg border px-3 py-1.5;
+}
+@utility shape-arrow-dashed {
+  @apply border-dashed;
+}
+@utility shape-tally {
+  @apply mt-3;
+}
+@utility shape-tally-heading {
+  @apply pt-1;
+}
+@utility shape-tally-chip {
+  @apply rounded-lg border px-2 py-0.5;
+}
+@utility shape-portion-row {
+  @apply w-full rounded-lg px-2 py-1.5;
+}
+@utility shape-portion-badge {
+  @apply size-8 rounded-full border;
+}
+@utility shape-gap-top-1 {
+  @apply mt-1;
+}
+@utility shape-gap-top-2 {
+  @apply mt-2;
+}
+@utility shape-game-bar {
+  @apply mx-auto mb-3 max-w-7xl rounded-2xl border px-3 py-1.5 sm:px-4 sm:py-2;
+}
+@utility shape-feedback {
+  @apply min-w-[4.5rem] sm:min-w-[6.5rem];
+}
+@utility shape-setup-section {
+  @apply px-1.5 sm:px-0;
+}
+@utility shape-setup-panel {
+  @apply mx-auto mt-2 w-full max-w-2xl rounded-2xl border p-4 sm:p-6;
+}
+@utility shape-setup-caption {
+  @apply mb-2 mt-4;
+}
+@utility shape-setup-note {
+  @apply mt-2;
+}
+@utility shape-setup-actions {
+  @apply mt-6;
+}
+@utility shape-action {
+  @apply rounded-lg border px-4 py-1.5;
+}

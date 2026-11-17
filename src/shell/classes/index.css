@@ -1,0 +1,18 @@
+/* Этажи по порядку: Palette → Roles → Tones → Traits → Patterns → Functions. */
+@import "./palette.css";
+@import "./roles.css";
+@import "./tones.css";
+@import "./traits/shape.css";
+@import "./traits/type.css";
+@import "./traits/layout.css";
+@import "./traits/motion.css";
+@import "./traits/effect.css";
+@import "./traits/focus.css";
+@import "./traits/behavior.css";
+@import "./patterns.css";
+@import "./functions/common.css";
+@import "./functions/header.css";
+@import "./functions/home.css";
+@import "./functions/table.css";
+@import "./functions/detail.css";
+@import "./functions/game.css";

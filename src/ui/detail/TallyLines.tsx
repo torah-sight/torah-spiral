@@ -19,29 +19,18 @@ import {hintOf} from '#src/ui/table/size/sizeHint.ts';
 export interface ITallyLinesProps {
     parsha: IParsha;
     locale: Locale;
-    /** Классы плашки в цвете книги. */
-    chip: string;
     /** Включён слой имён — в таблице есть их строка. */
     names: boolean;
 }
-
-const CHIP = 'inline-flex items-baseline gap-1.5 rounded-lg border px-2 py-0.5';
-/**
- * Таблица: заголовки — первый столбец по ширине самого длинного, значения начинаются с одного отступа;
- * заголовок — на уровне первой строки плашек. На телефоне — заголовок над своими плашками.
- */
-const GRID = 'mt-3 grid grid-cols-1 items-start gap-y-1.5 sm:grid-cols-[auto_minmax(0,1fr)] sm:gap-x-4 sm:gap-y-2';
-const HEADING = 'pt-1 text-sm uppercase tracking-widest whitespace-nowrap text-mute sm:col-start-1';
-const VALUES = 'flex flex-wrap gap-1.5 sm:col-start-2';
 
 /** Плашка топа: подпись, сколько и место. */
 const chipOf = (label: ReactNode, unit: Measure, props: ITallyLinesProps): ReactNode => {
     const {count, rank} = measure(props.parsha, unit);
     return (
-        <span key={unit} title={hintOf(unit, props.locale)} className={`${CHIP} ${props.chip}`}>
+        <span key={unit} title={hintOf(unit, props.locale)} className="tally-chip" data-book={props.parsha.book}>
             {label}
             <span>{countLabel(count, unit, props.locale)}</span>
-            <span className="text-mute">· {rankShort(rank, props.locale)}</span>
+            <span className="tally-rank">· {rankShort(rank, props.locale)}</span>
         </span>
     );
 };
@@ -61,41 +50,66 @@ export class TallyLines extends AntiHookComponent<ITallyLinesProps> {
     /** Плашка Имени. */
     @bind
     protected nameChip(key: NameKey): ReactNode {
-        const label = <span dir="rtl" className="font-hebrew">{NAME_LABELS[key]}</span>;
+        const label = <span dir="rtl" className="hebrew-inherit">{NAME_LABELS[key]}</span>;
         return chipOf(label, key, this.props);
+    }
+
+    /** Заповеди: «Все» — только когда есть оба вида: иначе она повторяет единственный вид. */
+    protected renderMitzvot(): ReactNode {
+        const {parsha, locale} = this.props;
+        const t = MESSAGES[locale];
+        const {mitzvot, positive, negative} = parsha.mitzvot;
+        if (mitzvot === 0) return null;
+        return (
+            <>
+                <h3 className="tally-heading">{t.mitzvotLabel}</h3>
+                <div className="tally-values">
+                    {positive > 0 && negative > 0 ? chipOf(`${t.mitzvotAll}:`, 'mitzvot', this.props) : null}
+                    {positive > 0 ? chipOf(`${t.mitzvotPositive}:`, 'positive', this.props) : null}
+                    {negative > 0 ? chipOf(`${t.mitzvotNegative}:`, 'negative', this.props) : null}
+                </div>
+            </>
+        );
+    }
+
+    /** Святые Имена: «Все Имена» — когда Имён больше одного: иначе плашка повторяет единственное. */
+    protected renderHolyNames(): ReactNode {
+        const {parsha, locale} = this.props;
+        const t = MESSAGES[locale];
+        const names = namesOf(parsha);
+        if (names.length === 0) return null;
+        return (
+            <>
+                <h3 className="tally-heading">{t.namesLabel}</h3>
+                <div className="tally-values">
+                    {sevenOf(names) > 1 ? chipOf(`${t.namesAll}:`, 'allNames', this.props) : null}
+                    {names.map(this.nameChip)}
+                </div>
+            </>
+        );
+    }
+
+    /** Имена людей в главе. */
+    protected renderPeople(): ReactNode {
+        const {parsha, locale, names} = this.props;
+        if (!names) return null;
+        return (
+            <>
+                <h3 className="tally-heading">{MESSAGES[locale].floors.names}</h3>
+                <div className="tally-values">
+                    <Chips labels={labelsOf(parsha.names, locale)} book={parsha.book} />
+                </div>
+            </>
+        );
     }
 
     /** Строки таблицы. */
     public render(): ReactNode {
-        const {parsha, locale, chip} = this.props;
-        const t = MESSAGES[locale];
-        const names = namesOf(parsha);
-        const {mitzvot, positive, negative} = parsha.mitzvot;
         return (
-            <div className={GRID}>
-                {mitzvot > 0 ? <h3 className={HEADING}>{t.mitzvotLabel}</h3> : null}
-                {mitzvot > 0 ? (
-                    <div className={VALUES}>
-                        {/* «Все» — только когда есть оба вида: иначе она повторяет единственный вид. */}
-                        {positive > 0 && negative > 0 ? chipOf(`${t.mitzvotAll}:`, 'mitzvot', this.props) : null}
-                        {positive > 0 ? chipOf(`${t.mitzvotPositive}:`, 'positive', this.props) : null}
-                        {negative > 0 ? chipOf(`${t.mitzvotNegative}:`, 'negative', this.props) : null}
-                    </div>
-                ) : null}
-                {names.length > 0 ? <h3 className={HEADING}>{t.namesLabel}</h3> : null}
-                {names.length > 0 ? (
-                    <div className={VALUES}>
-                        {/* «Все Имена» — когда Имён больше одного: иначе плашка повторяет единственное. */}
-                        {sevenOf(names) > 1 ? chipOf(`${t.namesAll}:`, 'allNames', this.props) : null}
-                        {names.map(this.nameChip)}
-                    </div>
-                ) : null}
-                {this.props.names ? <h3 className={HEADING}>{t.floors.names}</h3> : null}
-                {this.props.names ? (
-                    <div className={VALUES}>
-                        <Chips labels={labelsOf(parsha.names, locale)} className={chip} />
-                    </div>
-                ) : null}
+            <div className="tally-grid">
+                {this.renderMitzvot()}
+                {this.renderHolyNames()}
+                {this.renderPeople()}
             </div>
         );
     }

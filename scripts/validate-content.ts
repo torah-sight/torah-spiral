@@ -61,6 +61,9 @@ const checkOrigin = (parsha: IParsha, tokens: readonly IToken[], problems: strin
     }
 };
 
+/** Итоговая строка проверки. */
+const OK = `content ok: ${PARSHIOT.length} глав`;
+
 const main = async (): Promise<void> => {
     const {tokens} = await loadTorah();
     const byParsha: IToken[][] = PARSHIOT.map(emptyList);
@@ -84,7 +87,7 @@ const main = async (): Promise<void> => {
         console.error(problems.join('\n'));
         process.exit(1);
     }
-    console.log(`content ok: ${PARSHIOT.length} глав`);
+    console.log(OK);
 };
 
 await main();

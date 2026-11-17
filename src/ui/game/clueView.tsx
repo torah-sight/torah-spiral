@@ -5,18 +5,13 @@ import type {Locale} from '#src/i18n/locales.ts';
 import {MESSAGES} from '#src/i18n/messages/messages.ts';
 import {splitSentences} from '#src/i18n/format/splitSentences.ts';
 
-const HEBREW = 'neon-text font-hebrew text-3xl text-stone-900 dark:text-fuchsia-100';
-const REF = 'font-hebrew text-2xl text-stone-900 dark:text-fuchsia-100';
-const STORY = 'text-lg font-medium text-stone-900 dark:text-fuchsia-100';
-const ROW = 'flex flex-wrap items-baseline gap-x-3';
-
 /** Название главы-ориентира: иврит и транслитерация. */
-const parshaName = (index: number, locale: Locale, className: string): ReactNode => {
+const parshaName = (index: number, locale: Locale): ReactNode => {
     const parsha = PARSHIOT[index]!;
     return (
-        <span className="inline-flex items-baseline gap-1.5">
-            <span dir="rtl" className={className}>{parsha.he}</span>
-            {locale === 'he' ? null : <span className="text-ink">{parsha.translit[locale]}</span>}
+        <span className="clue-name">
+            <span dir="rtl" className="clue-ref">{parsha.he}</span>
+            {locale === 'he' ? null : <span className="clue-text">{parsha.translit[locale]}</span>}
         </span>
     );
 };
@@ -25,11 +20,11 @@ const parshaName = (index: number, locale: Locale, className: string): ReactNode
 const nameClue = (step: Readonly<IGameStep>, locale: Locale): ReactNode => {
     const parsha = PARSHIOT[step.parsha]!;
     return (
-        <div className={ROW}>
-            <span className="text-sm text-mute">{MESSAGES[locale].gameFind}</span>
-            <span dir="rtl" className={HEBREW}>{parsha.he}</span>
+        <div className="clue-row">
+            <span className="clue-label">{MESSAGES[locale].gameFind}</span>
+            <span dir="rtl" className="clue-hebrew">{parsha.he}</span>
             {locale === 'he' ? null : (
-                <span className="text-ink">{parsha.translit[locale]} · «{parsha.title[locale]}»</span>
+                <span className="clue-text">{parsha.translit[locale]} · «{parsha.title[locale]}»</span>
             )}
         </div>
     );
@@ -39,10 +34,10 @@ const nameClue = (step: Readonly<IGameStep>, locale: Locale): ReactNode => {
 const phraseClue = (step: Readonly<IGameStep>, locale: Locale): ReactNode => {
     const term = PARSHIOT[step.parsha]!.phrases[step.item]!;
     return (
-        <div className={ROW}>
-            <span className="text-sm text-mute">{MESSAGES[locale].gameFindPhrase}</span>
-            <span dir="rtl" className={REF}>{term[0]}</span>
-            {locale === 'he' ? null : <span className="text-ink">{locale === 'ru' ? term[1] : term[2]}</span>}
+        <div className="clue-row">
+            <span className="clue-label">{MESSAGES[locale].gameFindPhrase}</span>
+            <span dir="rtl" className="clue-ref">{term[0]}</span>
+            {locale === 'he' ? null : <span className="clue-text">{locale === 'ru' ? term[1] : term[2]}</span>}
         </div>
     );
 };
@@ -51,9 +46,9 @@ const phraseClue = (step: Readonly<IGameStep>, locale: Locale): ReactNode => {
 const storyClue = (step: Readonly<IGameStep>, locale: Locale): ReactNode => {
     const sentences = splitSentences(PARSHIOT[step.parsha]!.story[locale]);
     return (
-        <div className={ROW}>
-            <span className="text-sm text-mute">{MESSAGES[locale].gameFindStory}</span>
-            <span className={STORY}>{sentences[step.item] ?? sentences.at(-1)}</span>
+        <div className="clue-row">
+            <span className="clue-label">{MESSAGES[locale].gameFindStory}</span>
+            <span className="clue-story">{sentences[step.item] ?? sentences.at(-1)}</span>
         </div>
     );
 };
@@ -64,12 +59,12 @@ const neighbourClue = (step: Readonly<IGameStep>, locale: Locale): ReactNode => 
     const [first, second] = step.refs;
     const prompt = step.kind === 'between' ? t.gameBetween : step.kind === 'before' ? t.gameBefore : t.gameAfter;
     return (
-        <div className={ROW}>
-            <span className="text-sm text-mute">{prompt}</span>
-            {parshaName(first!, locale, REF)}
-            {second === undefined ? null : <span className="text-sm text-mute">{t.gameAnd}</span>}
-            {second === undefined ? null : parshaName(second, locale, REF)}
-            <span className="text-2xl text-mute">?</span>
+        <div className="clue-row">
+            <span className="clue-label">{prompt}</span>
+            {parshaName(first!, locale)}
+            {second === undefined ? null : <span className="clue-label">{t.gameAnd}</span>}
+            {second === undefined ? null : parshaName(second, locale)}
+            <span className="clue-question-mark">?</span>
         </div>
     );
 };

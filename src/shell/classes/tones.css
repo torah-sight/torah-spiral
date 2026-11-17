@@ -1,0 +1,171 @@
+/* Tones: цвет компонента — одно семейство и способ подачи. */
+@utility tone-surface-page {
+  @apply bg-surface-page text-neutral-ink border-neutral-edge;
+}
+@utility tone-neutral-chip {
+  @apply bg-neutral-veil/4 text-neutral-ink-soft border-neutral-edge/12 hover:text-neutral-ink hover:border-neutral-edge/28;
+}
+@utility tone-neutral-panel {
+  @apply bg-neutral-wash text-neutral-ink border-neutral-edge/12 shadow-neutral-shadow/30;
+}
+@utility tone-neutral-modal {
+  @apply bg-neutral-solid text-neutral-ink border-neutral-edge/28 shadow-neutral-shadow/45;
+}
+@utility tone-neutral-inherit {
+  @apply text-inherit;
+}
+@utility tone-neutral-plain {
+  @apply text-neutral-ink;
+}
+@utility tone-neutral-subtle {
+  @apply text-neutral-ink-subtle;
+}
+@utility tone-neutral-faint {
+  @apply text-neutral-ink-faint;
+}
+@utility tone-neutral-text-soft {
+  @apply text-neutral-ink-soft;
+}
+@utility tone-neutral-outline {
+  @apply ring-neutral-edge/15 text-neutral-ink;
+}
+@utility tone-neutral-link {
+  @apply text-neutral-ink-soft decoration-neutral-edge/28 hover:text-neutral-ink;
+}
+@utility tone-neutral-line {
+  @apply border-neutral-edge/12;
+}
+@utility tone-neutral-row {
+  @apply text-neutral-ink hover:bg-neutral-veil/4;
+}
+@utility tone-neutral-dashed {
+  @apply text-neutral-ink-faint border-neutral-edge/12;
+}
+@utility tone-accent-chip {
+  @apply bg-accent-veil text-accent-ink border-accent-edge;
+}
+@utility tone-accent-check {
+  @apply accent-accent-edge;
+}
+@utility tone-brand-primary {
+  @apply bg-brand-fill text-brand-on-fill border-brand-edge hover:bg-brand-fill-hover;
+}
+@utility tone-brand-gradient {
+  @apply from-brand-ink via-brand-ink-soft to-brand-ink-subtle text-transparent;
+}
+@utility tone-success-primary {
+  @apply bg-success-fill text-success-on-fill border-success-edge hover:bg-success-fill-hover;
+}
+@utility tone-success-plain {
+  @apply text-success-ink;
+}
+@utility tone-success-found {
+  @apply bg-success-veil ring-success-ring;
+}
+@utility tone-success-mark {
+  @apply bg-success-solid text-success-on-fill;
+}
+@utility tone-danger-plain {
+  @apply text-danger-ink;
+}
+@utility tone-danger-wrong {
+  @apply ring-danger-ring;
+}
+@utility tone-genesis-cell {
+  @apply from-genesis-wash bg-genesis-base to-transparent text-genesis-ink border-genesis-edge/20 inset-shadow-genesis-edge/80 hover:border-genesis-edge/40;
+}
+@utility tone-genesis-plate {
+  @apply from-genesis-wash to-transparent text-genesis-ink border-genesis-edge/20;
+}
+@utility tone-genesis-tag {
+  @apply bg-genesis-veil text-genesis-ink border-genesis-edge/20;
+}
+@utility tone-genesis-fill {
+  @apply bg-genesis-fill/80;
+}
+@utility tone-genesis-plain {
+  @apply text-genesis-ink;
+}
+@utility tone-exodus-cell {
+  @apply from-exodus-wash bg-exodus-base to-transparent text-exodus-ink border-exodus-edge/20 inset-shadow-exodus-edge/80 hover:border-exodus-edge/40;
+}
+@utility tone-exodus-plate {
+  @apply from-exodus-wash to-transparent text-exodus-ink border-exodus-edge/20;
+}
+@utility tone-exodus-tag {
+  @apply bg-exodus-veil text-exodus-ink border-exodus-edge/20;
+}
+@utility tone-exodus-fill {
+  @apply bg-exodus-fill/80;
+}
+@utility tone-exodus-plain {
+  @apply text-exodus-ink;
+}
+@utility tone-leviticus-cell {
+  @apply from-leviticus-wash bg-leviticus-base to-transparent text-leviticus-ink border-leviticus-edge/20 inset-shadow-leviticus-edge/80 hover:border-leviticus-edge/40;
+}
+@utility tone-leviticus-plate {
+  @apply from-leviticus-wash to-transparent text-leviticus-ink border-leviticus-edge/20;
+}
+@utility tone-leviticus-tag {
+  @apply bg-leviticus-veil text-leviticus-ink border-leviticus-edge/20;
+}
+@utility tone-leviticus-fill {
+  @apply bg-leviticus-fill/80;
+}
+@utility tone-leviticus-plain {
+  @apply text-leviticus-ink;
+}
+@utility tone-numbers-cell {
+  @apply from-numbers-wash bg-numbers-base to-transparent text-numbers-ink border-numbers-edge/20 inset-shadow-numbers-edge/80 hover:border-numbers-edge/40;
+}
+@utility tone-numbers-plate {
+  @apply from-numbers-wash to-transparent text-numbers-ink border-numbers-edge/20;
+}
+@utility tone-numbers-tag {
+  @apply bg-numbers-veil text-numbers-ink border-numbers-edge/20;
+}
+@utility tone-numbers-fill {
+  @apply bg-numbers-fill/80;
+}
+@utility tone-numbers-plain {
+  @apply text-numbers-ink;
+}
+@utility tone-deuteronomy-cell {
+  @apply from-deuteronomy-wash bg-deuteronomy-base to-transparent text-deuteronomy-ink border-deuteronomy-edge/20 inset-shadow-deuteronomy-edge/80 hover:border-deuteronomy-edge/40;
+}
+@utility tone-deuteronomy-plate {
+  @apply from-deuteronomy-wash to-transparent text-deuteronomy-ink border-deuteronomy-edge/20;
+}
+@utility tone-deuteronomy-tag {
+  @apply bg-deuteronomy-veil text-deuteronomy-ink border-deuteronomy-edge/20;
+}
+@utility tone-deuteronomy-fill {
+  @apply bg-deuteronomy-fill/80;
+}
+@utility tone-deuteronomy-plain {
+  @apply text-deuteronomy-ink;
+}
+
+@utility tone-neutral-rule-strong {
+  @apply from-transparent via-neutral-ink-soft to-transparent;
+}
+@utility tone-neutral-rule-soft {
+  @apply from-transparent via-neutral-ink-faint to-transparent;
+}
+@utility tone-neutral-track {
+  @apply bg-neutral-veil/4 ring-neutral-edge/12;
+}
+@utility tone-neutral-box {
+  @apply bg-neutral-veil/4 text-neutral-ink border-neutral-edge/12;
+}
+@utility tone-neutral-story {
+  @apply text-neutral-ink-soft border-neutral-edge/12;
+}
+
+@utility tone-neutral-scrim {
+  @apply bg-neutral-scrim;
+}
+@utility tone-neutral-ground {
+  @apply bg-neutral-solid text-neutral-ink;
+}

@@ -12,9 +12,7 @@ import {MESSAGES} from '#src/i18n/messages/messages.ts';
 import {prefsToken} from '#src/stores/prefs/prefsToken.ts';
 import {selectionToken} from '#src/stores/selection/selectionToken.ts';
 import {CloseButton} from '#src/ui/common/CloseButton.tsx';
-import {TONES} from '#src/ui/common/tones.ts';
 import {BookPortion} from './BookPortion.tsx';
-import {OVERLAY} from './overlay.ts';
 import {ScrollLock} from './ScrollLock.tsx';
 
 const ofBook = (book: number): IParsha[] => PARSHIOT.filter((parsha: IParsha): boolean => parsha.book === book);
@@ -31,15 +29,69 @@ const total = (book: number, unit: SizeUnit, locale: Locale): string => {
     return countLabel(sum, unit, locale);
 };
 
-const SECTION = 'rounded-xl border border-line bg-veil px-3 py-2';
-const HEADING = 'text-sm uppercase tracking-widest text-mute';
-
 /** Строка недельной главы. */
 const renderPortion = (parsha: IParsha): ReactNode => (
     <BookPortion key={parsha.index} index={parsha.index} />
 );
 
 const renderSentence = (sentence: string): ReactNode => <p key={sentence}>{sentence}</p>;
+
+/** Шапка: книга, главы и название на иврите; неподвижна, прокручивается содержимое. */
+const headOf = (index: number, locale: Locale): ReactNode => {
+    const book = BOOKS[index]!;
+    const span = BOOK_SPANS[index]!;
+    const t = MESSAGES[locale];
+    return (
+        <header className="modal-head">
+            <div className="book-detail-head">
+                <div data-book={index} className="book-detail-span">
+                    {t.book} {index + 1} · {t.chapters}
+                    {' '}<bdi dir="ltr">{span.firstChapter}–{span.lastChapter}</bdi>
+                    {' · '}
+                    {t.portions} <bdi dir="ltr">{span.firstOrdinal}–{span.lastOrdinal}</bdi>
+                </div>
+                <div className="book-detail-row">
+                    {locale === 'he' ? null : (
+                        <p className="book-detail-name">
+                            {book.translit[locale]}{' '}
+                            <span className="book-detail-literal">· «{book.literal[locale]}»</span>
+                            {' · '}{book.common[locale]}
+                        </p>
+                    )}
+                    <h2 dir="rtl" data-book={index} className="book-detail-hebrew">{book.he}</h2>
+                </div>
+            </div>
+        </header>
+    );
+};
+
+/** Содержимое: откуда название, итоги, сюжет книги, недельные главы. */
+const bodyOf = (index: number, locale: Locale): ReactNode => {
+    const about = BOOK_ABOUT[index]!;
+    const t = MESSAGES[locale];
+    return (
+        <div className="modal-body">
+            <section className="detail-section">
+                <h3 className="detail-heading">{t.bookNameOrigin} · <bdi dir="ltr">{about.ref}</bdi></h3>
+                <p className="detail-text">{about.note[locale]}</p>
+            </section>
+            <p data-book={index} className="book-detail-totals">
+                {total(index, 'verses', locale)} · {total(index, 'words', locale)}
+                {' · '}
+                {total(index, 'letters', locale)}
+            </p>
+            {/* Сюжет во всю ширину, главы — двумя колонками сверху вниз: без пустых полей рядом. */}
+            <section className="detail-section-spaced">
+                <h3 className="detail-heading">{t.bookStory}</h3>
+                <div className="book-detail-story">{about.story[locale].map(renderSentence)}</div>
+            </section>
+            <section className="detail-section-spaced">
+                <h3 className="detail-heading">{t.portions}</h3>
+                <ol className="portion-list">{BY_BOOK[index]!.map(renderPortion)}</ol>
+            </section>
+        </div>
+    );
+};
 
 /** Карточка книги поверх таблицы: название и его перевод, откуда оно, сюжет, недельные главы. */
 export class BookDetail extends ScopedAntiHookComponent {
@@ -55,51 +107,13 @@ export class BookDetail extends ScopedAntiHookComponent {
         const {book: index} = this.useCarburetor(selection);
         if (index === null) return null;
         const {locale} = this.useCarburetor(this.resolve(prefsToken));
-        const book = BOOKS[index]!;
-        const about = BOOK_ABOUT[index]!;
-        const span = BOOK_SPANS[index]!;
-        const tone = TONES[book.tone];
-        const t = MESSAGES[locale];
         return (
-            <div role="dialog" aria-modal="true" onClick={this.onBackdrop} className={OVERLAY}>
+            <div role="dialog" aria-modal="true" onClick={this.onBackdrop} className="modal-overlay">
                 <ScrollLock />
-                <CloseButton label={t.close} onClose={selection.close} />
-                <article className="panel w-full max-w-2xl rounded-2xl p-4 sm:p-6 lg:max-w-5xl">
-                    <div className={`text-sm ${tone.text}`}>
-                        {t.book} {index + 1} · {t.chapters}
-                        {' '}<bdi dir="ltr">{span.firstChapter}–{span.lastChapter}</bdi>
-                        {' · '}
-                        {t.portions} <bdi dir="ltr">{span.firstOrdinal}–{span.lastOrdinal}</bdi>
-                    </div>
-                    <div className="mt-1 flex flex-wrap items-baseline justify-between gap-x-4">
-                        {locale === 'he' ? null : (
-                            <p className="text-lg text-ink">
-                                {book.translit[locale]} <span className="text-mute">· «{book.literal[locale]}»</span>
-                                {' · '}{book.common[locale]}
-                            </p>
-                        )}
-                        <h2 dir="rtl" className={`neon-text font-hebrew text-5xl leading-tight ${tone.text}`}>
-                            {book.he}
-                        </h2>
-                    </div>
-                    <section className={`mt-3 ${SECTION}`}>
-                        <h3 className={HEADING}>{t.bookNameOrigin} · <bdi dir="ltr">{about.ref}</bdi></h3>
-                        <p className="mt-0.5 text-ink">{about.note[locale]}</p>
-                    </section>
-                    <p className={`mt-2 text-sm ${tone.text}`}>
-                        {total(index, 'verses', locale)} · {total(index, 'words', locale)}
-                        {' · '}
-                        {total(index, 'letters', locale)}
-                    </p>
-                    {/* Сюжет во всю ширину, главы — двумя колонками сверху вниз: без пустых полей рядом. */}
-                    <section className={`mt-3 ${SECTION}`}>
-                        <h3 className={HEADING}>{t.bookStory}</h3>
-                        <div className="mt-1 space-y-1 text-ink">{about.story[locale].map(renderSentence)}</div>
-                    </section>
-                    <section className={`mt-3 ${SECTION}`}>
-                        <h3 className={HEADING}>{t.portions}</h3>
-                        <ol className="mt-1 gap-x-4 lg:columns-2">{BY_BOOK[index]!.map(renderPortion)}</ol>
-                    </section>
+                <CloseButton label={MESSAGES[locale].close} onClose={selection.close} />
+                <article className="modal-panel">
+                    {headOf(index, locale)}
+                    {bodyOf(index, locale)}
                 </article>
             </div>
         );

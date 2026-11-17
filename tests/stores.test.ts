@@ -18,16 +18,14 @@ const memoryStorage = (): IStorageLike & {items: Map<string, string>} => {
 };
 
 describe('PrefsStore', () => {
-    it('слои включаются по одному, язык и раскладка меняются', () => {
+    it('слои включаются по одному, язык и мера меняются', () => {
         const prefs = new PrefsStore();
         expect(prefs.getData().layers).toEqual({names: false, phrases: false, story: false});
         prefs.setLayers({names: false, phrases: true, story: true});
         expect(prefs.getData().layers).toEqual({names: false, phrases: true, story: true});
         prefs.setLocale('he');
-        prefs.setLayout('books');
         expect(prefs.getData()).toEqual({
-            locale: 'he', layout: 'books', layers: {names: false, phrases: true, story: true}, theme: 'light',
-            sizeBy: 'havaya'
+            locale: 'he', layers: {names: false, phrases: true, story: true}, theme: 'light', sizeBy: 'havaya'
         });
         prefs.setSizeBy('words');
         expect(prefs.getData().sizeBy).toBe('words');
@@ -113,8 +111,7 @@ describe('createAppScope', () => {
         const second = createAppScope(storage);
         try {
             expect(second.scope.get(prefsToken).getData()).toEqual({
-                locale: 'en', layout: 'grid', layers: {names: true, phrases: true, story: true}, theme: 'dark',
-                sizeBy: 'havaya'
+                locale: 'en', layers: {names: true, phrases: true, story: true}, theme: 'dark', sizeBy: 'havaya'
             });
         } finally {
             second.dispose();

@@ -33,54 +33,36 @@ const BY_MEASURE = Object.fromEntries(MEASURES.map(topOf)) as Record<Measure, re
 
 const renderCell = (parsha: IParsha): ReactNode => <ParshaCell key={parsha.index} index={parsha.index} />;
 
-/** Место главы в раскладке «по книгам»: столбец книги, строка — порядок внутри книги. */
-const placeOf = (parsha: IParsha): {gridColumn: number; gridRow: number} => ({
-    gridColumn: parsha.book + 1,
-    gridRow: parsha.index - PARSHIOT.findIndex((first: IParsha): boolean => first.book === parsha.book) + 1
-});
-
-/** Клетка в своём столбце книги; обёртка-сетка растягивает клетку на всю строку. */
-const renderPlaced = (parsha: IParsha): ReactNode => (
-    <div key={parsha.index} style={placeOf(parsha)} className="grid min-w-0">
-        <ParshaCell index={parsha.index} />
-    </div>
-);
 const renderLegend = (book: number): ReactNode => <BookHeader key={book} book={book} compact={false} />;
 
 /** Двойная тонкая линия, гаснущая к краям: отделяет строку книг от глав. */
 const BOOK_RULE: ReactNode = (
-    <div aria-hidden className="space-y-[3px] px-2 py-1">
-        <div className="h-px bg-gradient-to-r from-transparent via-stone-600 to-transparent dark:via-white/60" />
-        <div className="h-px bg-gradient-to-r from-transparent via-stone-400 to-transparent dark:via-white/35" />
+    <div aria-hidden className="book-rule">
+        <div className="book-rule-strong" />
+        <div className="book-rule-soft" />
     </div>
 );
 
-/** Ряды одной высоты — по самой большой клетке: высота не прыгает от содержимого. */
-const CELLS = 'grid auto-rows-fr gap-1.5 sm:gap-2';
-
-/** Таблица 54 глав: сетка 6 × 9 (по порядку; в «размерах» — по стихам или словам) или 5 столбцов по книгам. */
+/** Таблица 54 глав в порядке Торы или, в «Статистике», по выбранной мере. */
 export class ParshaTable extends ScopedAntiHookComponent {
     /** Таблица в выбранной раскладке. */
     public render(): ReactNode {
-        const {layout, sizeBy} = this.useCarburetor(this.resolve(prefsToken));
+        const {sizeBy} = this.useCarburetor(this.resolve(prefsToken));
         const {view} = this.useCarburetor(this.resolve(navToken));
         const sizes = view === 'sizes';
         const game = this.useCarburetor(this.resolve(gameToken));
         const inRound = view === 'game' && (game.status === 'playing' || game.status === 'done');
         // Раунд не на всю Тору — только его главы, без пустых мест.
-        if (inRound && !game.setup.books.every(Boolean)) return <RoundTable books={game.setup.books} layout={layout} />;
-        // Обзор 6 × 9: каждая книга со своим заголовком, её главы — с первой клетки справа.
-        if (view === 'overview' && layout !== 'books') return <RoundTable books={ALL_BOOKS} layout="grid" />;
-        const books = !sizes && layout === 'books';
+        if (inRound && !game.setup.books.every(Boolean)) return <RoundTable books={game.setup.books} />;
+        // Обзор: каждая книга со своим заголовком, её главы — с первой клетки справа.
+        if (view === 'overview') return <RoundTable books={ALL_BOOKS} />;
         const order = sizes ? BY_MEASURE[sizeBy] ?? BY_MEASURE.verses : PARSHIOT;
         return (
             // Главы и книги идут справа налево, как в свитке, при любом языке интерфейса.
-            <div dir="rtl" className="space-y-2 sm:space-y-3">
-                <div className="grid grid-cols-5 gap-1.5 sm:gap-2">{BOOK_INDEXES.map(renderLegend)}</div>
+            <div dir="rtl" className="table-flow">
+                <div className="legend-row">{BOOK_INDEXES.map(renderLegend)}</div>
                 {BOOK_RULE}
-                {books
-                    ? <div className={`${CELLS} grid-cols-5`}>{PARSHIOT.map(renderPlaced)}</div>
-                    : <div className={`${CELLS} grid-cols-6`}>{order.map(renderCell)}</div>}
+                <div className="cells-grid">{order.map(renderCell)}</div>
             </div>
         );
     }

@@ -1,0 +1,13 @@
+/* Traits поведения: курсор, события указателя, выделение, касания. */
+@utility behavior-pointer {
+  @apply cursor-pointer;
+}
+@utility behavior-inert {
+  @apply pointer-events-none;
+}
+@utility behavior-disabled {
+  @apply cursor-not-allowed;
+}
+@utility behavior-disabled-lock {
+  @apply disabled:cursor-not-allowed;
+}

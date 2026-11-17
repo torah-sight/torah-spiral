@@ -42,8 +42,6 @@ export interface IBook {
     literal: Omit<Localized, 'he'>;
     /** Привычное название (Исход). */
     common: Omit<Localized, 'he'>;
-    /** Ключ цветовой темы книги. */
-    tone: 'cyan' | 'violet' | 'amber' | 'emerald' | 'rose';
 }
 
 /** О книге: откуда название, что значит привычное имя, сюжет. */

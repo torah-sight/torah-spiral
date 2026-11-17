@@ -37,11 +37,15 @@ in `.cache/` (ignored by Git). The text is never committed and never shipped in 
 ## Code rules
 
 - Architecture follows [React Carburetor](https://github.com/PHPCraftdream/ReactCarburetor): stores with
-  module-level mutators, `ScopedAntiHookComponent` components, tokens and scopes. All 37 Carburetor lint
-  rules are on; please do not disable them.
+  module-level mutators, `ScopedAntiHookComponent` components, tokens and scopes. All 54 Carburetor lint
+  rules are on, including the functional-class rules; please do not disable them.
 - At most 500 lines per code file and at most 7 entries per folder in `src`, `scripts`, `tests` and
   `.github` (`scripts/repo/checkStructure.ts`).
 - Imports inside the project use `#src/*`.
+- Styling uses functional classes: an element carries one class that names what it does (`topbar-panel`,
+  `parsha-cell`). The floors Palette → Role → Tone and Brick → Trait → Pattern → Function live in
+  `src/shell/classes`, and `npm run lint` checks them. No Tailwind utilities in markup and no `dark:`
+  variants: the dark theme overrides Roles under `[data-theme="dark"]`.
 - Every user-visible string goes through `src/i18n` and exists in Hebrew, Russian and English.
 - Code comments are short.
 

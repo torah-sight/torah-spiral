@@ -1,0 +1,13 @@
+/* Traits фокуса и обводки: контур, кольцо. */
+@utility focus-flag-ring {
+  @apply ring-1;
+}
+@utility focus-found {
+  @apply ring-2;
+}
+@utility focus-wrong {
+  @apply ring-2;
+}
+@utility focus-track {
+  @apply ring-1 ring-inset;
+}

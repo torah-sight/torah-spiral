@@ -37,11 +37,15 @@ npm run build
 ## Правила кода
 
 - Архитектура — по [React Carburetor](https://github.com/PHPCraftdream/ReactCarburetor): сторы с
-  мутаторами на уровне модуля, компоненты `ScopedAntiHookComponent`, токены и scope. Включены все 37
-  правил линтера Carburetor; пожалуйста, не отключайте их.
+  мутаторами на уровне модуля, компоненты `ScopedAntiHookComponent`, токены и scope. Включены все 54
+  правила линтера Carburetor, включая правила функциональных классов; пожалуйста, не отключайте их.
 - Не больше 500 строк в файле кода и не больше 7 элементов в папке в `src`, `scripts`, `tests` и
   `.github` (`scripts/repo/checkStructure.ts`).
 - Импорты внутри проекта — через `#src/*`.
+- Стили — функциональные классы: элемент несёт один класс, который называет, что он делает (`topbar-panel`,
+  `parsha-cell`). Этажи Palette → Role → Tone и Brick → Trait → Pattern → Function лежат в
+  `src/shell/classes`, их проверяет `npm run lint`. В разметке нет утилит Tailwind и нет вариантов `dark:`:
+  тёмная тема переопределяет Roles под `[data-theme="dark"]`.
 - Каждая строка, которую видит пользователь, идёт через `src/i18n` и есть на иврите, русском и английском.
 - Комментарии в коде — короткие.
 
