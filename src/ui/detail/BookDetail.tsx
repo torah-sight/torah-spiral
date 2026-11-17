@@ -35,7 +35,7 @@ const HEADING = 'text-sm uppercase tracking-widest text-mute';
 
 /** Строка недельной главы. */
 const renderPortion = (parsha: IParsha): ReactNode => (
-    <BookPortion key={parsha.index} index={parsha.index} text={TONES[BOOKS[parsha.book]!.tone].text} />
+    <BookPortion key={parsha.index} index={parsha.index} />
 );
 
 const renderSentence = (sentence: string): ReactNode => <p key={sentence}>{sentence}</p>;
@@ -87,7 +87,7 @@ export class BookDetail extends ScopedAntiHookComponent {
                         </h2>
                     </div>
                     <section className={`mt-3 ${SECTION}`}>
-                        <h3 className={HEADING}>{t.nameOrigin} · <bdi dir="ltr">{about.ref}</bdi></h3>
+                        <h3 className={HEADING}>{t.bookNameOrigin} · <bdi dir="ltr">{about.ref}</bdi></h3>
                         <p className="mt-0.5 text-ink">{about.note[locale]}</p>
                     </section>
                     <p className={`mt-2 text-sm ${tone.text}`}>
@@ -95,16 +95,15 @@ export class BookDetail extends ScopedAntiHookComponent {
                         {' · '}
                         {total(index, 'letters', locale)}
                     </p>
-                    <div className="mt-3 grid gap-3 lg:grid-cols-2">
-                        <section className={SECTION}>
-                            <h3 className={HEADING}>{t.bookStory}</h3>
-                            <div className="mt-1 space-y-1 text-ink">{about.story[locale].map(renderSentence)}</div>
-                        </section>
-                        <section className={SECTION}>
-                            <h3 className={HEADING}>{t.portions}</h3>
-                            <ol className="mt-1">{BY_BOOK[index]!.map(renderPortion)}</ol>
-                        </section>
-                    </div>
+                    {/* Сюжет во всю ширину, главы — двумя колонками сверху вниз: без пустых полей рядом. */}
+                    <section className={`mt-3 ${SECTION}`}>
+                        <h3 className={HEADING}>{t.bookStory}</h3>
+                        <div className="mt-1 space-y-1 text-ink">{about.story[locale].map(renderSentence)}</div>
+                    </section>
+                    <section className={`mt-3 ${SECTION}`}>
+                        <h3 className={HEADING}>{t.portions}</h3>
+                        <ol className="mt-1 gap-x-4 lg:columns-2">{BY_BOOK[index]!.map(renderPortion)}</ol>
+                    </section>
                 </article>
             </div>
         );

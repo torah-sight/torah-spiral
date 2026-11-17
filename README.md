@@ -16,7 +16,7 @@ TypeScript (tsgo) and Tailwind CSS. The build output is one self-contained `dist
 ## Features
 
 - **Portions overview** — a 6 × 9 table or five book columns, opened floor by floor.
-- **Portion sizes** — tables ranked by verses, words or letters.
+- **Portion statistics** — portions ranked by the non-erasable Divine Names, by the mitzvot (Sefer HaChinuch: all, positive, negative) and by verses, words or letters.
 - **Game** — find a portion's place (by name, between, before, after) or recognise it by its story and
   unique phrases; choose books, keep or hide guessed cells, play against the clock.
 - Light and dark theme, right-to-left layout for Hebrew, works offline as a single file.

@@ -103,7 +103,7 @@ export class ParshaDetail extends ScopedAntiHookComponent {
         if (open === null) return null;
         const prefs = this.useCarburetor(this.resolve(prefsToken));
         const {locale} = prefs;
-        // Этажи выбираются только в «Обзоре»; из «Размеров» и игры карточка открывается целиком.
+        // Этажи выбираются только в «Обзоре»; из «Статистики» и игры карточка открывается целиком.
         const overview = this.useCarburetor(this.resolve(navToken)).view === 'overview';
         const floor = overview ? prefs.floor : ALL_FLOORS;
         const parsha = PARSHIOT[open]!;

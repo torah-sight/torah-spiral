@@ -23,6 +23,8 @@ export interface IMessages {
     nameOrigin: string;
     /** «Сюжет книги» — в карточке книги. */
     bookStory: string;
+    /** «О названии» — в карточке книги. */
+    bookNameOrigin: string;
     close: string;
     prevParsha: string;
     nextParsha: string;

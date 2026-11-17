@@ -4,7 +4,7 @@ import type {NameKey} from '#src/domain/names/types.ts';
 /** Мера размера главы. */
 export type SizeUnit = 'verses' | 'words' | 'letters';
 
-/** Мера таблицы «Размеры»: святое Имя (сколько раз стоит), заповеди или размер. */
+/** Мера таблицы «Статистика»: святое Имя (сколько раз стоит), заповеди или размер. */
 export type Measure = NameKey | MitzvaKey | SizeUnit;
 
 /** Русские формы слова для числа: одна / две–четыре / много. */

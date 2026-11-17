@@ -23,7 +23,7 @@ const nameButton = (key: NameKey, sizeBy: SizeBy, locale: Locale, onPick: (value
     />
 );
 
-/** Мера таблицы «Размеры»: святые Имена (первое — четырёхбуквенное), заповеди, затем стихи, слова, буквы. */
+/** Мера таблицы «Статистика»: святые Имена (первое — четырёхбуквенное), заповеди, затем стихи, слова, буквы. */
 export class SizeSwitch extends ScopedAntiHookComponent {
     /** Меняет меру. */
     @bind

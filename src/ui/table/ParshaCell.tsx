@@ -54,14 +54,14 @@ interface IFace {
     floor: number;
     inGame: boolean;
     unit: Measure;
-    /** Раздел «Размеры»: градусники стихов и слов (и букв для этой меры) вместо строки размера. */
+    /** Раздел «Статистика»: градусники стихов и слов (и букв для этой меры) вместо строки размера. */
     sizes: boolean;
 }
 
 /** Мера-подсчёт (Имя или заповеди), а не размер главы. */
 const isTally = (unit: Measure): boolean => unit !== 'verses' && unit !== 'words' && unit !== 'letters';
 
-/** Градусники «Размеров»: выбранный подсчёт сверху, стихи и слова всегда, буквы — для этой меры. */
+/** Градусники «Статистики»: выбранный подсчёт сверху, стихи и слова всегда, буквы — для этой меры. */
 const gauges = (parsha: IParsha, unit: Measure, bar: string, locale: Locale): ReactNode => (
     <span className="mt-1.5 block space-y-1.5">
         {isTally(unit) ? <SizeGauge parsha={parsha} unit={unit} active bar={bar} locale={locale} /> : null}
@@ -133,7 +133,7 @@ export class ParshaCell extends ScopedAntiHookComponent<IParshaCellProps> {
         const prefs = this.useCarburetor(this.resolve(prefsToken));
         const {view} = this.useCarburetor(this.resolve(navToken));
         const {locale} = prefs;
-        // Этажи — только в обзоре; мера размера выбирается в разделе «Размеры».
+        // Этажи — только в обзоре; мера размера выбирается в разделе «Статистика».
         const floor = view === 'overview' ? prefs.floor : 0;
         const unit: Measure = view === 'sizes' ? prefs.sizeBy : 'verses';
         const game = this.useCarburetor(this.resolve(gameToken));
