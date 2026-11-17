@@ -37,14 +37,17 @@ jobs:
         run: npm run typecheck
       - name: Unit tests (rstest)
         run: npm test
+      - name: Docs in three languages match root-docs/ (polydoc)
+        run: npm run docs:check
       - name: Content against the Torah text (Sefaria)
         run: npm run content:check
       - name: Build single-file site
         run: npm run build
-      - name: Check that dist is a single self-contained page
+      - name: Check that dist is a self-contained page plus its language copies
         run: |
-          test "$(ls dist)" = "index.html"
-          ! grep -Eq '<script[^>]+src=|<link[^>]+stylesheet' dist/index.html
+          test "$(find dist -type f | sort | xargs)" = "dist/en/index.html dist/he/index.html dist/index.html dist/ru/index.html"
+          ! grep -Eq '<script[^>]+src=|<link[^>]+stylesheet' dist/index.html dist/*/index.html
+          grep -q '<html lang="he" dir="rtl">' dist/he/index.html
       - uses: actions/upload-pages-artifact@v3
         if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main' && !github.event.repository.private
         with:

@@ -27,12 +27,14 @@
     "build": "rsbuild build",
     "preview": "rsbuild preview",
     "typecheck": "tsgo --noEmit",
-    "lint": "oxlint --deny-warnings && carburetor-lint --deny-warnings src scripts && node scripts/check-structure.ts",
+    "lint": "oxlint --deny-warnings && carburetor-lint --deny-warnings src scripts && node scripts/repo/checkStructure.ts",
     "test": "rstest run",
     "density": "node scripts/density.ts",
     "content:check": "node scripts/validate-content.ts",
     "phrases": "node scripts/phrases.ts",
-    "names": "node scripts/names.ts"
+    "names": "node scripts/names.ts",
+    "docs": "node scripts/repo/docs.ts",
+    "docs:check": "node scripts/repo/docs.ts --check"
   },
   "dependencies": {
     "@react-carburetor/core": "0.2.0",
@@ -40,6 +42,7 @@
     "react-dom": "^19.2.0"
   },
   "devDependencies": {
+    "@ktav-lang/polydoc": "0.1.1",
     "@react-carburetor/lint": "0.2.0",
     "@rsbuild/core": "^2.0.0",
     "@rsbuild/plugin-react": "^2.0.0",

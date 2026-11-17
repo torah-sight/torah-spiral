@@ -3,6 +3,7 @@ import type {ReactNode} from 'react';
 import type {Locale} from '#src/i18n/locales.ts';
 import {MESSAGES} from '#src/i18n/messages/messages.ts';
 import {textDir} from '#src/i18n/format/textDir.ts';
+import {localePath} from '#src/i18n/route/localePath.ts';
 import {prefsToken} from '#src/stores/prefs/prefsToken.ts';
 import {Footer} from './common/Footer.tsx';
 import {BookDetail} from './detail/BookDetail.tsx';
@@ -31,13 +32,18 @@ export class App extends ScopedAntiHookComponent {
         document.documentElement.classList.toggle('dark', dark);
     }
 
-    /** Ставит lang, dir и title документа. */
+    /** Ставит lang, dir и title документа; адрес — ссылка на страницу языка. */
     @bind
     protected applyLocale(): void {
         const locale: Locale = this.resolve(prefsToken).getData().locale;
         document.documentElement.lang = locale;
         document.documentElement.dir = textDir(locale);
         document.title = MESSAGES[locale].appTitle;
+        const {pathname, search, hash, protocol} = window.location;
+        // Скачанный файл (file:) не переименовать: replaceState там запрещён.
+        if (protocol === 'file:') return;
+        const path = localePath(pathname, locale);
+        if (path !== pathname)window.history.replaceState(window.history.state, '', path + search + hash);
     }
 
     /** Разметка страницы. */

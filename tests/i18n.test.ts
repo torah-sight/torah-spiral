@@ -8,6 +8,8 @@ import {termTranslation} from '#src/i18n/format/termTranslation.ts';
 import {textDir} from '#src/i18n/format/textDir.ts';
 import {LOCALES} from '#src/i18n/locales.ts';
 import {MESSAGES} from '#src/i18n/messages/messages.ts';
+import {localeFromPath} from '#src/i18n/route/localeFromPath.ts';
+import {localePath} from '#src/i18n/route/localePath.ts';
 
 const ADAM: Term = ['אדם', 'Адам', 'Adam'];
 
@@ -60,5 +62,23 @@ describe('форматирование терминов', () => {
         expect(textDir('he')).toBe('rtl');
         expect(textDir('ru')).toBe('ltr');
         expect(textDir('en')).toBe('ltr');
+    });
+});
+
+describe('языковые ссылки', () => {
+    it('язык берётся из последнего сегмента пути', () => {
+        expect(localeFromPath('/torah-spiral/ru')).toBe('ru');
+        expect(localeFromPath('/torah-spiral/en/')).toBe('en');
+        expect(localeFromPath('/torah-spiral/he/index.html')).toBe('he');
+        expect(localeFromPath('/torah-spiral/')).toBeNull();
+        expect(localeFromPath('/')).toBeNull();
+    });
+
+    it('путь языка заменяет язык или дописывается к корню сайта', () => {
+        expect(localePath('/torah-spiral/', 'he')).toBe('/torah-spiral/he/');
+        expect(localePath('/torah-spiral', 'ru')).toBe('/torah-spiral/ru/');
+        expect(localePath('/torah-spiral/ru/', 'en')).toBe('/torah-spiral/en/');
+        expect(localePath('/torah-spiral/en/index.html', 'ru')).toBe('/torah-spiral/ru/');
+        expect(localePath('/', 'en')).toBe('/en/');
     });
 });

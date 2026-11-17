@@ -1,5 +1,7 @@
 # Security Policy
 
+**Languages:** **English** · [Русский](SECURITY.ru.md) · [עברית](SECURITY.he.md)
+
 Torah Spiral is a static single page with no server, no accounts and no data collection. Preferences are
 kept only in the browser's `localStorage`.
 
