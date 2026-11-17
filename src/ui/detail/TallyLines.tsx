@@ -37,6 +37,8 @@ const GRID = 'mt-3 grid grid-cols-1 items-start gap-y-1.5 '
     + 'sm:grid-cols-[auto_minmax(0,1fr)_auto] sm:gap-x-4 sm:gap-y-2';
 const HEADING = 'pt-1 text-sm uppercase tracking-widest whitespace-nowrap text-mute sm:col-start-1';
 const VALUES = 'flex flex-wrap gap-1.5 sm:col-start-2';
+/** Строки ниже первой занимают и столбец выбора глубины: плашки идут до правого края. */
+const WIDE = `${VALUES} sm:col-span-2`;
 const FLOOR = 'justify-self-start sm:col-start-3 sm:row-start-1 sm:justify-self-end';
 
 /** Плашка топа: подпись, сколько и место. */
@@ -76,6 +78,9 @@ export class TallyLines extends AntiHookComponent<ITallyLinesProps> {
         const t = MESSAGES[locale];
         const names = namesOf(parsha);
         const {mitzvot, positive, negative} = parsha.mitzvot;
+        // Первая строка делит ширину с выбором глубины; остальные — во всю ширину.
+        const namesFirst = mitzvot === 0;
+        const peopleFirst = namesFirst && names.length === 0;
         return (
             <div className={GRID}>
                 <div className={FLOOR}>{floorSelect}</div>
@@ -90,7 +95,7 @@ export class TallyLines extends AntiHookComponent<ITallyLinesProps> {
                 ) : null}
                 {names.length > 0 ? <h3 className={HEADING}>{t.namesLabel}</h3> : null}
                 {names.length > 0 ? (
-                    <div className={VALUES}>
+                    <div className={namesFirst ? VALUES : WIDE}>
                         {/* «Все Имена» — когда Имён больше одного: иначе плашка повторяет единственное. */}
                         {sevenOf(names) > 1 ? chipOf(`${t.namesAll}:`, 'allNames', this.props) : null}
                         {names.map(this.nameChip)}
@@ -98,7 +103,9 @@ export class TallyLines extends AntiHookComponent<ITallyLinesProps> {
                 ) : null}
                 {floor >= 1 ? <h3 className={HEADING}>1 · {t.floors[1]}</h3> : null}
                 {floor >= 1 ? (
-                    <div className={VALUES}><Chips labels={labelsOf(parsha.names, locale)} className={chip} /></div>
+                    <div className={peopleFirst ? VALUES : WIDE}>
+                        <Chips labels={labelsOf(parsha.names, locale)} className={chip} />
+                    </div>
                 ) : null}
             </div>
         );
