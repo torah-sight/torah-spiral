@@ -8,6 +8,7 @@ import {sizeLabel} from '#src/i18n/format/size/sizeLabel.ts';
 import {MESSAGES} from '#src/i18n/messages/messages.ts';
 import {gameToken} from '#src/stores/game/gameToken.ts';
 import {navToken} from '#src/stores/nav/navToken.ts';
+import {copyLayers} from '#src/stores/prefs/copyLayers.ts';
 import type {Layers} from '#src/stores/prefs/PrefsStore.ts';
 import {prefsToken} from '#src/stores/prefs/prefsToken.ts';
 import {selectionToken} from '#src/stores/selection/selectionToken.ts';
@@ -153,7 +154,7 @@ export class ParshaDetail extends ScopedAntiHookComponent {
         // Карточка открывается со слоями таблицы в «Обзоре», а из «Статистики» и игры — целиком;
         // дальше слои меняются прямо в карточке.
         const overview = this.useCarburetor(this.resolve(navToken)).view === 'overview';
-        const layers = picked ?? (overview ? prefs.layers : ALL_LAYERS);
+        const layers = copyLayers(picked ?? (overview ? prefs.layers : ALL_LAYERS));
         const parsha = PARSHIOT[open]!;
         const book = BOOKS[parsha.book]!;
         const tone = TONES[book.tone];

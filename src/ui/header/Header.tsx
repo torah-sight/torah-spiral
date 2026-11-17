@@ -1,6 +1,7 @@
 import {ScopedAntiHookComponent, bind} from '@react-carburetor/core';
 import type {ReactNode} from 'react';
 import {textDir} from '#src/i18n/format/textDir.ts';
+import {LOGO_URI} from '#src/shell/logo.ts';
 import {MESSAGES} from '#src/i18n/messages/messages.ts';
 import {gameToken} from '#src/stores/game/gameToken.ts';
 import type {View} from '#src/stores/nav/NavStore.ts';
@@ -48,8 +49,15 @@ export class Header extends ScopedAntiHookComponent {
             <header className="mx-auto max-w-7xl px-2 pt-3 sm:px-4 sm:pt-4">
                 {/* Верхняя панель — всегда слева направо: тема и языки не прыгают при смене иврит ↔ русский. */}
                 <div dir="ltr" className={TOP_BAR}>
-                    <div dir={textDir(locale)}>
-                        <NavTabs />
+                    {/* Иконка слева от вкладок; как и заголовок, ведёт на стартовый экран. */}
+                    <div className="flex items-center gap-2">
+                        <button type="button" onClick={this.goHome} aria-label={t.appTitle} title={t.appTitle}
+                            className="shrink-0 rounded-[9px] transition hover:brightness-125">
+                            <img src={LOGO_URI} alt="" className="size-9" />
+                        </button>
+                        <div dir={textDir(locale)}>
+                            <NavTabs />
+                        </div>
                     </div>
                     <div className="ms-auto flex flex-wrap gap-2">
                         <ThemeSwitch />

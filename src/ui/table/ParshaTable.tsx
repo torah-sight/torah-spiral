@@ -47,6 +47,14 @@ const renderPlaced = (parsha: IParsha): ReactNode => (
 );
 const renderLegend = (book: number): ReactNode => <BookHeader key={book} book={book} compact={false} />;
 
+/** Двойная тонкая линия, гаснущая к краям: отделяет строку книг от глав. */
+const BOOK_RULE: ReactNode = (
+    <div aria-hidden className="space-y-[3px] px-2 py-1">
+        <div className="h-px bg-gradient-to-r from-transparent via-stone-600 to-transparent dark:via-white/60" />
+        <div className="h-px bg-gradient-to-r from-transparent via-stone-400 to-transparent dark:via-white/35" />
+    </div>
+);
+
 /** Ряды одной высоты — по самой большой клетке: высота не прыгает от содержимого. */
 const CELLS = 'grid auto-rows-fr gap-1.5 sm:gap-2';
 
@@ -69,6 +77,7 @@ export class ParshaTable extends ScopedAntiHookComponent {
             // Главы и книги идут справа налево, как в свитке, при любом языке интерфейса.
             <div dir="rtl" className="space-y-2 sm:space-y-3">
                 <div className="grid grid-cols-5 gap-1.5 sm:gap-2">{BOOK_INDEXES.map(renderLegend)}</div>
+                {BOOK_RULE}
                 {books
                     ? <div className={`${CELLS} grid-cols-5`}>{PARSHIOT.map(renderPlaced)}</div>
                     : <div className={`${CELLS} grid-cols-6`}>{order.map(renderCell)}</div>}

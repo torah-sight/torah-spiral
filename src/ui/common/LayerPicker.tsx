@@ -19,6 +19,9 @@ const MENU = 'panel absolute end-0 top-full z-10 mt-1 min-w-44 rounded-xl p-1.5 
 const OPTION = 'flex cursor-pointer items-center gap-2 rounded-lg px-2 py-1 text-ink hover:bg-veil';
 const BOX = 'size-4 cursor-pointer accent-stone-700 dark:accent-cyan-400';
 
+/** Метка списка слоёв — по ней находится открытый список. */
+const MARK = 'data-layer-picker';
+
 const ALL_ON: Layers = {names: true, phrases: true, story: true};
 const ALL_OFF: Layers = {names: false, phrases: false, story: false};
 
@@ -35,6 +38,31 @@ const summaryOf = (layers: Layers, locale: Locale): string => {
 
 /** Слои карточки: выпадающий список с галочками и «Все» — включить все разом (или снять все). */
 export class LayerPicker extends AntiHookComponent<ILayerPickerProps> {
+    /** Клик вне списка закрывает его; подписка — на время жизни компонента. */
+    protected useEffects(): void {
+        this.useEffect('outside', this.listenOutside, []);
+    }
+
+    /** Слушает нажатия по странице. */
+    @bind
+    protected listenOutside(): () => void {
+        document.addEventListener('pointerdown', this.onOutside);
+        return this.unlistenOutside;
+    }
+
+    /** Снимает подписку. */
+    @bind
+    protected unlistenOutside(): void {
+        document.removeEventListener('pointerdown', this.onOutside);
+    }
+
+    /** Закрывает открытый список, если нажали не по нему. */
+    @bind
+    protected onOutside(event: PointerEvent): void {
+        const open = document.querySelector<HTMLDetailsElement>(`details[${MARK}][open]`);
+        if (open !== null && !open.contains(event.target as Node)) open.open = false;
+    }
+
     /** Галочка слоя или «Все». */
     @bind
     protected onToggle(event: ChangeEvent<HTMLInputElement>): void {
@@ -65,7 +93,7 @@ export class LayerPicker extends AntiHookComponent<ILayerPickerProps> {
         return (
             <div dir={textDir(locale)} className="flex items-center gap-2 text-sm">
                 <span className="uppercase tracking-widest text-mute">{t.floorLabel}</span>
-                <details className="relative">
+                <details data-layer-picker className="relative">
                     <summary className={SUMMARY}>
                         {summaryOf(layers, locale)}
                         <span aria-hidden className="text-xs text-mute">▾</span>

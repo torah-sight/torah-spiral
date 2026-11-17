@@ -32,6 +32,9 @@ export interface IMessages {
     close: string;
     prevParsha: string;
     nextParsha: string;
+    /** Неактивные стрелки на краях: перед первой главой и после последней. */
+    torahStart: string;
+    torahEnd: string;
     gameStart: string;
     gameStop: string;
     gameFind: string;

@@ -5,6 +5,7 @@ import {pluginReact} from '@rsbuild/plugin-react';
 import {textDir} from '#src/i18n/format/textDir.ts';
 import {LOCALES, type Locale} from '#src/i18n/locales.ts';
 import {MESSAGES} from '#src/i18n/messages/messages.ts';
+import {LOGO_URI} from '#src/shell/logo.ts';
 
 /** Страница языка: та же, с lang, dir и заголовком этого языка — для ссылок и поисковиков. */
 const localize = (html: string, locale: Locale): string => html
@@ -36,6 +37,7 @@ export default defineConfig({
     html: {
         title: 'Спираль Торы',
         template: './src/shell/index.html',
+        templateParameters: {logoUri: LOGO_URI},
         // Inline-скрипт игнорирует defer: вставляем в конец body.
         inject: 'body'
     },

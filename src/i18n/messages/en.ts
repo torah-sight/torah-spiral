@@ -26,6 +26,8 @@ export const EN: IMessages = {
     close: 'Close',
     prevParsha: 'Previous portion',
     nextParsha: 'Next portion',
+    torahStart: 'Start of the Torah',
+    torahEnd: 'End of the Torah',
     gameStart: 'Game: find the portion',
     gameStop: 'Leave the game',
     gameFind: 'Where is',

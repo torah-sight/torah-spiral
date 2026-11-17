@@ -26,6 +26,8 @@ export const HE: IMessages = {
     close: 'סגירה',
     prevParsha: 'הפרשה הקודמת',
     nextParsha: 'הפרשה הבאה',
+    torahStart: 'תחילת התורה',
+    torahEnd: 'סוף התורה',
     gameStart: 'משחק: מצא את הפרשה',
     gameStop: 'יציאה מהמשחק',
     gameFind: 'איפה פרשת',

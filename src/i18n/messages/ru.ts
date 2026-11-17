@@ -26,6 +26,8 @@ export const RU: IMessages = {
     close: 'Закрыть',
     prevParsha: 'Предыдущая глава',
     nextParsha: 'Следующая глава',
+    torahStart: 'Начало Торы',
+    torahEnd: 'Конец Торы',
     gameStart: 'Игра: найди главу',
     gameStop: 'Выйти из игры',
     gameFind: 'Где глава',

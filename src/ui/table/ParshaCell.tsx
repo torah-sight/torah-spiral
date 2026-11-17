@@ -12,6 +12,7 @@ import {MESSAGES} from '#src/i18n/messages/messages.ts';
 import {textDir} from '#src/i18n/format/textDir.ts';
 import {gameToken} from '#src/stores/game/gameToken.ts';
 import {navToken} from '#src/stores/nav/navToken.ts';
+import {copyLayers} from '#src/stores/prefs/copyLayers.ts';
 import type {Layers} from '#src/stores/prefs/PrefsStore.ts';
 import {prefsToken} from '#src/stores/prefs/prefsToken.ts';
 import {selectionToken} from '#src/stores/selection/selectionToken.ts';
@@ -141,7 +142,7 @@ export class ParshaCell extends ScopedAntiHookComponent<IParshaCellProps> {
         const {view} = this.useCarburetor(this.resolve(navToken));
         const {locale} = prefs;
         // Слои — только в обзоре; мера размера выбирается в разделе «Статистика».
-        const layers = view === 'overview' ? prefs.layers : NO_LAYERS;
+        const layers = view === 'overview' ? copyLayers(prefs.layers) : NO_LAYERS;
         const unit: Measure = view === 'sizes' ? prefs.sizeBy : 'verses';
         const game = this.useCarburetor(this.resolve(gameToken));
         const playing = game.status === 'playing';

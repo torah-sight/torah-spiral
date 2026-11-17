@@ -35,6 +35,14 @@ const renderCell = (parsha: IParsha): ReactNode => <ParshaCell key={parsha.index
 
 const renderLegend = (book: number): ReactNode => <BookHeader key={book} book={book} compact={false} />;
 
+/** Двойная тонкая линия, гаснущая к краям: отделяет строку книг от глав. */
+const BOOK_RULE: ReactNode = (
+    <div aria-hidden className="space-y-[3px] px-2 py-1">
+        <div className="h-px bg-gradient-to-r from-transparent via-stone-600 to-transparent dark:via-white/60" />
+        <div className="h-px bg-gradient-to-r from-transparent via-stone-400 to-transparent dark:via-white/35" />
+    </div>
+);
+
 /** Книга раунда в сетке 6 × 9: заголовок и её главы подряд, с первой клетки. */
 const renderSection = (book: number): ReactNode => (
     <section key={book} className="space-y-1.5 sm:space-y-2">
@@ -75,6 +83,7 @@ export class RoundTable extends AntiHookComponent<IRoundTableProps> {
         return (
             <div dir="rtl" className="space-y-2 sm:space-y-3">
                 <div className={`grid gap-1.5 sm:gap-2 ${columns}`}>{picked.map(renderLegend)}</div>
+                {BOOK_RULE}
                 <div className={`${CELLS} ${columns}`}>{placedCells(picked)}</div>
             </div>
         );
