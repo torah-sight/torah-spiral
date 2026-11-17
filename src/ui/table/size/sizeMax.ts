@@ -1,16 +1,15 @@
 import {PARSHIOT} from '#src/content/parshiot.ts';
-import type {SizeUnit} from '#src/i18n/format/size/units.ts';
+import type {Measure} from '#src/i18n/format/size/units.ts';
 import {measure} from './measure.ts';
+import {MEASURES} from './measures.ts';
 
-const maxOf = (unit: SizeUnit): number => {
+const maxOf = (unit: Measure): number => {
     let top = 1;
     for (const parsha of PARSHIOT) top = Math.max(top, measure(parsha, unit).count);
     return top;
 };
 
-/** Размер самой большой главы по каждой мере — полная шкала. */
-export const SIZE_MAX: Record<SizeUnit, number> = {
-    verses: maxOf('verses'),
-    words: maxOf('words'),
-    letters: maxOf('letters')
-};
+/** Наибольшее значение каждой меры среди глав — полная шкала. */
+export const SIZE_MAX = Object.fromEntries(
+    MEASURES.map((unit: Measure): [Measure, number] => [unit, maxOf(unit)])
+) as Record<Measure, number>;

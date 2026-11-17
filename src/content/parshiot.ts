@@ -1,4 +1,5 @@
-import density from '#src/content/density.json' with {type: 'json'};
+import density from '#src/content/generated/density.json' with {type: 'json'};
+import names from '#src/content/generated/names.json' with {type: 'json'};
 import {DEUTERONOMY} from '#src/content/books/deuteronomy.ts';
 import {EXODUS} from '#src/content/books/exodus.ts';
 import {GENESIS} from '#src/content/books/genesis.ts';
@@ -12,6 +13,8 @@ import {LEVITICUS_ORIGINS} from '#src/content/origins/leviticus.ts';
 import {NUMBERS_ORIGINS} from '#src/content/origins/numbers.ts';
 import type {IRepeatSpan} from '#src/domain/density/model/types.ts';
 import {computeQuotas} from '#src/domain/density/quotas/computeQuotas.ts';
+import {NAME_KEYS} from '#src/domain/names/nameKeys.ts';
+import type {NameKey} from '#src/domain/names/types.ts';
 import {parseRef} from '#src/domain/ranges/parseRef.ts';
 
 interface IDensityRow {
@@ -39,6 +42,27 @@ const WORD_ORDER = ROWS.toSorted(byWordsDesc);
 const byLettersDesc = (a: IDensityRow, b: IDensityRow): number => b.letters - a.letters || b.raw - a.raw;
 const LETTER_ORDER = ROWS.toSorted(byLettersDesc);
 
+const NAMES: Record<NameKey, readonly number[]> = names;
+
+/** Место среди 54 глав: 1 + сколько глав больше; равные делят место. */
+const rankIn = (list: readonly number[], index: number): number => {
+    const own = list[index]!;
+    let above = 0;
+    for (const count of list) if (count > own) above += 1;
+    return above + 1;
+};
+
+/** Имена главы и места по ним. */
+const namesOf = (index: number): Pick<IParsha, 'holy' | 'holyRanks'> => {
+    const counts = {} as Record<NameKey, number>;
+    const ranks = {} as Record<NameKey, number>;
+    for (const key of NAME_KEYS) {
+        counts[key] = NAMES[key][index]!;
+        ranks[key] = rankIn(NAMES[key], index);
+    }
+    return {holy: counts, holyRanks: ranks};
+};
+
 const assemble = (row: IDensityRow, index: number): IParsha => {
     const text = TEXTS[index];
     const origin = ORIGINS[index];
@@ -50,7 +74,7 @@ const assemble = (row: IDensityRow, index: number): IParsha => {
     const letterRank = LETTER_ORDER.indexOf(row) + 1;
     const ranks = {sizeRank, wordRank, letterRank};
     const place = {index, ordinal: index + 1, range: parseRef(row.ref)};
-    return {...text, ...row, ...ranks, ...place, quotas: QUOTAS[index]!, origin};
+    return {...text, ...row, ...ranks, ...place, ...namesOf(index), quotas: QUOTAS[index]!, origin};
 };
 
 /** 54 недельные главы: контент, плотность, ёмкость этажей, диапазоны. */

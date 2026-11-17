@@ -1,4 +1,4 @@
-// Объём глав без повторов → src/content/density.json. Запуск: npm run density (Node 24, нативный TS).
+// Объём глав без повторов → src/content/generated/density.json. Запуск: npm run density (Node 24, нативный TS).
 // Текст: Sefaria, «Tanach with Text Only» (Public Domain); кэш в .cache/.
 import {writeFileSync} from 'node:fs';
 import type {IParshaDensity, IToken} from '#src/domain/density/model/types.ts';
@@ -6,7 +6,7 @@ import {DEFAULT_REPEAT_OPTIONS} from '#src/domain/density/repeats/defaultRepeatO
 import {measureParshiot} from '#src/domain/density/repeats/measureParshiot.ts';
 import {loadTorah} from './torah/loadTorah.ts';
 
-const OUT = 'src/content/density.json';
+const OUT = 'src/content/generated/density.json';
 const SOURCE = 'Sefaria — Tanach with Text Only (Public Domain)';
 
 const percent = (p: IParshaDensity): number => Math.round((1 - p.effective / p.raw) * 100);

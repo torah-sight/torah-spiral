@@ -1,5 +1,6 @@
 import type {IRepeatSpan} from '#src/domain/density/model/types.ts';
 import type {Quotas} from '#src/domain/density/quotas/floors.ts';
+import type {NameKey} from '#src/domain/names/types.ts';
 import type {IVerseRange} from '#src/domain/ranges/parseRef.ts';
 import type {Locale, Localized} from '#src/i18n/locales.ts';
 
@@ -82,6 +83,10 @@ export interface IParsha extends IParshaText {
     spans: readonly IRepeatSpan[];
     quotas: Quotas;
     origin: IOrigin;
+    /** Сколько раз стоит каждое святое Имя (только нестираемые вхождения). */
+    holy: Record<NameKey, number>;
+    /** Место по каждому Имени: 1 — больше всех; при равенстве место общее. */
+    holyRanks: Record<NameKey, number>;
 }
 
 /** Охват книги: номера глав и номера недельных глав. */

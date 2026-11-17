@@ -1,5 +1,5 @@
 import type {IParsha} from '#src/content/model/types.ts';
-import type {SizeUnit} from '#src/i18n/format/size/units.ts';
+import type {Measure} from '#src/i18n/format/size/units.ts';
 
 /** Размер главы в мере и её место по этой мере. */
 export interface IMeasure {
@@ -7,9 +7,10 @@ export interface IMeasure {
     rank: number;
 }
 
-/** Размер главы в выбранной мере и её место по ней. */
-export const measure = (parsha: IParsha, unit: SizeUnit): IMeasure => {
+/** Сколько в главе по мере (стихов, слов, букв или раз стоит Имя) и её место по ней. */
+export const measure = (parsha: IParsha, unit: Measure): IMeasure => {
+    if (unit === 'verses') return {count: parsha.verses, rank: parsha.sizeRank};
     if (unit === 'words') return {count: parsha.raw, rank: parsha.wordRank};
     if (unit === 'letters') return {count: parsha.letters, rank: parsha.letterRank};
-    return {count: parsha.verses, rank: parsha.sizeRank};
+    return {count: parsha.holy[unit], rank: parsha.holyRanks[unit]};
 };

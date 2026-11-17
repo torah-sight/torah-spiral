@@ -30,7 +30,8 @@ TypeScript (tsgo) and Tailwind CSS. The build output is one self-contained `dist
 | `npm run lint` | oxlint (all React Carburetor rules), `carburetor-lint`, ≤ 500 lines per file, ≤ 7 entries per folder |
 | `npm run typecheck` | `tsgo --noEmit` |
 | `npm test` | Unit tests (rstest) |
-| `npm run density` | Recompute `src/content/density.json` from the Hebrew text (Sefaria, cached in `.cache/`) |
+| `npm run names` | Count the non-erasable Divine Names per portion into `src/content/generated/names.json` (vocalized MAM text from Sefaria, cached in `.cache/`) |
+| `npm run density` | Recompute `src/content/generated/density.json` from the Hebrew text (Sefaria, cached in `.cache/`) |
 | `npm run content:check` | Verify every Hebrew name and phrase against the text of its portion |
 
 ## Density
@@ -42,6 +43,11 @@ known retellings (`known/knownRepeats.ts`) checked only against their source. Fl
 
 Text: Sefaria, “Tanach with Text Only” (public domain). It is used only at build time.
 
+Divine Names: only the non-erasable (sacred) occurrences are counted, per Masechet Soferim 4. The vocalized text
+“Miqra according to the Masorah” (Sefaria, CC BY-SA, from Hebrew Wikisource) tells אֲדֹנָי from אֲדֹנִי and
+אֵל from אֶל; profane occurrences with the same spelling (other gods, judges, Beth-El, “these”) are listed with
+their reasons in `src/content/names/nameFixes.ts`. Only the counts are stored.
+
 ## Contributing
 
 Issues and pull requests are welcome — see [CONTRIBUTING.md](CONTRIBUTING.md) and the
@@ -50,5 +56,5 @@ Issues and pull requests are welcome — see [CONTRIBUTING.md](CONTRIBUTING.md) 
 
 ## License
 
-GPL-3.0-only. See [LICENSE](LICENSE). The Torah text from Sefaria is public domain and is not
-redistributed here.
+GPL-3.0-only. See [LICENSE](LICENSE). The Torah texts from Sefaria are not redistributed here: only
+counts derived from them.

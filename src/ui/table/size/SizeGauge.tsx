@@ -3,17 +3,16 @@ import type {ReactNode} from 'react';
 import type {IParsha} from '#src/content/model/types.ts';
 import {countLabel} from '#src/i18n/format/size/countLabel.ts';
 import {rankShort} from '#src/i18n/format/size/rankShort.ts';
-import type {SizeUnit} from '#src/i18n/format/size/units.ts';
+import type {Measure} from '#src/i18n/format/size/units.ts';
 import type {Locale} from '#src/i18n/locales.ts';
-import {MESSAGES} from '#src/i18n/messages/messages.ts';
 import {measure} from './measure.ts';
-import {SIZE_HINT} from './sizeHint.ts';
+import {hintOf} from './sizeHint.ts';
 import {SIZE_MAX} from './sizeMax.ts';
 
 /** Свойства градусника. */
 export interface ISizeGaugeProps {
     parsha: IParsha;
-    unit: SizeUnit;
+    unit: Measure;
     /** Мера, выбранная для сортировки: ярче и толще. */
     active: boolean;
     bar: string;
@@ -31,7 +30,7 @@ export class SizeGauge extends AntiHookComponent<ISizeGaugeProps> {
         const width = (count / SIZE_MAX[unit]) * 100;
         const fill = active ? bar : `${bar} opacity-50`;
         return (
-            <span title={MESSAGES[locale][SIZE_HINT[unit]]} className="block">
+            <span title={hintOf(unit, locale)} className="block">
                 <span className={`${CAPTION} ${active ? 'font-semibold text-ink' : 'text-mute'}`}>
                     <span>{countLabel(count, unit, locale)}</span>
                     <span className="tabular-nums text-faint">{rankShort(rank, locale)}</span>

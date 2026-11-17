@@ -2,25 +2,32 @@ import {ScopedAntiHookComponent} from '@react-carburetor/core';
 import type {ReactNode} from 'react';
 import type {IParsha} from '#src/content/model/types.ts';
 import {PARSHIOT} from '#src/content/parshiot.ts';
+import type {Measure} from '#src/i18n/format/size/units.ts';
 import {gameToken} from '#src/stores/game/gameToken.ts';
 import {navToken} from '#src/stores/nav/navToken.ts';
 import {prefsToken} from '#src/stores/prefs/prefsToken.ts';
 import {BookHeader} from './BookHeader.tsx';
 import {ParshaCell} from './ParshaCell.tsx';
 import {RoundTable} from './RoundTable.tsx';
+import {measure} from './size/measure.ts';
+import {MEASURES} from './size/measures.ts';
 
 const BOOK_INDEXES = [0, 1, 2, 3, 4];
 
-const bySize = (a: IParsha, b: IParsha): number => a.sizeRank - b.sizeRank;
+/** Главы по мере: от первого места к последнему, равные — в порядке Торы. */
+const orderBy = (unit: Measure): [Measure, readonly IParsha[]] => {
+    const byRank = (a: IParsha, b: IParsha): number =>
+        measure(a, unit).rank - measure(b, unit).rank || a.index - b.index;
+    return [unit, PARSHIOT.toSorted(byRank)];
+};
 
-const byWords = (a: IParsha, b: IParsha): number => a.wordRank - b.wordRank;
+/** Топ меры: главы, где Имя не стоит ни разу, в топ не входят. */
+const topOf = (unit: Measure): [Measure, readonly IParsha[]] => {
+    const [, order] = orderBy(unit);
+    return [unit, order.filter((parsha: IParsha): boolean => measure(parsha, unit).count > 0)];
+};
 
-/** Главы от самой большой к самой маленькой: по стихам и по словам. */
-const BY_SIZE: readonly IParsha[] = PARSHIOT.toSorted(bySize);
-const BY_WORDS: readonly IParsha[] = PARSHIOT.toSorted(byWords);
-const byLetters = (a: IParsha, b: IParsha): number => a.letterRank - b.letterRank;
-const BY_LETTERS: readonly IParsha[] = PARSHIOT.toSorted(byLetters);
-const BY_MEASURE = {verses: BY_SIZE, words: BY_WORDS, letters: BY_LETTERS} as const;
+const BY_MEASURE = Object.fromEntries(MEASURES.map(topOf)) as Record<Measure, readonly IParsha[]>;
 
 const renderCell = (parsha: IParsha): ReactNode => <ParshaCell key={parsha.index} index={parsha.index} />;
 
@@ -53,7 +60,7 @@ export class ParshaTable extends ScopedAntiHookComponent {
         // Раунд не на всю Тору — только его главы, без пустых мест.
         if (inRound && !game.setup.books.every(Boolean)) return <RoundTable books={game.setup.books} layout={layout} />;
         const books = !sizes && layout === 'books';
-        const order = sizes ? BY_MEASURE[sizeBy] ?? BY_SIZE : PARSHIOT;
+        const order = sizes ? BY_MEASURE[sizeBy] ?? BY_MEASURE.verses : PARSHIOT;
         return (
             // Главы и книги идут справа налево, как в свитке, при любом языке интерфейса.
             <div dir="rtl" className="space-y-2 sm:space-y-3">

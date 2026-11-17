@@ -31,7 +31,8 @@
     "test": "rstest run",
     "density": "node scripts/density.ts",
     "content:check": "node scripts/validate-content.ts",
-    "phrases": "node scripts/phrases.ts"
+    "phrases": "node scripts/phrases.ts",
+    "names": "node scripts/names.ts"
   },
   "dependencies": {
     "@react-carburetor/core": "0.2.0",

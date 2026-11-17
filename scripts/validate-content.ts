@@ -6,9 +6,11 @@ import type {IToken} from '#src/domain/density/model/types.ts';
 import {LOCALES} from '#src/i18n/locales.ts';
 import {countWords} from '#src/i18n/format/countWords.ts';
 import {readFileSync} from 'node:fs';
+import {countNames} from './content/countNames.ts';
 import {findTerm} from './content/findTerm.ts';
 import {uniquePhrases} from './content/uniquePhrases.ts';
 import {torahWords} from './content/torahSpelling.ts';
+import {loadMasorah} from './torah/loadMasorah.ts';
 import {loadTorah} from './torah/loadTorah.ts';
 
 type ListFloor = 'names' | 'phrases';
@@ -68,9 +70,13 @@ const main = async (): Promise<void> => {
         checkStory(parsha, problems);
         checkOrigin(parsha, byParsha[parsha.index]!, problems);
     }
-    const stored = readFileSync('src/content/uniquePhrases.json', 'utf8');
+    const stored = readFileSync('src/content/generated/uniquePhrases.json', 'utf8');
     if (JSON.stringify(JSON.parse(stored)) !== JSON.stringify(uniquePhrases(PARSHIOT, byParsha))) {
-        problems.push('src/content/uniquePhrases.json устарел: npm run phrases');
+        problems.push('src/content/generated/uniquePhrases.json устарел: npm run phrases');
+    }
+    const names = readFileSync('src/content/generated/names.json', 'utf8');
+    if (JSON.stringify(JSON.parse(names)) !== JSON.stringify(countNames(await loadMasorah(), problems))) {
+        problems.push('src/content/generated/names.json устарел: npm run names');
     }
     if (problems.length > 0) {
         console.error(problems.join('\n'));

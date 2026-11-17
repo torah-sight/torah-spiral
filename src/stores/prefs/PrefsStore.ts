@@ -1,11 +1,12 @@
 import {Carburetor} from '@react-carburetor/core';
+import type {Measure} from '#src/i18n/format/size/units.ts';
 import type {Locale} from '#src/i18n/locales.ts';
 
 /** Раскладка таблицы: сетка 6×9 или пять столбцов-книг. */
 export type Layout = 'grid' | 'books';
 
-/** Мера размера главы для таблиц по размеру. */
-export type SizeBy = 'verses' | 'words' | 'letters';
+/** Мера таблицы «Размеры»: святое Имя или размер главы. */
+export type SizeBy = Measure;
 
 /** Цветовая тема. */
 export type Theme = 'light' | 'dark';
@@ -47,7 +48,7 @@ const setTheme = (draft: IPrefs, theme: Theme): void => {
 export class PrefsStore extends Carburetor<IPrefs> {
     /** Русский, сетка, нижний этаж, светлая тема, размер по стихам. */
     public constructor() {
-        super({locale: 'ru', layout: 'grid', floor: 0, theme: 'light', sizeBy: 'verses'});
+        super({locale: 'ru', layout: 'grid', floor: 0, theme: 'light', sizeBy: 'havaya'});
     }
 
     /** Меняет язык интерфейса. */

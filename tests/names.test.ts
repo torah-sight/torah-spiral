@@ -1,0 +1,51 @@
+import {describe, expect, it} from '@rstest/core';
+import names from '#src/content/generated/names.json' with {type: 'json'};
+import {maskVerse} from '#src/domain/names/maskVerse.ts';
+import {NAME_KEYS} from '#src/domain/names/nameKeys.ts';
+import {nameOf} from '#src/domain/names/nameOf.ts';
+
+describe('nameOf', () => {
+    it('узнаёт Имена по буквам и огласовке', () => {
+        expect(nameOf('יְהֹוָה')).toBe('havaya');
+        expect(nameOf('לַיהֹוָה')).toBe('havaya');
+        expect(nameOf('יֱהֹוִה')).toBe('havaya');
+        expect(nameOf('אֱלֹהֶיךָ')).toBe('elokim');
+        expect(nameOf('וֵאלֹהֵי')).toBe('elokim');
+        expect(nameOf('אֵל')).toBe('el');
+        expect(nameOf('אֵלִי')).toBe('el');
+        expect(nameOf('אֲדֹנָי')).toBe('adnut');
+        expect(nameOf('שַׁדַּי')).toBe('shakai');
+        expect(nameOf('אֱלוֹהַּ')).toBe('eloah');
+        expect(nameOf('יָהּ')).toBe('yah');
+        expect(nameOf('אֶהְיֶה')).toBe('ehyeh');
+    });
+
+    it('не путает Имена с похожими словами', () => {
+        expect(nameOf('אֶל')).toBeNull();
+        expect(nameOf('אַל')).toBeNull();
+        expect(nameOf('אֵלַי')).toBeNull();
+        expect(nameOf('אֵלֶּה')).toBeNull();
+        expect(nameOf('אֲלֵהֶם')).toBeNull();
+        expect(nameOf('אֲדֹנִי')).toBeNull();
+        expect(nameOf('אֲדֹנַי')).toBeNull();
+        expect(nameOf('שָׂדָי')).toBeNull();
+        expect(nameOf('מַהֲלַלְאֵל')).toBeNull();
+    });
+});
+
+describe('maskVerse', () => {
+    it('снимает разметку MAM, кантилляцию и кетив, делит по макафу и пасеку', () => {
+        const verse = 'שְׁמַ֖<big>ע</big> יְהֹוָ֥ה&thinsp;<small>׀</small>&thinsp;אֶחָֽ<big>ד</big>׃ כִּֽי־יָד֙ '
+            + '<span class="mam-kq"><span class="mam-kq-k">(הוצא)</span> <span class="mam-kq-q">[הַיְצֵ֣א]</span></span>'
+            + '&nbsp;<span class="mam-spi-pe">{פ}</span>';
+        expect(maskVerse(verse)).toEqual(['שְׁמַע', 'יְהֹוָה', 'אֶחָד', 'כִּי', 'יָד', 'הַיְצֵא']);
+    });
+});
+
+describe('names.json', () => {
+    it('по каждому Имени 54 главы; четырёхбуквенное Имя — 1820 раз, нет его только в Микец и Ваигаш', () => {
+        for (const key of NAME_KEYS) expect(names[key]).toHaveLength(54);
+        expect(names.havaya.reduce((a: number, b: number): number => a + b, 0)).toBe(1820);
+        expect(names.havaya.flatMap((n: number, i: number): number[] => (n === 0 ? [i + 1] : []))).toEqual([10, 11]);
+    });
+});

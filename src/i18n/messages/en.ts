@@ -75,8 +75,10 @@ export const EN: IMessages = {
     navSizes: 'Portion sizes',
     navGame: 'Game',
     homeOverview: 'A table of the 54 weekly portions and levels of depth: names, phrases, a short story.',
-    homeSizes: 'Portions by size: tables by verses, words and letters.',
+    homeSizes: 'Portions by the holy Names and by size: how often each Name stands, verses, words and letters.',
     homeGame: 'Find a portion’s place in the table, or guess the portion by story and key phrases.',
     homeChoose: 'Where shall we start?',
-    sizeByLabel: 'Size'
+    sizeByLabel: 'Size',
+    namesLabel: 'Names',
+    nameHint: 'The holy Name {name}: how many times it stands in the portion (non-erasable occurrences only)'
 };

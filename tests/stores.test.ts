@@ -26,7 +26,7 @@ describe('PrefsStore', () => {
         expect(prefs.getData().floor).toBe(0);
         prefs.setLocale('he');
         prefs.setLayout('books');
-        expect(prefs.getData()).toEqual({locale: 'he', layout: 'books', floor: 0, theme: 'light', sizeBy: 'verses'});
+        expect(prefs.getData()).toEqual({locale: 'he', layout: 'books', floor: 0, theme: 'light', sizeBy: 'havaya'});
         prefs.setSizeBy('words');
         expect(prefs.getData().sizeBy).toBe('words');
     });
@@ -97,7 +97,7 @@ describe('createAppScope', () => {
         const second = createAppScope(storage);
         try {
             expect(second.scope.get(prefsToken).getData()).toEqual({
-                locale: 'en', layout: 'grid', floor: 3, theme: 'dark', sizeBy: 'verses'
+                locale: 'en', layout: 'grid', floor: 3, theme: 'dark', sizeBy: 'havaya'
             });
         } finally {
             second.dispose();

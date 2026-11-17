@@ -5,7 +5,7 @@ import type {IParsha} from '#src/content/model/types.ts';
 import {PARSHIOT} from '#src/content/parshiot.ts';
 import {formatRange} from '#src/domain/ranges/formatRange.ts';
 import {sizeLabel} from '#src/i18n/format/size/sizeLabel.ts';
-import type {SizeUnit} from '#src/i18n/format/size/units.ts';
+import type {Measure} from '#src/i18n/format/size/units.ts';
 import type {Locale} from '#src/i18n/locales.ts';
 import {MESSAGES} from '#src/i18n/messages/messages.ts';
 import {textDir} from '#src/i18n/format/textDir.ts';
@@ -15,7 +15,6 @@ import {prefsToken} from '#src/stores/prefs/prefsToken.ts';
 import {selectionToken} from '#src/stores/selection/selectionToken.ts';
 import {TONES} from '#src/ui/common/tones.ts';
 import {CellFloors} from './CellFloors.tsx';
-import {measure} from './size/measure.ts';
 import {SizeGauge} from './size/SizeGauge.tsx';
 
 /** Свойства клетки. */
@@ -52,14 +51,17 @@ interface IFace {
     locale: Locale;
     floor: number;
     inGame: boolean;
-    unit: SizeUnit;
+    unit: Measure;
     /** Раздел «Размеры»: градусники стихов и слов (и букв для этой меры) вместо строки размера. */
     sizes: boolean;
 }
 
-/** Градусники «Размеров»: стихи и слова всегда, буквы — для этой меры; выбранная мера ярче. */
-const gauges = (parsha: IParsha, unit: SizeUnit, bar: string, locale: Locale): ReactNode => (
+const isName = (unit: Measure): boolean => unit !== 'verses' && unit !== 'words' && unit !== 'letters';
+
+/** Градусники «Размеров»: выбранное Имя сверху, стихи и слова всегда, буквы — для этой меры; выбранная ярче. */
+const gauges = (parsha: IParsha, unit: Measure, bar: string, locale: Locale): ReactNode => (
     <span className="mt-1.5 block space-y-1.5">
+        {isName(unit) ? <SizeGauge parsha={parsha} unit={unit} active bar={bar} locale={locale} /> : null}
         <SizeGauge parsha={parsha} unit="verses" active={unit === 'verses'} bar={bar} locale={locale} />
         <SizeGauge parsha={parsha} unit="words" active={unit === 'words'} bar={bar} locale={locale} />
         {unit === 'letters' ? <SizeGauge parsha={parsha} unit="letters" active bar={bar} locale={locale} /> : null}
@@ -71,7 +73,6 @@ const gauges = (parsha: IParsha, unit: SizeUnit, bar: string, locale: Locale): R
 const openFace = (parsha: IParsha, face: IFace): ReactNode => {
     const {locale, floor, inGame, unit} = face;
     const tone = TONES[BOOKS[parsha.book]!.tone];
-    const size = measure(parsha, unit);
     return (
         <>
             <span className="flex items-start justify-between gap-1">
@@ -85,7 +86,7 @@ const openFace = (parsha: IParsha, face: IFace): ReactNode => {
             )}
             <span className="text-[clamp(12px,1.6vw,15px)] leading-tight text-faint">
                 <bdi dir="ltr">{formatRange(parsha.range)}</bdi>
-                {face.sizes ? null : ` · ${sizeLabel(size.count, size.rank, unit, locale)}`}
+                {face.sizes ? null : ` · ${sizeLabel(parsha.verses, parsha.sizeRank, 'verses', locale)}`}
             </span>
             {inGame ? null : (
                 <CellFloors parsha={parsha} floor={floor} locale={locale} chip={tone.chip} large={false} />
@@ -126,7 +127,7 @@ export class ParshaCell extends ScopedAntiHookComponent<IParshaCellProps> {
         const {locale} = prefs;
         // Этажи — только в обзоре; мера размера выбирается в разделе «Размеры».
         const floor = view === 'overview' ? prefs.floor : 0;
-        const unit: SizeUnit = view === 'sizes' ? prefs.sizeBy : 'verses';
+        const unit: Measure = view === 'sizes' ? prefs.sizeBy : 'verses';
         const game = this.useCarburetor(this.resolve(gameToken));
         const playing = game.status === 'playing';
         const inGame = playing || game.status === 'done';

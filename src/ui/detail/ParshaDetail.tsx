@@ -6,6 +6,7 @@ import {formatRange} from '#src/domain/ranges/formatRange.ts';
 import {sizeLabel} from '#src/i18n/format/size/sizeLabel.ts';
 import {MESSAGES} from '#src/i18n/messages/messages.ts';
 import {gameToken} from '#src/stores/game/gameToken.ts';
+import {navToken} from '#src/stores/nav/navToken.ts';
 import {prefsToken} from '#src/stores/prefs/prefsToken.ts';
 import {selectionToken} from '#src/stores/selection/selectionToken.ts';
 import {TONES} from '#src/ui/common/tones.ts';
@@ -13,6 +14,9 @@ import {CellFloors} from '#src/ui/table/CellFloors.tsx';
 import {DetailNav} from './DetailNav.tsx';
 import {OVERLAY} from './overlay.ts';
 import {ScrollLock} from './ScrollLock.tsx';
+
+/** Верхний этаж: имена, фразы и сюжет. */
+const ALL_FLOORS = 3;
 
 /** id фона карточки: прокрутка в начало при смене главы. */
 const DIALOG_ID = 'parsha-dialog';
@@ -95,7 +99,11 @@ export class ParshaDetail extends ScopedAntiHookComponent {
         const selection = this.resolve(selectionToken);
         const {open} = this.useCarburetor(selection);
         if (open === null) return null;
-        const {locale, floor} = this.useCarburetor(this.resolve(prefsToken));
+        const prefs = this.useCarburetor(this.resolve(prefsToken));
+        const {locale} = prefs;
+        // Этажи выбираются только в «Обзоре»; из «Размеров» и игры карточка открывается целиком.
+        const overview = this.useCarburetor(this.resolve(navToken)).view === 'overview';
+        const floor = overview ? prefs.floor : ALL_FLOORS;
         const parsha = PARSHIOT[open]!;
         const book = BOOKS[parsha.book]!;
         const tone = TONES[book.tone];
@@ -152,7 +160,7 @@ export class ParshaDetail extends ScopedAntiHookComponent {
                         {sizeLabel(parsha.letters, parsha.letterRank, 'letters', locale)}
                     </p>
                     <CellFloors parsha={parsha} floor={floor} locale={locale} chip={tone.chip} large />
-                    {floor < 3 ? <p className="mt-3 text-sm text-faint">{t.floorHint}</p> : null}
+                    {floor < ALL_FLOORS ? <p className="mt-3 text-sm text-faint">{t.floorHint}</p> : null}
                 </article>
             </div>
         );

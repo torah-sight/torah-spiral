@@ -91,4 +91,8 @@ export interface IMessages {
     homeGame: string;
     homeChoose: string;
     sizeByLabel: string;
+    /** «Имена» — группа мер святых Имён. */
+    namesLabel: string;
+    /** Подсказка к мере Имени; `{name}` — Имя. */
+    nameHint: string;
 }

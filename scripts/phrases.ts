@@ -1,4 +1,4 @@
-// Ключевые фразы для игры: только встречающиеся дословно в одной главе → src/content/uniquePhrases.json.
+// Ключевые фразы для игры: только встречающиеся дословно в одной главе → src/content/generated/uniquePhrases.json.
 // Запуск: npm run phrases (нужен кэш Sefaria в .cache/ или сеть).
 import {writeFileSync} from 'node:fs';
 import {PARSHIOT} from '#src/content/parshiot.ts';
@@ -6,7 +6,7 @@ import type {IToken} from '#src/domain/density/model/types.ts';
 import {uniquePhrases} from './content/uniquePhrases.ts';
 import {loadTorah} from './torah/loadTorah.ts';
 
-const OUT = 'src/content/uniquePhrases.json';
+const OUT = 'src/content/generated/uniquePhrases.json';
 
 const rowJson = (row: number[]): string => `  ${JSON.stringify(row)}`;
 

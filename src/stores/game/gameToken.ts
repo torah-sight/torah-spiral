@@ -1,7 +1,7 @@
 import {carburetorToken} from '@react-carburetor/core';
 import type {IParsha} from '#src/content/model/types.ts';
 import {PARSHIOT} from '#src/content/parshiot.ts';
-import uniquePhrases from '#src/content/uniquePhrases.json' with {type: 'json'};
+import uniquePhrases from '#src/content/generated/uniquePhrases.json' with {type: 'json'};
 import type {IGameParsha} from '#src/domain/game/types.ts';
 import {splitSentences} from '#src/i18n/format/splitSentences.ts';
 import {GameStore} from './GameStore.ts';
