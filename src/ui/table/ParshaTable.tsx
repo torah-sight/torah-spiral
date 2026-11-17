@@ -43,20 +43,19 @@ const BOOK_RULE: ReactNode = (
     </div>
 );
 
-/** Таблица 54 глав в порядке Торы или, в «Статистике», по выбранной мере. */
+/** Обзор и раунд игры — по книгам, каждая со своим заголовком; «Статистика» — одна сетка по выбранной мере. */
 export class ParshaTable extends ScopedAntiHookComponent {
     /** Таблица в выбранной раскладке. */
     public render(): ReactNode {
         const {sizeBy} = this.useCarburetor(this.resolve(prefsToken));
         const {view} = this.useCarburetor(this.resolve(navToken));
-        const sizes = view === 'sizes';
         const game = this.useCarburetor(this.resolve(gameToken));
         const inRound = view === 'game' && (game.status === 'playing' || game.status === 'done');
-        // Раунд не на всю Тору — только его главы, без пустых мест.
-        if (inRound && !game.setup.books.every(Boolean)) return <RoundTable books={game.setup.books} />;
+        // Раунд: выбранные книги без пустых мест, у каждой свой заголовок.
+        if (inRound) return <RoundTable books={game.setup.books} />;
         // Обзор: каждая книга со своим заголовком, её главы — с первой клетки справа.
         if (view === 'overview') return <RoundTable books={ALL_BOOKS} />;
-        const order = sizes ? BY_MEASURE[sizeBy] ?? BY_MEASURE.verses : PARSHIOT;
+        const order = BY_MEASURE[sizeBy] ?? BY_MEASURE.verses;
         return (
             // Главы и книги идут справа налево, как в свитке, при любом языке интерфейса.
             <div dir="rtl" className="table-flow">
