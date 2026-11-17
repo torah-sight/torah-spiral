@@ -2,6 +2,7 @@ import {existsSync, mkdirSync, readFileSync, writeFileSync} from 'node:fs';
 import type {IParsha} from '#src/content/model/types.ts';
 import {PARSHIOT} from '#src/content/parshiot.ts';
 import {MITZVOT} from '#src/content/tallies/mitzvot.ts';
+import {fetchText} from '../torah/fetchText.ts';
 
 const CACHE = '.cache/chinukh-idx.json';
 const INDEX_URL = 'https://www.sefaria.org/api/v2/raw/index/Sefer_HaChinukh';
@@ -14,9 +15,7 @@ interface IChinukhIndex {
 const loadIndex = async (): Promise<IChinukhIndex> => {
     if (!existsSync(CACHE)) {
         mkdirSync('.cache', {recursive: true});
-        const response = await fetch(INDEX_URL);
-        if (!response.ok) throw new Error(`${INDEX_URL}: ${response.status}`);
-        writeFileSync(CACHE, await response.text());
+        writeFileSync(CACHE, await fetchText(INDEX_URL));
     }
     return JSON.parse(readFileSync(CACHE, 'utf8')) as IChinukhIndex;
 };

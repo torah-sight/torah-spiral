@@ -2,6 +2,7 @@
 import {existsSync, mkdirSync, readFileSync, writeFileSync} from 'node:fs';
 import type {IToken, IVerseRef} from '#src/domain/density/model/types.ts';
 import {normalizeVerse} from '#src/domain/density/text/normalizeVerse.ts';
+import {fetchText} from './fetchText.ts';
 
 const BOOKS = ['Genesis', 'Exodus', 'Leviticus', 'Numbers', 'Deuteronomy'];
 const CACHE = '.cache';
@@ -34,9 +35,7 @@ const cached = async (file: string, url: string): Promise<unknown> => {
     const path = `${CACHE}/${file}`;
     if (!existsSync(path)) {
         mkdirSync(CACHE, {recursive: true});
-        const response = await fetch(url);
-        if (!response.ok) throw new Error(`${url}: ${response.status}`);
-        writeFileSync(path, await response.text());
+        writeFileSync(path, await fetchText(url));
     }
     return JSON.parse(readFileSync(path, 'utf8'));
 };

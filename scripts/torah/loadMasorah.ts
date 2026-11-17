@@ -1,5 +1,6 @@
 // Огласованный текст Торы «Miqra according to the Masorah» (Sefaria, CC BY-SA) — с кэшем в .cache/.
 import {existsSync, mkdirSync, readFileSync, writeFileSync} from 'node:fs';
+import {fetchText} from './fetchText.ts';
 
 const BOOKS = ['Genesis', 'Exodus', 'Leviticus', 'Numbers', 'Deuteronomy'];
 const CACHE = '.cache';
@@ -14,9 +15,7 @@ const load = async (name: string): Promise<string[][]> => {
     if (!existsSync(path)) {
         mkdirSync(CACHE, {recursive: true});
         const url = `https://www.sefaria.org/api/v3/texts/${name}?version=${VERSION}`;
-        const response = await fetch(url);
-        if (!response.ok) throw new Error(`${url}: ${response.status}`);
-        writeFileSync(path, await response.text());
+        writeFileSync(path, await fetchText(url));
     }
     return (JSON.parse(readFileSync(path, 'utf8')) as IText).versions[0]!.text;
 };
